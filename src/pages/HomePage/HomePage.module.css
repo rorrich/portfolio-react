@@ -1,0 +1,483 @@
+/* ========== Hero Section (.main-hero) ========== */
+.mainHero {
+  min-height: 100dvh;
+  padding-top: calc(var(--space-m) + var(--header-height, 100px));
+  display: flex;
+  flex-direction: column;
+  padding-bottom: var(--space-m);
+  box-sizing: border-box;
+}
+
+.heroContainer {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--grid-margin);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+}
+
+.heroContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  font-size: var(--heading-h2-size);
+}
+
+.titleGroup {
+  flex: 1;
+}
+
+.titleGroup h1 {
+  font-size: var(--heading-h2-size);
+  font-weight: var(--heading-h2-font-weight);
+  line-height: var(--heading-h2-line-height);
+  width: fit-content;
+}
+
+.heroTypingWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.125em;
+  min-height: calc(var(--heading-h2-size) * var(--heading-h2-line-height));
+}
+
+.heroArrowWrapper {
+  /* wrapper for arrow alignment */
+}
+
+.heroArrow {
+  width: 0.375em;
+  height: 0.375em;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: inherit;
+  margin-top: var(--space-s);
+}
+
+.heroArrow svg {
+  width: 100%;
+  height: 100%;
+  color: var(--text-color);
+}
+
+.heroTyping {
+  font-size: var(--heading-h2-size);
+  font-weight: var(--heading-h2-font-weight);
+  line-height: var(--heading-h2-line-height);
+  display: flex;
+  align-items: center;
+  min-height: calc(var(--heading-h2-size) * var(--heading-h2-line-height));
+}
+
+.cursor {
+  display: inline-block;
+  animation: blink 1s infinite;
+  width: clamp(2px, 0.5px + 0.38vw, 8px);
+  background-color: currentColor;
+  margin-left: 2px;
+  height: 0.8em;
+  vertical-align: middle;
+}
+
+.cursor.noBlink {
+  animation: none;
+  opacity: 1;
+}
+
+@keyframes blink {
+  0%, 80% { opacity: 1; }
+  40%, 60% { opacity: 0; }
+}
+
+.heroCat {
+  width: 23.7vw;
+  max-width: 2.85em;
+  height: auto;
+  align-self: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 0;
+  font-size: inherit;
+}
+
+.heroCat img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.heroBottom {
+  margin-top: auto;
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  column-gap: var(--grid-gutter);
+  width: 100%;
+  align-items: end;
+}
+
+.heroDescription {
+  grid-column: 9 / span 4;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m);
+}
+
+.aboutText {
+  font-size: var(--body-m-size);
+  line-height: var(--body-m-line-height);
+  font-weight: var(--body-m-font-weight);
+}
+
+.contacts {
+  grid-column: 1 / span 3;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+}
+
+/* ========== Skills Animation (.skills-animation) ========== */
+.skillsAnimation {
+  padding: var(--space-2xl) 0;
+  overflow: hidden;
+}
+
+.skillsContainer {
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.skillsTrack {
+  display: flex;
+  width: 110vw;
+  left: -5vw;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--text-color);
+  margin-bottom: var(--space-s);
+  user-select: none;
+  padding: var(--space-xs) var(--space-s);
+}
+
+.skillsTrackLeft {
+  transform: rotate(2deg);
+  margin-bottom: var(--space-xl);
+  outline: 1px solid transparent;
+}
+
+.skillsTrackRight {
+  /* reverse animation via .marqueeGroup */
+}
+
+.marqueeGroup {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 100%;
+  animation: scroll 20s linear infinite;
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+.skillsTrackRight .marqueeGroup {
+  animation-direction: reverse;
+}
+
+.skillTag {
+  border-radius: 100px;
+  padding: var(--space-2xs) var(--space-m);
+  white-space: nowrap;
+  font-size: var(--body-m-size);
+  line-height: var(--body-m-line-height);
+  letter-spacing: 0;
+  text-transform: lowercase;
+  background: transparent;
+  background-color: transparent;
+  color: var(--background-color);
+  font-family: 'Manrope', sans-serif;
+  font-weight: var(--body-m-font-weight);
+}
+
+.skillArrow {
+  margin: 0 var(--space-2xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.skillArrow svg {
+  width: clamp(0.75rem, 10.15px + 0.51vw, 1.25rem);
+  height: clamp(0.75rem, 10.15px + 0.51vw, 1.25rem);
+  color: var(--background-color);
+}
+
+/* ========== Works Section (.works) ========== */
+.worksSection {
+  padding: var(--space-m) 0;
+}
+
+.worksContainer {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 var(--grid-margin);
+  box-sizing: border-box;
+}
+
+.worksTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: var(--space-2xl);
+  position: relative;
+  height: auto;
+  gap: var(--space-xs);
+}
+
+.worksTitle h2 {
+  font-size: var(--heading-h2-size);
+  font-weight: var(--heading-h2-font-weight);
+  line-height: var(--heading-h2-line-height);
+  position: relative;
+  z-index: 1;
+  width: auto;
+  text-align: center;
+  flex: 0 0 auto;
+}
+
+.worksTitleShortDesc {
+  font-size: var(--body-s-size);
+  letter-spacing: 0.32px;
+  line-height: var(--body-s-line-height);
+  display: flex;
+  flex-direction: column;
+  font-weight: var(--body-s-font-weight);
+  justify-content: flex-end;
+  padding-bottom: var(--space-l);
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+.worksTitleShortDescLeft {
+  align-items: flex-end;
+  text-align: right;
+  margin: 0;
+}
+
+.worksTitleShortDescRight {
+  align-items: flex-start;
+  text-align: left;
+  margin: 0;
+}
+
+.worksGrid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  column-gap: var(--grid-gutter);
+}
+
+.worksGrid > *:nth-child(1) { grid-row: 1; }
+.worksGrid > *:nth-child(2) { grid-row: 2; }
+.worksGrid > *:nth-child(3) { grid-row: 3; }
+
+/* ========== Work Card (.work-card from _components.css) ========== */
+.workCard {
+  position: relative;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.workCardLarge {
+  width: 100%;
+  grid-column: span 6;
+  align-self: flex-start;
+}
+
+.workCardMedium {
+  width: 100%;
+  grid-column: 8 / span 5;
+  align-self: flex-end;
+}
+
+.workCardSmall {
+  width: 100%;
+  grid-column: span 4;
+  align-self: flex-start;
+}
+
+.workCardContent {
+  position: relative;
+  z-index: 2;
+}
+
+.workCardPicture {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--space-l);
+}
+
+.workCardPicture img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  transform: translateZ(0) scale(1);
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.workCard:hover .workCardPicture img {
+  transform: translateZ(0) scale(1.05);
+}
+
+.workCardDescription {
+  padding: var(--space-xs) 2px;
+}
+
+.workCardDetails {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 2px;
+}
+
+.workCardType {
+  color: var(--secondary-text-color);
+  font-size: var(--body-s-size);
+  letter-spacing: 0.32px;
+  font-weight: var(--body-s-font-weight);
+}
+
+.workCardYear {
+  font-size: var(--body-s-size);
+  letter-spacing: 0.32px;
+  font-weight: var(--body-s-font-weight);
+}
+
+.workCardTitle {
+  font-size: var(--heading-h4-size);
+  font-weight: var(--heading-h4-font-weight);
+  line-height: var(--heading-h4-line-height);
+}
+
+/* ========== Responsive (from _responsive.css for these sections) ========== */
+@media (max-width: 970px) {
+  .mainHero {
+    padding-top: var(--space-m);
+    padding-bottom: var(--space-m);
+    min-height: auto;
+    height: auto;
+  }
+
+  .heroContent {
+    flex-direction: column;
+  }
+
+  .heroCat {
+    display: none;
+  }
+
+  .heroBottom {
+    flex-direction: column;
+    gap: var(--space-s);
+    margin-top: var(--space-l);
+  }
+
+  .heroDescription {
+    width: 100%;
+  }
+
+  .aboutText {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .contacts {
+    display: none;
+  }
+
+  .skillsTrackLeft {
+    margin-bottom: var(--space-l);
+  }
+
+  .worksGrid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2xl);
+  }
+
+  .worksTitle {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+    gap: 0;
+    height: auto;
+    min-height: 0;
+    margin-bottom: var(--space-2xl);
+    justify-content: flex-start;
+  }
+
+  .worksTitleShortDesc,
+  .worksTitleShortDescLeft,
+  .worksTitleShortDescRight {
+    display: none;
+  }
+
+  .workCard,
+  .workCardLarge,
+  .workCardMedium,
+  .workCardSmall {
+    width: 100%;
+    margin: 0;
+  }
+
+  .workCardPicture {
+    width: 100%;
+    height: auto;
+    margin: 0;
+  }
+
+  .workCardPicture img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .workCardDescription,
+  .workCardDetails,
+  .workCardType {
+    width: 100%;
+    margin: 0;
+  }
+
+  .workCardTitle {
+    font-size: var(--heading-h4-size);
+    line-height: var(--heading-h4-line-height);
+  }
+
+  .workCardYear {
+    display: none;
+  }
+
+  .mainHero .heroContainer {
+    gap: var(--space-xl);
+  }
+}

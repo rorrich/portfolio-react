@@ -2,7 +2,7 @@ import { HashRouter, Routes, Route } from 'react-router-dom'
 
 import { Layout } from './components/Layout/Layout'
 import { ScrollToTop } from './components/ScrollToTop'
-import { HomePage } from './pages/HomePage'
+import { HomePage } from './pages/HomePage/HomePage'
 import { WorksPage } from './pages/WorksPage'
 import { AboutPage } from './pages/AboutPage'
 import { RoastPage } from './pages/RoastPage'

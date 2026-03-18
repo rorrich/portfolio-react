@@ -23,10 +23,11 @@ export function MenuLink({ children, to, href, className, counter }: MenuLinkPro
           viewBox="0 0 13 10"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
           aria-hidden="true"
           focusable="false"
         >
-          <path d="M1 5h10M7 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <use href="/images/sprite.svg#icon-arrow-right" />
         </svg>
       </span>
       <span>{children}</span>

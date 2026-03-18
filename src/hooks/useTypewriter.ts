@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface UseTypewriterOptions {
   typingSpeed?: number
@@ -24,69 +24,80 @@ export function useTypewriter(
   }: UseTypewriterOptions = {},
 ): UseTypewriterResult {
   const [text, setText] = useState('')
-  const [wordIndex, setWordIndex] = useState(0)
-  const [charIndex, setCharIndex] = useState(0)
-  const [isDeleting, setIsDeleting] = useState(false)
   const [isBlinking, setIsBlinking] = useState(false)
 
+  const wordsRef = useRef(words)
+  const charIndexRef = useRef(0)
+  const wordIndexRef = useRef(0)
+  const isDeletingRef = useRef(false)
+  // Константы (из опций) храним в ref, чтобы эффект был []
+  const baseTypingSpeedRef = useRef(typingSpeed)
+  const baseDeletingSpeedRef = useRef(deletingSpeed)
+  const basePauseTimeRef = useRef(pauseTime)
+
+  // Текущая задержка следующего тика (мутабельная)
+  const typingSpeedRef = useRef(baseTypingSpeedRef.current)
+
+  const timeoutRef = useRef<number | undefined>(undefined)
+  const blinkTimeoutRef = useRef<number | undefined>(undefined)
+  const deleteStartTimeoutRef = useRef<number | undefined>(undefined)
+
   useEffect(() => {
-    if (!words.length) return
-
-    let timeoutId: number | undefined
-    let blinkTimeoutId: number | undefined
-
-    const currentWord = words[wordIndex]
-
-    const type = () => {
-      setIsBlinking(false)
-
-      if (isDeleting) {
-        // Стираем текст
-        const nextLength = charIndex - 1
-        setText(currentWord.substring(0, nextLength))
-        setCharIndex(nextLength)
-
-        // Если слово полностью стерто — переходим к следующему
-        if (nextLength <= 0) {
-          setIsDeleting(false)
-          setWordIndex((prev) => (prev + 1) % words.length)
-        }
-
-        timeoutId = window.setTimeout(type, deletingSpeed)
-      } else {
-        // Печатаем текст
-        const nextLength = charIndex + 1
-        setText(currentWord.substring(0, nextLength))
-        setCharIndex(nextLength)
-
-        // Если слово полностью напечатано
-        if (nextLength === currentWord.length) {
-          // Включаем мигание через 0.5 секунды
-          blinkTimeoutId = window.setTimeout(() => {
-            setIsBlinking(true)
-
-            // Через pauseTime начинаем стирать
-            timeoutId = window.setTimeout(() => {
-              setIsBlinking(false)
-              setIsDeleting(true)
-              type()
-            }, pauseTime)
-          }, 500)
-        } else {
-          timeoutId = window.setTimeout(type, typingSpeed)
-        }
-      }
+    const clearAll = () => {
+      if (timeoutRef.current) window.clearTimeout(timeoutRef.current)
+      if (blinkTimeoutRef.current) window.clearTimeout(blinkTimeoutRef.current)
+      if (deleteStartTimeoutRef.current) window.clearTimeout(deleteStartTimeoutRef.current)
     }
 
-    // Запускаем цикл
-    timeoutId = window.setTimeout(type, typingSpeed)
+    function type() {
+      const wordsList = wordsRef.current
+      if (!wordsList.length) return
+
+      const currentWord = wordsList[wordIndexRef.current] ?? ''
+
+      if (isDeletingRef.current) {
+        charIndexRef.current -= 1
+        setText(currentWord.substring(0, charIndexRef.current))
+        typingSpeedRef.current = baseDeletingSpeedRef.current
+      } else {
+        charIndexRef.current += 1
+        setText(currentWord.substring(0, charIndexRef.current))
+        typingSpeedRef.current = baseTypingSpeedRef.current
+      }
+
+      // Слово полностью напечатано
+      if (!isDeletingRef.current && charIndexRef.current === currentWord.length) {
+        setIsBlinking(false)
+
+        blinkTimeoutRef.current = window.setTimeout(() => {
+          setIsBlinking(true)
+
+          deleteStartTimeoutRef.current = window.setTimeout(() => {
+            isDeletingRef.current = true
+            setIsBlinking(false)
+            type()
+          }, basePauseTimeRef.current)
+        }, 500)
+
+        return
+      }
+
+      // Слово полностью стёрто
+      if (isDeletingRef.current && charIndexRef.current === 0) {
+        isDeletingRef.current = false
+        wordIndexRef.current = (wordIndexRef.current + 1) % wordsList.length
+      }
+
+      timeoutRef.current = window.setTimeout(type, typingSpeedRef.current)
+    }
+
+    if (!wordsRef.current.length) return
+    timeoutRef.current = window.setTimeout(type, typingSpeedRef.current)
 
     return () => {
-      if (timeoutId) window.clearTimeout(timeoutId)
-      if (blinkTimeoutId) window.clearTimeout(blinkTimeoutId)
+      clearAll()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [words, wordIndex, isDeleting, charIndex, typingSpeed, deletingSpeed, pauseTime])
+  }, [])
 
   return { text, isBlinking }
 }
