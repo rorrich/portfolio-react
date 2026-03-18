@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 import { useTheme } from '../../hooks/useTheme'
@@ -13,12 +14,32 @@ interface HeaderProps {
 export function Header({ isMenuOpen, onToggleMenu }: HeaderProps) {
   const { pathname } = useLocation()
   const { toggleTheme } = useTheme()
+  const headerRef = useRef<HTMLElement | null>(null)
 
   const isAboutActive = pathname.startsWith('/about')
   const isWorksActive = pathname.startsWith('/works')
 
+  useEffect(() => {
+    const header = headerRef.current
+    if (!header) return
+
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const height = entry.contentRect.height
+        document.documentElement.style.setProperty('--header-height', `${height}px`)
+      }
+    })
+
+    observer.observe(header)
+
+    // Устанавливаем начальное значение сразу (fallback в CSS убирает скачок при первом рендере)
+    document.documentElement.style.setProperty('--header-height', `${header.offsetHeight}px`)
+
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <header className={styles.header}>
+    <header ref={headerRef} className={styles.header}>
       <div className={styles.headerContainer}>
         <div className={styles.logo}>
           <Link to="/" className={styles.logoLink} aria-label="На главную">
