@@ -39,9 +39,9 @@ export function Header({ isMenuOpen, onToggleMenu }: HeaderProps) {
   }, [])
 
   return (
-    <header ref={headerRef} className={styles.header}>
-      <div className={styles.headerContainer}>
-        <div className={styles.logo}>
+    <header ref={headerRef} className={`header ${styles.header}`}>
+      <div className={`header__container ${styles.headerContainer}`}>
+        <div className={`header__logo ${styles.logo}`}>
           <Link to="/" className={styles.logoLink} aria-label="На главную">
             <svg
               className={styles.logoSvg}
@@ -57,7 +57,7 @@ export function Header({ isMenuOpen, onToggleMenu }: HeaderProps) {
 
         <button
           type="button"
-          className={styles.colorChanger}
+          className={`header__color-changer ${styles.colorChanger}`}
           aria-label="Сменить цветовую тему"
           onClick={toggleTheme}
         >
@@ -66,7 +66,7 @@ export function Header({ isMenuOpen, onToggleMenu }: HeaderProps) {
 
         <button
           type="button"
-          className={`${styles.burger} ${isMenuOpen ? styles.burgerActive : ''}`}
+          className={`header__burger ${styles.burger} ${isMenuOpen ? styles.burgerActive : ''}`}
           aria-expanded={isMenuOpen}
           aria-label="Открыть меню"
           onClick={onToggleMenu}
@@ -75,7 +75,7 @@ export function Header({ isMenuOpen, onToggleMenu }: HeaderProps) {
           <img src="/images/burger-close.svg" alt="Закрыть" className={styles.burgerCloseIcon} />
         </button>
 
-        <nav className={styles.nav} aria-label="Главная навигация">
+        <nav className={`header__menu ${styles.nav}`} aria-label="Главная навигация">
           <MenuLink
             to="/about"
             className={isAboutActive ? 'menu-item--active' : undefined}

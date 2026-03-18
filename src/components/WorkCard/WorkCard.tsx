@@ -22,7 +22,7 @@ export interface HomePageWorkCardStyles {
 interface WorkCardProps {
   project: ProjectData
   size: WorkCardSize
-  styles: HomePageWorkCardStyles
+  styles: Record<string, string>
 }
 
 const sizeClassMap = {

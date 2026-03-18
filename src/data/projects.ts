@@ -8,7 +8,7 @@ export const projects: ProjectData[] = [
       'оптовый сайт по продаже кофе, чая и кофейных аксессуаров',
     descriptionShort: 'оптовый сайт по продаже кофе и чая',
     industry: 'интернет-магазин',
-    dateFull: '2025',
+    dateFull: 'август 2025',
     dateShort: '2025',
     websiteUrl: null,
     websiteLabel: '¯\\_(ツ)_/¯',

@@ -29,7 +29,7 @@ export interface HomePageStyles {
 }
 
 interface SkillsMarqueeProps {
-  styles: HomePageStyles
+  styles: Record<string, string>
 }
 
 export const SkillsMarquee: FC<SkillsMarqueeProps> = ({ styles }) => {

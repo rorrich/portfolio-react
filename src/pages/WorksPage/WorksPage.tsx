@@ -3,10 +3,10 @@ import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { AnimatePresence } from 'framer-motion'
 
-import { projects } from '../data/projects'
-import { WorksItem } from '../components/WorksItem/WorksItem'
+import { projects } from '../../data/projects'
+import { WorksItem } from '../../components/WorksItem/WorksItem'
 
-import styles from './WorksPage/WorksPage.module.css'
+import styles from './WorksPage.module.css'
 
 gsap.registerPlugin(useGSAP)
 
@@ -109,3 +109,4 @@ export function WorksPage() {
     </div>
   )
 }
+

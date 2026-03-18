@@ -15,7 +15,7 @@ type MenuLinkProps = {
 export function MenuLink({ children, to, href, className, counter }: MenuLinkProps) {
   const content = (
     <>
-      <span className={styles.elementAnim} aria-hidden="true">
+      <span className={`element-anim ${styles.elementAnim}`} aria-hidden="true">
         <svg
           className={styles.elementAnimSvg}
           width="12"
@@ -31,11 +31,11 @@ export function MenuLink({ children, to, href, className, counter }: MenuLinkPro
         </svg>
       </span>
       <span>{children}</span>
-      {counter && <span className={styles.counter}>{counter}</span>}
+      {counter && <span className={`menu-item__number ${styles.counter}`}>{counter}</span>}
     </>
   )
 
-  const classes = clsx(styles.menuItem, className)
+  const classes = clsx('menu-item', styles.menuItem, className)
 
   if (href) {
     return (

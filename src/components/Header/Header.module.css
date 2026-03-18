@@ -5,7 +5,7 @@
   left: 0;
   right: 0;
   z-index: 1100;
-  background-color: var(--background-color);
+  background-color: transparent;
   width: 100%;
   flex-shrink: 0;
 }
