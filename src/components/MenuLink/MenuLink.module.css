@@ -30,14 +30,11 @@
   fill: currentColor;
 }
 
-.menuItem:hover .elementAnim {
+/* Активная страница в шапке — то же состояние, что при hover (стрелка видна) */
+.menuItem:hover .elementAnim,
+.menuItem:global(.menu-item--active) .elementAnim {
   opacity: 1;
   transform: translateX(0);
-}
-
-.menuItem:global(.menu-item--active) .elementAnim {
-  opacity: 0;
-  transform: translateX(-20px);
 }
 
 .counter {

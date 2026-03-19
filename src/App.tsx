@@ -6,8 +6,8 @@ import { HomePage } from './pages/HomePage/HomePage'
 import { WorksPage } from './pages/WorksPage/WorksPage'
 import { AboutPage } from './pages/AboutPage/AboutPage'
 import { RoastPage } from './pages/CasePages/RoastPage'
-import { DrCoffeePage } from './pages/DrCoffeePage'
-import { CleannerPage } from './pages/CleannerPage'
+import { DrCoffeePage } from './pages/CasePages/DrCoffeePage'
+import { CleannerPage } from './pages/CasePages/CleannerPage'
 
 function App() {
   return (
