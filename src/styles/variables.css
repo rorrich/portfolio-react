@@ -4,6 +4,11 @@
     --text-color: #000000;
     --secondary-text-color: #8F8F8F;
     --outline-color: #CBCBD0;
+
+    /* Header smart (fixed colors, not theme-dependent) */
+    --header-scrolled-bg: #ffffff;
+    --header-scrolled-fg: #000000;
+    --header-scrolled-border: #CBCBD0;
     
     /* Typography Tokens in REM for 4K scaling support */
     /* H1: 60px -> 320px */

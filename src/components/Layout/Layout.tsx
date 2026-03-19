@@ -1,12 +1,18 @@
 import { useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 
-import { Header } from '../Header/Header'
+import Header from '../Header/Header'
 import { Footer } from '../Footer/Footer'
 import { MobileMenu } from '../MobileMenu/MobileMenu'
 
 export function Layout() {
+  const { pathname } = useLocation()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  const isCasePage =
+    pathname.startsWith('/roast') ||
+    pathname.startsWith('/dr-coffee') ||
+    pathname.startsWith('/cleanner')
 
   const handleToggleMenu = () => {
     setIsMenuOpen((prev) => !prev)
@@ -18,7 +24,11 @@ export function Layout() {
 
   return (
     <>
-      <Header isMenuOpen={isMenuOpen} onToggleMenu={handleToggleMenu} />
+      <Header
+        isMenuOpen={isMenuOpen}
+        onToggleMenu={handleToggleMenu}
+        isTransparentStart={isCasePage}
+      />
       <MobileMenu isOpen={isMenuOpen} onClose={handleCloseMenu} />
       <main>
         <Outlet />
