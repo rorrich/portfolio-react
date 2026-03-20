@@ -15,7 +15,7 @@ export const ThemeContext = createContext<ThemeContextValue | undefined>(undefin
 
 function isWorkPagePath(pathname: string): boolean {
   // Страницы кейсов: тема всегда light
-  const workPaths = ['/roast', '/dr-coffee', '/cleanner']
+  const workPaths = ['/works/roast', '/works/dr-coffee', '/works/cleanner']
   return workPaths.some((base) => pathname.startsWith(base))
 }
 

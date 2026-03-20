@@ -18,9 +18,9 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/works" element={<WorksPage />} />
           <Route path="/about" element={<AboutPage />} />
-          <Route path="/roast" element={<RoastPage />} />
-          <Route path="/dr-coffee" element={<DrCoffeePage />} />
-          <Route path="/cleanner" element={<CleannerPage />} />
+          <Route path="/works/roast" element={<RoastPage />} />
+          <Route path="/works/dr-coffee" element={<DrCoffeePage />} />
+          <Route path="/works/cleanner" element={<CleannerPage />} />
         </Route>
       </Routes>
     </HashRouter>

@@ -15,7 +15,7 @@ export const projects: ProjectData[] = [
     category: 'sites',
     isPaid: true,
     imageSrc: '/images/picture_roast.webp',
-    pageUrl: '/roast',
+    pageUrl: '/works/roast',
   },
   {
     id: 'dr_coffee',
@@ -30,7 +30,7 @@ export const projects: ProjectData[] = [
     category: 'sites',
     isPaid: true,
     imageSrc: '/images/picture_d.coffee.avif',
-    pageUrl: '/dr-coffee',
+    pageUrl: '/works/dr-coffee',
   },
   {
     id: 'cleanner',
@@ -45,7 +45,7 @@ export const projects: ProjectData[] = [
     category: 'apps',
     isPaid: false,
     imageSrc: '/images/picture_cleanner2.webp',
-    pageUrl: '/cleanner',
+    pageUrl: '/works/cleanner',
   },
 ]
 

@@ -99,7 +99,7 @@ export function WorksPage() {
 
       <section className={styles.listSection}>
         <div className={`container ${styles.listContainer}`}>
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="popLayout">
             {filteredProjects.map((project) => (
               <WorksItem key={project.id} project={project} />
             ))}

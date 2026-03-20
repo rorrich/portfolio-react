@@ -10,9 +10,9 @@ export function Layout() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const isCasePage =
-    pathname.startsWith('/roast') ||
-    pathname.startsWith('/dr-coffee') ||
-    pathname.startsWith('/cleanner')
+    pathname.startsWith('/works/roast') ||
+    pathname.startsWith('/works/dr-coffee') ||
+    pathname.startsWith('/works/cleanner')
 
   const handleToggleMenu = () => {
     setIsMenuOpen((prev) => !prev)
