@@ -3,18 +3,32 @@
   height: auto;
 }
 
+/* На кейс-страницах (body: *-page) текст в футере всегда белый */
+:global(body[class$="-page"]) .footer {
+  color: #ffffff;
+}
+
 .container {
   height: auto;
 }
 
 .line {
   position: relative;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+  width: 100%;
   margin-bottom: 0;
   margin-top: calc(clamp(4.125rem, 3.44vw, 20rem) * -1);
   min-height: calc(clamp(12.5rem, 16vw, 19.1875rem) * 0.807 - clamp(4.125rem, 3.44vw, 20rem));
+}
+
+/* Кот выравниваем как контент страницы; линия hr на всю ширину экрана */
+.lineInner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  padding: 0 var(--grid-margin);
+  box-sizing: border-box;
 }
 
 .line hr {
@@ -22,10 +36,11 @@
   height: 1px;
   background-color: var(--outline-color);
   margin: 0;
-  width: 100vw;
+  /* `100vw` на мобилках часто даёт лишние пиксели и появляется горизонтальный скролл */
+  width: 100%;
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  transform: none;
   bottom: 0;
   z-index: 0;
 }
@@ -77,5 +92,21 @@
   font-weight: var(--body-s-font-weight);
   text-align: right;
   align-self: flex-end;
+}
+
+@media (max-width: 970px) {
+  .cat {
+    display: none;
+  }
+
+  .line {
+    margin-top: 0;
+    min-height: 0;
+  }
+
+  .lineInner {
+    justify-content: flex-start;
+    padding: 0 var(--grid-margin);
+  }
 }
 

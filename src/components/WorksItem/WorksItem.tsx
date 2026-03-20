@@ -1,6 +1,7 @@
 import type { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import clsx from 'clsx'
 
 import type { ProjectData } from '../../types/project'
 
@@ -8,9 +9,10 @@ import styles from './WorksItem.module.css'
 
 interface WorksItemProps {
   project: ProjectData
+  isLast?: boolean
 }
 
-export const WorksItem: FC<WorksItemProps> = ({ project }) => {
+export const WorksItem: FC<WorksItemProps> = ({ project, isLast }) => {
   return (
     <motion.div
       className={styles.worksItemWrapper}
@@ -20,7 +22,10 @@ export const WorksItem: FC<WorksItemProps> = ({ project }) => {
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: 0.3 }}
     >
-      <Link to={project.pageUrl} className={styles.worksItem}>
+      <Link
+        to={project.pageUrl}
+        className={clsx(styles.worksItem, isLast && styles.worksItemLast)}
+      >
         <div className={styles.imageContainer}>
           <img src={project.imageSrc} alt={project.title} loading="lazy" decoding="async" />
         </div>

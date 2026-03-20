@@ -100,8 +100,12 @@ export function WorksPage() {
       <section className={styles.listSection}>
         <div className={`container ${styles.listContainer}`}>
           <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project) => (
-              <WorksItem key={project.id} project={project} />
+            {filteredProjects.map((project, index) => (
+              <WorksItem
+                key={project.id}
+                project={project}
+                isLast={index === filteredProjects.length - 1}
+              />
             ))}
           </AnimatePresence>
         </div>

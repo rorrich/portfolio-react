@@ -65,8 +65,6 @@ export default function Header({
     mq.addEventListener('change', syncDesktop)
 
     const processScroll = () => {
-      if (!isDesktopRef.current) return
-
       const y = window.scrollY
       if (isTransparentStart) {
         // У верхнего края — стабильный transparent state (общая «мёртвая зона» с useCaseHeaderColor).
@@ -117,6 +115,13 @@ export default function Header({
         return
       }
 
+      // На мобилке шапка всегда видима: нам нужен только пересчёт scrolledDesktop для контраста.
+      if (!isDesktopRef.current) {
+        setIsHidden(false)
+        prevScrollYRef.current = y
+        return
+      }
+
       const prevY = prevScrollYRef.current
       const delta = y - prevY
       prevScrollYRef.current = y
@@ -134,7 +139,6 @@ export default function Header({
     }
 
     const handleScroll = () => {
-      if (!isDesktopRef.current) return
       if (scrollRafRef.current != null) return
       scrollRafRef.current = window.requestAnimationFrame(() => {
         scrollRafRef.current = null
@@ -227,12 +231,11 @@ export default function Header({
           aria-label="Открыть меню"
           onClick={onToggleMenu}
         >
-          <img src="/images/burger.svg" alt="Меню" className={styles.burgerIcon} />
-          <img
-            src="/images/burger-close.svg"
-            alt="Закрыть"
-            className={styles.burgerCloseIcon}
-          />
+          {!isMenuOpen ? (
+            <img src="/images/burger.svg" alt="Меню" className={styles.burgerIcon} />
+          ) : (
+            <img src="/images/burger-close.svg" alt="Закрыть" className={styles.burgerCloseIcon} />
+          )}
         </button>
 
         <nav className={`header__menu ${styles.nav}`} aria-label="Главная навигация">

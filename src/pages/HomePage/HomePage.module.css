@@ -395,22 +395,40 @@
   }
 
   .heroBottom {
+    display: flex;
     flex-direction: column;
+    grid-template-columns: none;
+    column-gap: 0;
+    /* На всю ширину экрана, с теми же боковыми отступами что у сетки */
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding-left: var(--grid-margin);
+    padding-right: var(--grid-margin);
+    box-sizing: border-box;
+    align-items: stretch;
     gap: var(--space-s);
     margin-top: var(--space-l);
   }
 
   .heroDescription {
+    grid-column: unset;
     width: 100%;
+    max-width: 100%;
   }
 
   .aboutText {
     width: 100%;
+    max-width: 100%;
     margin-left: 0;
   }
 
   .contacts {
     display: none;
+    grid-column: unset;
+    width: 100%;
+    max-width: 100%;
   }
 
   .skillsTrackLeft {

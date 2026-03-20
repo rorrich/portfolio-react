@@ -130,23 +130,25 @@ export function AboutPage() {
       </section>
 
       <section className={styles['about-me__text']}>
-        <div className="container-grid">
-          <div ref={aboutTextRef} className={styles['about-me__text-content']}>
-            <p>
-              Занимаюсь UI/UX-дизайном с 2024 года. Проектирую сайты и приложения, совмещая
-              эстетику с логикой. Кроме интерфейсов, рисую векторные иллюстрации и углубляюсь
-              в техническую часть — сейчас изучаю фронтенд, в будущем планирую освоить 3D.
-            </p>
-            <p>
-              В свободное время рисую для души и играю в видеоигры. Praise the Sun! \[T]/
-            </p>
+        <div className="container">
+          <div className={styles.aboutMeTextGrid}>
+            <div ref={aboutTextRef} className={styles['about-me__text-content']}>
+              <p>
+                Занимаюсь UI/UX-дизайном с 2024 года. Проектирую сайты и приложения, совмещая
+                эстетику с логикой. Кроме интерфейсов, рисую векторные иллюстрации и углубляюсь
+                в техническую часть — сейчас изучаю фронтенд, в будущем планирую освоить 3D.
+              </p>
+              <p>
+                В свободное время рисую для души и играю в видеоигры. Praise the Sun! \[T]/
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       <section className={styles['about-me__info']}>
-        <div className={`container-grid ${styles.aboutInfoContainerGrid}`}>
-          <div className={styles['about-me__info-content']}>
+        <div className="container">
+          <div className={styles.aboutMeInfoGrid}>
             <div ref={infoBlocksRef} className={styles['about-me__info-blocks']}>
               <div className={styles['about-me__info-block']}>
                 <div className={styles['about-me__info-label']}>
