@@ -19,6 +19,17 @@ function isWorkPagePath(pathname: string): boolean {
   return workPaths.some((base) => pathname.startsWith(base))
 }
 
+function getRouteFromHash(): string {
+  // HashRouter: путь лежит в location.hash как "#/roast"
+  if (typeof window === 'undefined') return ''
+  const raw = window.location.hash ?? ''
+  return raw.replace(/^#/, '')
+}
+
+function isWorkPageNow(): boolean {
+  return isWorkPagePath(getRouteFromHash())
+}
+
 function applyTheme(theme: Theme): void {
   if (typeof document === 'undefined') return
 
@@ -61,12 +72,12 @@ interface ThemeProviderProps {
 }
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
-  const initialIsWorkPage = useMemo(
-    () => (typeof window !== 'undefined' ? isWorkPagePath(window.location.pathname) : false),
-    [],
-  )
+  const initialIsWorkPage = useMemo(() => {
+    const route = getRouteFromHash()
+    return isWorkPagePath(route)
+  }, [])
 
-  const [isWorkPage] = useState<boolean>(initialIsWorkPage)
+  const [isWorkPage, setIsWorkPage] = useState<boolean>(initialIsWorkPage)
   const [theme, setTheme] = useState<Theme>(() => loadTheme(initialIsWorkPage))
 
   // Применяем тему к body при монтировании и изменении
@@ -78,8 +89,36 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     applyTheme(theme)
   }, [theme, isWorkPage])
 
+  // Обновляем isWorkPage при смене hash-роута, чтобы кейсы всегда получали light-тему,
+  // независимо от того, какая тема была выбрана на главной/работах ранее.
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const update = () => setIsWorkPage(isWorkPageNow())
+
+    update()
+
+    let lastHash = window.location.hash
+    const intervalId = window.setInterval(() => {
+      if (window.location.hash !== lastHash) {
+        lastHash = window.location.hash
+        update()
+      }
+    }, 250)
+
+    window.addEventListener('hashchange', update)
+    window.addEventListener('popstate', update)
+
+    return () => {
+      window.clearInterval(intervalId)
+      window.removeEventListener('hashchange', update)
+      window.removeEventListener('popstate', update)
+    }
+  }, [])
+
   const toggleTheme = useCallback(() => {
-    if (isWorkPage) {
+    // Используем текущее значение маршрута на момент клика,
+    // чтобы не зависеть от возможной несинхронизации isWorkPage.
+    if (isWorkPageNow()) {
       return
     }
 

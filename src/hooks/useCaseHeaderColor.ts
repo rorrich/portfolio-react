@@ -1,5 +1,7 @@
 import { useEffect } from 'react'
 
+import { CASE_HEADER_TOP_GUARD_PX } from '../constants/caseHeader'
+
 export function useCaseHeaderColor() {
   useEffect(() => {
     if (typeof document === 'undefined') return
@@ -26,6 +28,17 @@ export function useCaseHeaderColor() {
 
     const intersectingSet = new Set<HTMLElement>()
 
+    const syncHeaderLightFromScroll = () => {
+      const y = window.scrollY
+      // У верхнего края не доверяем полосе IO — светлая секция может «зажиматься»
+      // под хедером на микродвижениях и щёлкать контраст.
+      if (y < CASE_HEADER_TOP_GUARD_PX) {
+        header.classList.remove('header--light')
+        return
+      }
+      header.classList.toggle('header--light', intersectingSet.size > 0)
+    }
+
     const createObserver = () => {
       const headerHeight = readHeaderHeight()
       const bottomShrink = -(window.innerHeight - headerHeight)
@@ -38,7 +51,7 @@ export function useCaseHeaderColor() {
             else intersectingSet.delete(target)
           }
 
-          header.classList.toggle('header--light', intersectingSet.size > 0)
+          syncHeaderLightFromScroll()
         },
         {
           root: null,
@@ -54,7 +67,11 @@ export function useCaseHeaderColor() {
 
     const observer = createObserver()
 
+    syncHeaderLightFromScroll()
+    window.addEventListener('scroll', syncHeaderLightFromScroll, { passive: true })
+
     return () => {
+      window.removeEventListener('scroll', syncHeaderLightFromScroll)
       observer.disconnect()
     }
   }, [])

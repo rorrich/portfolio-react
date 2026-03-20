@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import clsx from 'clsx'
 
+import { CASE_HEADER_TOP_GUARD_PX } from '../../constants/caseHeader'
 import { useTheme } from '../../hooks/useTheme'
 import { MenuLink } from '../MenuLink/MenuLink'
 
@@ -30,6 +31,7 @@ export default function Header({
   const headerRef = useRef<HTMLElement | null>(null)
   const prevScrollYRef = useRef(0)
   const isDesktopRef = useRef(false)
+  const scrollRafRef = useRef<number | null>(null)
 
   const [isScrolled, setIsScrolled] = useState(false)
   const [isHidden, setIsHidden] = useState(false)
@@ -62,40 +64,38 @@ export default function Header({
     prevScrollYRef.current = window.scrollY
     mq.addEventListener('change', syncDesktop)
 
-    const handleScroll = () => {
+    const processScroll = () => {
       if (!isDesktopRef.current) return
 
       const y = window.scrollY
       if (isTransparentStart) {
-        // В самом верху всегда transparent state.
-        if (y <= 0) {
+        // У верхнего края — стабильный transparent state (общая «мёртвая зона» с useCaseHeaderColor).
+        if (y < CASE_HEADER_TOP_GUARD_PX) {
           setIsScrolled(false)
-          // Не перетираем вычислениями по геометрии — на первом кадре
-          // bounding box может ещё не быть стабильным (особенно на Cleanner).
-          return
-        }
-
-        const headerEl = headerRef.current
-        const caseHeroEl = document.querySelector<HTMLElement>('.case-hero')
-        const heroContentEl = document.querySelector<HTMLElement>('.case-hero__content')
-
-        // Прозрачность должна включаться, когда шапка попадает в зону case-hero__content
-        if (headerEl && (caseHeroEl || heroContentEl)) {
-          const headerRect = headerEl.getBoundingClientRect()
-
-          const containerRect = caseHeroEl
-            ? caseHeroEl.getBoundingClientRect()
-            : heroContentEl!.getBoundingClientRect()
-
-          // Требование: прозрачность включаем, когда шапка "полностью наехала" на case-hero,
-          // то есть нижняя граница шапки всё ещё находится внутри высоты секции.
-          const isHeaderFullyCovered =
-            containerRect.top <= headerRect.top && containerRect.bottom >= headerRect.bottom
-
-          setIsScrolled(!isHeaderFullyCovered)
+          // Не перетираем вычислениями по геометрии — bbox может быть нестабильным на первых px.
         } else {
-          // Fallback, если почему-то не нашли элемент
-          setIsScrolled(y > SCROLLED_Y_PX)
+          const headerEl = headerRef.current
+          const caseHeroEl = document.querySelector<HTMLElement>('.case-hero')
+          const heroContentEl = document.querySelector<HTMLElement>('.case-hero__content')
+
+          // Прозрачность должна включаться, когда шапка попадает в зону case-hero__content
+          if (headerEl && (caseHeroEl || heroContentEl)) {
+            const headerRect = headerEl.getBoundingClientRect()
+
+            const containerRect = caseHeroEl
+              ? caseHeroEl.getBoundingClientRect()
+              : heroContentEl!.getBoundingClientRect()
+
+            // Требование: прозрачность включаем, когда шапка "полностью наехала" на case-hero,
+            // то есть нижняя граница шапки всё ещё находится внутри высоты секции.
+            const isHeaderFullyCovered =
+              containerRect.top <= headerRect.top && containerRect.bottom >= headerRect.bottom
+
+            setIsScrolled(!isHeaderFullyCovered)
+          } else {
+            // Fallback, если почему-то не нашли элемент
+            setIsScrolled(y > SCROLLED_Y_PX)
+          }
         }
       } else {
         // На не-case страницах этими классами мы всё равно не пользуемся,
@@ -133,12 +133,25 @@ export default function Header({
       }
     }
 
-    handleScroll()
+    const handleScroll = () => {
+      if (!isDesktopRef.current) return
+      if (scrollRafRef.current != null) return
+      scrollRafRef.current = window.requestAnimationFrame(() => {
+        scrollRafRef.current = null
+        processScroll()
+      })
+    }
+
+    processScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
 
     return () => {
       mq.removeEventListener('change', syncDesktop)
       window.removeEventListener('scroll', handleScroll)
+      if (scrollRafRef.current != null) {
+        window.cancelAnimationFrame(scrollRafRef.current)
+        scrollRafRef.current = null
+      }
     }
   }, [isMenuOpen, isTransparentStart])
 
@@ -166,8 +179,8 @@ export default function Header({
   }, [])
 
   // Для страниц кейсов:
-  // - в самом верху (scrollY < 50) шапка прозрачная
-  // - при скролле ниже 50 — белая с чёрным текстом
+  // - вверху (scrollY < CASE_HEADER_TOP_GUARD_PX) шапка стабильно прозрачная
+  // - ниже — по геометрии hero: белая с чёрным текстом, когда вышли из зоны полного покрытия
   // Для остальных страниц (home/works/about) шапка всегда с var-цветами и var-бордером.
   const transparentStart = isTransparentStart && !isScrolled
   const shouldUseScrolledDesktop = isTransparentStart && isScrolled
