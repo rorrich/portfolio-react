@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
-import { Link } from 'react-router-dom'
 import clsx from 'clsx'
 
+import { TransitionLink } from '../TransitionLink/TransitionLink'
 import styles from './MenuLink.module.css'
 
 type MenuLinkProps = {
@@ -47,9 +47,9 @@ export function MenuLink({ children, to, href, className, counter }: MenuLinkPro
 
   if (to) {
     return (
-      <Link className={classes} to={to}>
+      <TransitionLink className={classes} to={to}>
         {content}
-      </Link>
+      </TransitionLink>
     )
   }
 

@@ -4,11 +4,13 @@ import { projects } from '../../data/projects'
 import { CaseHero } from '../../components/CaseComponents/CaseHero'
 import { CaseSection } from '../../components/CaseComponents/CaseSection'
 import { useCaseHeaderColor } from '../../hooks/useCaseHeaderColor'
+import { usePageReady } from '../../hooks/usePageReady'
 
 import '../../../../portfolio_code/css/case-layout.css'
 import '../../../../portfolio_code/css/_responsive.css'
 
 export function DrCoffeePage() {
+  usePageReady()
   useCaseHeaderColor()
 
   useEffect(() => {

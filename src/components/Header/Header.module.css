@@ -10,7 +10,7 @@
   width: 100%;
   flex-shrink: 0;
   color: var(--text-color);
-  transition: background-color 0.6s ease, transform 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
   transform: translateY(0);
 }
 

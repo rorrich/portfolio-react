@@ -30,7 +30,7 @@ export function Layout() {
         isTransparentStart={isCasePage}
       />
       <MobileMenu isOpen={isMenuOpen} onClose={handleCloseMenu} />
-      <main>
+      <main id="page-content">
         <Outlet />
       </main>
       <Footer />

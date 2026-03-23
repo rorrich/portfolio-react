@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { Link } from 'react-router-dom'
+import { TransitionLink } from '../TransitionLink/TransitionLink'
 import { motion } from 'framer-motion'
 import clsx from 'clsx'
 
@@ -22,7 +22,7 @@ export const WorksItem: FC<WorksItemProps> = ({ project, isLast }) => {
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: 0.3 }}
     >
-      <Link
+      <TransitionLink
         to={project.pageUrl}
         className={clsx(styles.worksItem, isLast && styles.worksItemLast)}
       >
@@ -61,7 +61,7 @@ export const WorksItem: FC<WorksItemProps> = ({ project, isLast }) => {
             </div>
           </div>
         </div>
-      </Link>
+      </TransitionLink>
     </motion.div>
   )
 }

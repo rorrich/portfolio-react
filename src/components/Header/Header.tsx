@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import clsx from 'clsx'
 
 import { CASE_HEADER_TOP_GUARD_PX } from '../../constants/caseHeader'
 import { useTheme } from '../../hooks/useTheme'
 import { MenuLink } from '../MenuLink/MenuLink'
+import { TransitionLink } from '../TransitionLink/TransitionLink'
 
 import styles from './Header.module.css'
 
@@ -202,7 +203,7 @@ export default function Header({
     >
       <div className={`header__container ${styles.headerContainer}`}>
         <div className={`header__logo ${styles.logo}`}>
-          <Link to="/" className={styles.logoLink} aria-label="На главную">
+          <TransitionLink to="/" className={styles.logoLink} aria-label="На главную">
             <svg
               className={styles.logoSvg}
               width="56"
@@ -212,7 +213,7 @@ export default function Header({
             >
               <use href="/images/sprite.svg#icon-logo" />
             </svg>
-          </Link>
+          </TransitionLink>
         </div>
 
         <button

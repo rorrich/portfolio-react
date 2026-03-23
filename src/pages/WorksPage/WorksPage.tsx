@@ -5,6 +5,7 @@ import { AnimatePresence } from 'framer-motion'
 
 import { projects } from '../../data/projects'
 import { WorksItem } from '../../components/WorksItem/WorksItem'
+import { usePageReady } from '../../hooks/usePageReady'
 
 import styles from './WorksPage.module.css'
 
@@ -13,6 +14,7 @@ gsap.registerPlugin(useGSAP)
 type Filter = 'all' | 'sites' | 'apps'
 
 export function WorksPage() {
+  usePageReady()
   const [activeFilter, setActiveFilter] = useState<Filter>('all')
 
   const filteredProjects = useMemo(

@@ -4,12 +4,14 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 
 import { MenuLink } from '../../components/MenuLink/MenuLink'
+import { usePageReady } from '../../hooks/usePageReady'
 
 import styles from './AboutPage.module.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export function AboutPage() {
+  usePageReady()
   const rootRef = useRef<HTMLDivElement | null>(null)
 
   const heroTitleRef = useRef<HTMLHeadingElement | null>(null)

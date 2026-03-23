@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { Link } from 'react-router-dom'
+import { TransitionLink } from '../TransitionLink/TransitionLink'
 
 import type { ProjectData } from '../../types/project'
 
@@ -35,7 +35,7 @@ export const WorkCard: FC<WorkCardProps> = ({ project, size, styles }) => {
   const sizeClass = styles[sizeClassMap[size]]
 
   return (
-    <Link
+    <TransitionLink
       to={project.pageUrl}
       className={`${styles.workCard} ${sizeClass}`}
       data-id={project.id}
@@ -57,6 +57,6 @@ export const WorkCard: FC<WorkCardProps> = ({ project, size, styles }) => {
           <h3 className={styles.workCardTitle}>{project.title}</h3>
         </div>
       </div>
-    </Link>
+    </TransitionLink>
   )
 }

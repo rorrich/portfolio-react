@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
 
+import { TransitionLink } from '../TransitionLink/TransitionLink'
 import styles from './MobileMenu.module.css'
 
 interface MobileMenuProps {
@@ -13,7 +13,6 @@ interface MobileMenuProps {
 const TELEGRAM_URL = 'https://t.me/rorrich'
 
 export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
-  const [isClosing, setIsClosing] = useState(false)
   const overlayRef = useRef<HTMLDivElement>(null)
   const linkRefs = useRef<(HTMLAnchorElement | null)[]>([])
 
@@ -34,27 +33,6 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     { dependencies: [isOpen], scope: overlayRef, revertOnUpdate: true }
   )
 
-  const runCloseAnimation = () => {
-    const overlay = overlayRef.current
-    const links = linkRefs.current.filter(Boolean) as HTMLElement[]
-
-    if (!overlay) {
-      onClose()
-      return
-    }
-
-    setIsClosing(true)
-    const tl = gsap.timeline({
-      defaults: { ease: 'power2.in' },
-      onComplete: () => {
-        onClose()
-        setIsClosing(false)
-      },
-    })
-    tl.to(links, { opacity: 0, y: -16, duration: 0.2, stagger: 0.04 })
-    tl.to(overlay, { opacity: 0, duration: 0.2 }, '-=0.2')
-  }
-
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add('menu-open')
@@ -66,11 +44,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     }
   }, [isOpen])
 
-  const handleLinkClick = () => {
-    runCloseAnimation()
-  }
-
-  if (!isOpen && !isClosing) return null
+  if (!isOpen) return null
 
   return (
     <div
@@ -82,30 +56,30 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     >
       <div className={styles.wrapper}>
         <nav className={styles.links} aria-label="Навигация">
-          <Link
+          <TransitionLink
             ref={(el) => { linkRefs.current[0] = el }}
             to="/"
             className={styles.link}
-            onClick={handleLinkClick}
+            onBeforeNavigate={onClose}
           >
             главная
-          </Link>
-          <Link
+          </TransitionLink>
+          <TransitionLink
             ref={(el) => { linkRefs.current[1] = el }}
             to="/about"
             className={styles.link}
-            onClick={handleLinkClick}
+            onBeforeNavigate={onClose}
           >
             who я
-          </Link>
-          <Link
+          </TransitionLink>
+          <TransitionLink
             ref={(el) => { linkRefs.current[2] = el }}
             to="/works"
             className={styles.link}
-            onClick={handleLinkClick}
+            onBeforeNavigate={onClose}
           >
             работы<span className={styles.number}>[3]</span>
-          </Link>
+          </TransitionLink>
         </nav>
         <div className={styles.contacts}>
           <a
@@ -114,7 +88,9 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             target="_blank"
             rel="noopener noreferrer"
             className={styles.contact}
-            onClick={handleLinkClick}
+            onClick={() => {
+              onClose()
+            }}
           >
             telegram
           </a>

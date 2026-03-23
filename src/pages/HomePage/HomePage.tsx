@@ -8,12 +8,14 @@ import { SkillsMarquee } from '../../components/SkillsMarquee/SkillsMarquee'
 import { Typewriter } from '../../components/Typewriter/Typewriter'
 import { WorkCard } from '../../components/WorkCard/WorkCard'
 import { projects } from '../../data/projects'
+import { usePageReady } from '../../hooks/usePageReady'
 
 import styles from './HomePage.module.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export function HomePage() {
+  usePageReady()
   const heroRef = useRef<HTMLElement | null>(null)
   const worksRef = useRef<HTMLElement | null>(null)
 
