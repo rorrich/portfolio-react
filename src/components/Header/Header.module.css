@@ -10,34 +10,21 @@
   width: 100%;
   flex-shrink: 0;
   color: var(--text-color);
-  transition: background-color 0.3s ease, transform 0.3s ease,
-    color 0.3s ease, border-color 0.4s ease;
+  transition: background-color 0.4s ease, transform 0.4s ease,
+    color 0.4s ease, border-color 0.4s ease;
   transform: translateY(0);
 }
 
-/* default: обычные страницы, цвет берём из темы приложения */
-.header:not(.casesTransparent):not(.casesFilled) :global(.header__burger img) {
-  filter: brightness(0) saturate(100%) invert(0%);
+/* Кейсы: плавная смена transparent ↔ filled (скролл и моб. меню) */
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .header {
+  transition: background-color 0.2s ease, transform 0.2s ease, color 0.2s ease,
+    border-color 0.2s ease;
 }
 
-:global(body[data-theme="dark"]) .header:not(.casesTransparent):not(.casesFilled) :global(.header__burger img) {
-  filter: brightness(0) saturate(100%) invert(92%) sepia(8%) saturate(1017%) hue-rotate(315deg) brightness(95%) contrast(89%);
-}
-
-:global(body[data-theme="blue"]) .header:not(.casesTransparent):not(.casesFilled) :global(.header__burger img) {
-  filter: brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(2000%) hue-rotate(350deg) brightness(90%) contrast(120%);
-}
-
-:global(body[data-theme="green"]) .header:not(.casesTransparent):not(.casesFilled) :global(.header__burger img) {
-  filter: brightness(0) saturate(100%) invert(95%) sepia(8%) saturate(1017%) hue-rotate(315deg) brightness(95%) contrast(89%);
-}
-
-:global(body[data-theme="soft"]) .header:not(.casesTransparent):not(.casesFilled) :global(.header__burger img) {
-  filter: brightness(0) saturate(100%) invert(100%);
-}
+/* Бургер (полоски) наследует color с .header / темы — отдельные фильтры для img не нужны */
 
 /* На case-страницах переключатель темы скрыт во всех состояниях шапки */
-:global(body[class$="-page"]) .header :global(.header__color-changer) {
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .header :global(.header__color-changer) {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
@@ -54,11 +41,6 @@
   color: var(--header-scrolled-fg);
 }
 
-/* case-layout.css сбрасывает border у .header на кейсах — возвращаем серую линию в «белой» шапке */
-:global(body[class$="-page"]) :global(.header).casesFilled {
-  border-bottom: 1px solid var(--header-scrolled-border) !important;
-}
-
 /* На белом фоне принудительно чёрный текст/иконки поверх кейс-стилей */
 .casesFilled :global(.header__menu .menu-item),
 .casesFilled :global(.header__menu .menu-item span),
@@ -67,29 +49,20 @@
   color: var(--header-scrolled-fg);
 }
 
-/* Бургер-иконки — через фильтр (картинки), чтобы стало чёрным */
-.casesFilled :global(.header__burger img) {
-  filter: brightness(0) saturate(100%) invert(0%);
-}
-
 /* case-layout.css задавал белый текст в .header__menu на кейсах — при cases-filled шапка
    всегда «светлая полоса»: чёрный текст, независимо от секции под шапкой.
    Важно: .casesFilled на том же элементе, что и .header (не потомок). */
-:global(body[class$="-page"]) :global(.header).casesFilled :global(.header__menu .menu-item),
-:global(body[class$="-page"]) :global(.header).casesFilled :global(.header__menu .menu-item span),
-:global(body[class$="-page"]) :global(.header).casesFilled :global(.header__menu .menu-item .menu-item__number),
-:global(body[class$="-page"]) :global(.header).casesFilled :global(.header__menu .menu-item .element-anim),
-:global(body[class$="-page"]) :global(.header).casesFilled :global(.header__logo svg),
-:global(body[class$="-page"]) :global(.header).casesFilled :global(.header__logo svg use) {
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__menu .menu-item),
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__menu .menu-item span),
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__menu .menu-item .menu-item__number),
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__menu .menu-item .element-anim),
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__logo svg),
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__logo svg use) {
   color: var(--header-scrolled-fg) !important;
 }
 
-:global(body[class$="-page"]) :global(.header).casesFilled :global(.header__menu .menu-item .element-anim svg) {
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__menu .menu-item .element-anim svg) {
   fill: currentColor !important;
-}
-
-:global(body[class$="-page"]) :global(.header).casesFilled :global(.header__burger img) {
-  filter: brightness(0) saturate(100%) invert(0%) !important;
 }
 
 /* Для кейсов: в самом начале фон прозрачный */
@@ -100,22 +73,20 @@
 }
 
 /* По умолчанию на кейс-страницах (hero тёмный): текст/иконки белые */
-:global(body[class$="-page"]) .casesTransparent :global(.header__menu .menu-item),
-:global(body[class$="-page"]) .casesTransparent :global(.header__menu .menu-item span),
-:global(body[class$="-page"]) .casesTransparent :global(.header__menu .menu-item .element-anim),
-:global(body[class$="-page"]) .casesTransparent :global(.header__logo svg) {
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent :global(.header__menu .menu-item),
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent :global(.header__menu .menu-item span),
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent :global(.header__menu .menu-item .element-anim),
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent :global(.header__logo svg),
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent :global(.header__burger) {
   color: #ffffff !important;
 }
 
-:global(body[class$="-page"]) .casesTransparent :global(.header__menu .menu-item .element-anim svg) {
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent :global(.header__menu .menu-item .element-anim svg) {
   fill: currentColor;
 }
 
-:global(body[class$="-page"]) .casesTransparent :global(.header__burger img) {
-  filter: brightness(0) saturate(100%) invert(100%) !important;
-}
-
-@media (min-width: 971px) {
+/* Десктоп от 970px; мобилка max 969px — число в constants/layout.ts (LAYOUT_DESKTOP_MIN_PX) */
+@media (min-width: 970px) {
   /* Скрываем шапку при скролле вниз */
   .hiddenDesktop {
     transform: translateY(-100%);
@@ -136,29 +107,20 @@
     color: var(--header-scrolled-fg);
   }
 
-  /* Бургер-иконки — через фильтр (картинки), чтобы стало чёрным */
-  .casesFilled :global(.header__burger img) {
-    filter: brightness(0) saturate(100%) invert(0%);
-  }
-
-  :global(body[class$="-page"]) :global(.header).casesFilled :global(.header__menu .menu-item),
-  :global(body[class$="-page"]) :global(.header).casesFilled :global(.header__menu .menu-item span),
-  :global(body[class$="-page"]) :global(.header).casesFilled :global(.header__menu .menu-item .menu-item__number),
-  :global(body[class$="-page"]) :global(.header).casesFilled :global(.header__menu .menu-item .element-anim),
-  :global(body[class$="-page"]) :global(.header).casesFilled :global(.header__logo svg),
-  :global(body[class$="-page"]) :global(.header).casesFilled :global(.header__logo svg use) {
+  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__menu .menu-item),
+  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__menu .menu-item span),
+  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__menu .menu-item .menu-item__number),
+  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__menu .menu-item .element-anim),
+  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__logo svg),
+  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__logo svg use) {
     color: var(--header-scrolled-fg) !important;
   }
 
-  :global(body[class$="-page"]) :global(.header).casesFilled :global(.header__menu .menu-item .element-anim svg) {
+  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__menu .menu-item .element-anim svg) {
     fill: currentColor !important;
   }
 
-  :global(body[class$="-page"]) :global(.header).casesFilled :global(.header__burger img) {
-    filter: brightness(0) saturate(100%) invert(0%) !important;
-  }
-
-  /* Для кейсов: в самом начале (scrollY < 50) фон прозрачный */
+  /* Для кейсов: прозрачный фон в состоянии .casesTransparent (логика в useHeaderScrollBehavior) */
   .casesTransparent {
     background-color: transparent;
     border-bottom: none;
@@ -169,19 +131,16 @@
      Case header colors (transparent state)
      ============================= */
   /* По умолчанию на кейс-страницах (hero тёмный): текст/иконки белые */
-  :global(body[class$="-page"]) .casesTransparent :global(.header__menu .menu-item),
-  :global(body[class$="-page"]) .casesTransparent :global(.header__menu .menu-item span),
-  :global(body[class$="-page"]) .casesTransparent :global(.header__menu .menu-item .element-anim),
-  :global(body[class$="-page"]) .casesTransparent :global(.header__logo svg) {
+  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent :global(.header__menu .menu-item),
+  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent :global(.header__menu .menu-item span),
+  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent :global(.header__menu .menu-item .element-anim),
+  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent :global(.header__logo svg),
+  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent :global(.header__burger) {
     color: #ffffff !important;
   }
 
-  :global(body[class$="-page"]) .casesTransparent :global(.header__menu .menu-item .element-anim svg) {
+  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent :global(.header__menu .menu-item .element-anim svg) {
     fill: currentColor;
-  }
-
-  :global(body[class$="-page"]) .casesTransparent :global(.header__burger img) {
-    filter: brightness(0) saturate(100%) invert(100%) !important;
   }
 
 }
@@ -269,19 +228,49 @@
   grid-column: 3;
 }
 
-.burgerIcon {
-  width: 44px;
-  height: 44px;
+.burgerLines {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  width: 1.8rem;
+  height: 0.875rem;
+  position: relative;
+}
+
+.burgerLine {
   display: block;
+  height: 1px;
+  width: 100%;
+  border-radius: 0.5px;
+  background-color: currentColor;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  margin-top: -0.5px;
 }
 
-.burgerCloseIcon {
-  width: 44px;
-  height: 44px;
-  display: none;
+.burgerLine:nth-child(1) {
+  transform: translateY(-5px);
 }
 
-@media (max-width: 970px) {
+.burgerLine:nth-child(2) {
+  transform: translateY(5px);
+}
+
+.burgerActive .burgerLine:nth-child(1) {
+  transform: translateY(0) rotate(45deg);
+}
+
+.burgerActive .burgerLine:nth-child(2) {
+  transform: translateY(0) rotate(-45deg);
+}
+
+/* max-width 969: пара к min-width 970 выше */
+@media (max-width: 969px) {
   .headerContainer {
     padding: 0 var(--grid-margin);
     width: 100%;
@@ -303,31 +292,18 @@
   }
 
   .burger {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 44px;
     height: 44px;
+    padding: 0;
     background: none;
     border: none;
     cursor: pointer;
     position: relative;
     z-index: 2001;
-  }
-
-  .burgerIcon {
-    display: block;
-  }
-
-  .burgerCloseIcon {
-    /* По умолчанию скрыта глобально, но оставляем для наглядности */
-    display: none;
-  }
-
-  .burgerActive .burgerIcon {
-    display: none;
-  }
-
-  .burgerActive .burgerCloseIcon {
-    display: block;
+    color: inherit;
   }
 }
 

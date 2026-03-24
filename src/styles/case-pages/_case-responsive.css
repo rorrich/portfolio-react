@@ -1,6 +1,6 @@
 /* Только адаптив для кейсов — без глобальных правил шапки/works/footer из статического сайта */
 
-@media (max-width: 970px) {
+@media (max-width: 969px) {
   /* Кейс-страницы: скрываем мету в hero на мобилке */
   .case-hero__meta {
     display: none !important;

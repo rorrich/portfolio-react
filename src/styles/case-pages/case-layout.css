@@ -5,8 +5,8 @@
    ========================================= */
 
 /* All project pages share these base styles */
-/* Use body selector to avoid catching classes like works-page-content */
-body[class$="-page"] {
+/* Явные классы страниц: не используем [class$="-page"], т.к. с menu-open суффикс ломается */
+body:is(.roast-page, .dr-coffee-page, .cleanner-page) {
     background-color: #111114; /* Dark background by default */
 }
 
@@ -16,14 +16,14 @@ body[class$="-page"] {
    ========================================= */
 
 /* White text for footer on project pages */
-body[class$="-page"] .footer,
-body[class$="-page"] .footer__description,
-body[class$="-page"] .footer__contacts .menu-item,
-body[class$="-page"] .footer__contacts .menu-item span {
+body:is(.roast-page, .dr-coffee-page, .cleanner-page) .footer,
+body:is(.roast-page, .dr-coffee-page, .cleanner-page) .footer__description,
+body:is(.roast-page, .dr-coffee-page, .cleanner-page) .footer__contacts .menu-item,
+body:is(.roast-page, .dr-coffee-page, .cleanner-page) .footer__contacts .menu-item span {
     color: #ffffff;
 }
 
-body[class$="-page"] .footer__line hr {
+body:is(.roast-page, .dr-coffee-page, .cleanner-page) .footer__line hr {
     background-color: #3B3535;
 }
 
@@ -163,7 +163,7 @@ a.case-meta__value span {
     flex: 1;
 }
 
-    @media (max-width: 970px) {
+    @media (max-width: 969px) {
     .text-split {
         flex-direction: column;
         gap: 16px;
@@ -182,7 +182,7 @@ a.case-meta__value span {
     box-sizing: border-box;
 }
 
-@media (max-width: 970px) {
+@media (max-width: 969px) {
     .text-stack {
         width: 100%;
     }
@@ -207,7 +207,7 @@ a.case-meta__value span {
     width: 100%;
 }
 
-@media (max-width: 970px) {
+@media (max-width: 969px) {
     .image-grid {
         grid-template-columns: 1fr;
     }
@@ -301,7 +301,7 @@ a.case-meta__value span {
     gap: 0;
 }
 
-@media (max-width: 970px) {
+@media (max-width: 969px) {
     .case-hero {
         height: auto;
         min-height: 400px;

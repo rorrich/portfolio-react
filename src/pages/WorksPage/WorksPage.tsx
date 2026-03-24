@@ -1,10 +1,9 @@
 import { useMemo, useState } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
-import { AnimatePresence } from 'framer-motion'
 
+import { CaseCard } from '../../components/CaseCard/CaseCard'
 import { projects } from '../../data/projects'
-import { WorksItem } from '../../components/WorksItem/WorksItem'
 import { usePageReady } from '../../hooks/usePageReady'
 
 import styles from './WorksPage.module.css'
@@ -99,15 +98,11 @@ export function WorksPage() {
 
       <section className={styles.listSection}>
         <div className={`container ${styles.listContainer}`}>
-          <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project, index) => (
-              <WorksItem
-                key={project.id}
-                project={project}
-                isLast={index === filteredProjects.length - 1}
-              />
-            ))}
-          </AnimatePresence>
+          {filteredProjects.map((project) => (
+            <div key={project.id} className={styles.listRow}>
+              <CaseCard variant="large" project={project} />
+            </div>
+          ))}
         </div>
       </section>
     </div>

@@ -297,94 +297,29 @@
   column-gap: var(--grid-gutter);
 }
 
-.worksGrid > *:nth-child(1) { grid-row: 1; }
-.worksGrid > *:nth-child(2) { grid-row: 2; }
-.worksGrid > *:nth-child(3) { grid-row: 3; }
-
-/* ========== Work Card (.work-card from _components.css) ========== */
-.workCard {
-  position: relative;
-  cursor: pointer;
-  text-decoration: none;
-  color: inherit;
-}
-
-.workCardLarge {
-  width: 100%;
+.worksGridSlotRoast {
+  grid-row: 1;
   grid-column: span 6;
   align-self: flex-start;
+  width: 100%;
 }
 
-.workCardMedium {
-  width: 100%;
+.worksGridSlotDrCoffee {
+  grid-row: 2;
   grid-column: 8 / span 5;
   align-self: flex-end;
+  width: 100%;
 }
 
-.workCardSmall {
-  width: 100%;
+.worksGridSlotCleanner {
+  grid-row: 3;
   grid-column: span 4;
   align-self: flex-start;
-}
-
-.workCardContent {
-  position: relative;
-  z-index: 2;
-}
-
-.workCardPicture {
   width: 100%;
-  position: relative;
-  overflow: hidden;
-  border-radius: var(--space-l);
-}
-
-.workCardPicture img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  display: block;
-  transform: translateZ(0) scale(1);
-  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  will-change: transform;
-  backface-visibility: hidden;
-}
-
-.workCard:hover .workCardPicture img {
-  transform: translateZ(0) scale(1.05);
-}
-
-.workCardDescription {
-  padding: var(--space-xs) 2px;
-}
-
-.workCardDetails {
-  display: flex;
-  justify-content: space-between;
-  margin-left: 2px;
-}
-
-.workCardType {
-  color: var(--secondary-text-color);
-  font-size: var(--body-s-size);
-  letter-spacing: 0.32px;
-  font-weight: var(--body-s-font-weight);
-}
-
-.workCardYear {
-  font-size: var(--body-s-size);
-  letter-spacing: 0.32px;
-  font-weight: var(--body-s-font-weight);
-}
-
-.workCardTitle {
-  font-size: var(--heading-h4-size);
-  font-weight: var(--heading-h4-font-weight);
-  line-height: var(--heading-h4-line-height);
 }
 
 /* ========== Responsive (from _responsive.css for these sections) ========== */
-@media (max-width: 970px) {
+@media (max-width: 969px) {
   .mainHero {
     padding-top: calc(var(--space-l) + var(--header-height, 100px));
     padding-bottom: var(--space-m);
@@ -465,40 +400,11 @@
     display: none;
   }
 
-  .workCard,
-  .workCardLarge,
-  .workCardMedium,
-  .workCardSmall {
+  .worksGridSlotRoast,
+  .worksGridSlotDrCoffee,
+  .worksGridSlotCleanner {
     width: 100%;
     margin: 0;
-  }
-
-  .workCardPicture {
-    width: 100%;
-    height: auto;
-    margin: 0;
-  }
-
-  .workCardPicture img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-
-  .workCardDescription,
-  .workCardDetails,
-  .workCardType {
-    width: 100%;
-    margin: 0;
-  }
-
-  .workCardTitle {
-    font-size: var(--heading-h4-size);
-    line-height: var(--heading-h4-line-height);
-  }
-
-  .workCardYear {
-    display: none;
   }
 
   .mainHero .heroContainer {

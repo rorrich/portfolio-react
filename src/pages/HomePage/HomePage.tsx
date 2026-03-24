@@ -5,7 +5,7 @@ import { useGSAP } from '@gsap/react'
 import { MenuLink } from '../../components/MenuLink/MenuLink'
 import { SkillsMarquee } from '../../components/SkillsMarquee/SkillsMarquee'
 import { Typewriter } from '../../components/Typewriter/Typewriter'
-import { WorkCard } from '../../components/WorkCard/WorkCard'
+import { CaseCard } from '../../components/CaseCard/CaseCard'
 import { projects } from '../../data/projects'
 import { usePageReady } from '../../hooks/usePageReady'
 
@@ -80,7 +80,7 @@ export function HomePage() {
     () => {
       if (!worksRef.current) return
 
-      const cards = worksRef.current.querySelectorAll(`.${styles.workCard}`)
+      const cards = worksRef.current.querySelectorAll('[data-home-work-card]')
 
       gsap.from(cards, {
         opacity: 0,
@@ -180,9 +180,15 @@ export function HomePage() {
           </div>
 
           <div className={styles.worksGrid}>
-            <WorkCard project={roast} size="large" styles={styles} />
-            <WorkCard project={drCoffee} size="medium" styles={styles} />
-            <WorkCard project={cleanner} size="small" styles={styles} />
+            <div className={styles.worksGridSlotRoast}>
+              <CaseCard variant="compact" project={roast} />
+            </div>
+            <div className={styles.worksGridSlotDrCoffee}>
+              <CaseCard variant="compact" project={drCoffee} />
+            </div>
+            <div className={styles.worksGridSlotCleanner}>
+              <CaseCard variant="compact" project={cleanner} />
+            </div>
           </div>
         </div>
       </section>

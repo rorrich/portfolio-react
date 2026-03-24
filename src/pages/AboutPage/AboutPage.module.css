@@ -1,17 +1,18 @@
-/* Внутренняя сетка (раньше давал container-grid) */
-.aboutMeTextGrid {
-  display: grid;
-  grid-template-columns: repeat(var(--grid-columns), 1fr);
-  column-gap: var(--grid-gutter);
+/* Корень страницы: нужен для scoped-классов и мобильных оверрайдов .about-me … */
+.about-me {
   width: 100%;
 }
 
+/* Сетка 12 колонок внутри .container (padding снаружи уже у глобального .container) */
+.aboutMeTextGrid,
 .aboutMeInfoGrid {
   display: grid;
   grid-template-columns: repeat(var(--grid-columns), 1fr);
   column-gap: var(--grid-gutter);
+}
+
+.about-me__info .container-grid {
   align-items: end;
-  width: 100%;
 }
 
 /* Hero (from _components.css) */
@@ -74,6 +75,10 @@
 
 .about-me__info {
   padding: var(--space-l) 0;
+}
+
+.about-me__info-content {
+  display: contents;
 }
 
 .about-me__info-blocks {
@@ -196,6 +201,7 @@
 
 .about-me__image {
   width: 100%;
+  background-color: #cdcdcd;
   flex-shrink: 0;
   border-radius: var(--space-l);
   overflow: hidden;
@@ -220,7 +226,7 @@
 }
 
 /* Mobile adjustments (from _responsive.css) */
-@media (max-width: 970px) {
+@media (max-width: 969px) {
   .about-me__cat {
     display: none;
   }
@@ -229,18 +235,15 @@
     padding: var(--space-l) 0;
   }
 
-  .aboutMeTextGrid {
-    display: block;
-  }
-
+  .about-me .container-grid,
+  .aboutMeTextGrid,
   .aboutMeInfoGrid {
     display: flex;
     flex-direction: column;
-    gap: var(--space-2xl);
+    gap: var(--space-l);
   }
 
   .about-me__text-content {
-    grid-column: unset;
     max-width: 100%;
   }
 
@@ -256,6 +259,13 @@
 
   .about-me__info {
     padding: var(--space-l) 0;
+  }
+
+  .about-me__info-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: var(--space-2xl);
   }
 
   .about-me__info-blocks {

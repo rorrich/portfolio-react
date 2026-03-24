@@ -41,11 +41,11 @@ export function PageTransitionProvider({ children }: PageTransitionProviderProps
     }
 
     gsap.to(overlay, {
-      yPercent: -100,
+      yPercent: 100,
       duration: 0.6,
       ease: 'expo.inOut',
       onComplete: () => {
-        gsap.set(overlay, { display: 'none', yPercent: 100 })
+        gsap.set(overlay, { display: 'none', yPercent: -100 })
         isTransitioningRef.current = false
       },
     })
@@ -75,7 +75,7 @@ export function PageTransitionProvider({ children }: PageTransitionProviderProps
         gsap.killTweensOf(dimmer)
       }
 
-      gsap.set(overlay, { display: 'block', yPercent: 100 })
+      gsap.set(overlay, { display: 'block', yPercent: -100 })
       if (dimmer) {
         gsap.set(dimmer, { display: 'block', opacity: 0 })
         gsap.to(dimmer, {

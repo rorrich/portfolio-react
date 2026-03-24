@@ -8,8 +8,11 @@
   background-color: var(--background-color);
   z-index: 1000;
   overflow-y: auto;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 .overlay::before {
@@ -73,7 +76,26 @@
   color: inherit;
 }
 
-@media (min-width: 971px) {
+/* Кейсы: мобильное меню как «светлая» шапка (белый фон, чёрный текст) */
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .overlay {
+  background-color: var(--header-scrolled-bg);
+  color: var(--header-scrolled-fg);
+}
+
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .overlay::before {
+  background-color: var(--header-scrolled-bg);
+}
+
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .link {
+  color: var(--header-scrolled-fg);
+}
+
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .contacts {
+  background-color: var(--header-scrolled-fg);
+  color: var(--header-scrolled-bg);
+}
+
+@media (min-width: 970px) {
   .overlay {
     display: none;
   }

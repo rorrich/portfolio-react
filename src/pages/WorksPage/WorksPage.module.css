@@ -118,7 +118,15 @@
   flex-direction: column;
 }
 
-@media (max-width: 970px) {
+.listRow {
+  width: 100%;
+}
+
+.listContainer > .listRow:last-child [data-works-row] {
+  border-bottom: none;
+}
+
+@media (max-width: 969px) {
   .hero {
     padding-top: calc(var(--space-l) + var(--header-height, 100px));
     padding-bottom: var(--space-l);

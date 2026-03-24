@@ -4,7 +4,7 @@
 }
 
 /* На кейс-страницах (body: *-page) текст в футере всегда белый */
-:global(body[class$="-page"]) .footer {
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .footer {
   color: #ffffff;
 }
 
@@ -94,7 +94,7 @@
   align-self: flex-end;
 }
 
-@media (max-width: 970px) {
+@media (max-width: 969px) {
   .cat {
     display: none;
   }
