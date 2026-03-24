@@ -25,7 +25,7 @@ export function Layout() {
       <Header
         isMenuOpen={isMenuOpen}
         onToggleMenu={handleToggleMenu}
-        isTransparentStart={isCasePage}
+        isCasePage={isCasePage}
       />
       <MobileMenu isOpen={isMenuOpen} onClose={handleCloseMenu} />
       <main id="page-content">

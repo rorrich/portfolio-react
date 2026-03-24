@@ -3,7 +3,6 @@ import { projects } from '../../data/projects'
 
 import { CaseHero } from '../../components/CaseComponents/CaseHero'
 import { CaseSection } from '../../components/CaseComponents/CaseSection'
-import { useCaseHeaderColor } from '../../hooks/useCaseHeaderColor'
 import { usePageReady } from '../../hooks/usePageReady'
 
 import '../../styles/case-pages/case-layout.css'
@@ -11,7 +10,6 @@ import '../../styles/case-pages/_case-responsive.css'
 
 export function DrCoffeePage() {
   usePageReady()
-  useCaseHeaderColor()
 
   useEffect(() => {
     document.body.classList.add('dr-coffee-page')

@@ -10,25 +10,6 @@ body[class$="-page"] {
     background-color: #111114; /* Dark background by default */
 }
 
-body[class$="-page"] .header {
-    border-bottom: none;
-}
-
-/* Hide theme toggle on all project pages - everywhere */
-body[class$="-page"] .header__color-changer,
-body[class$="-page"] .menu-overlay .header__color-changer,
-body[class$="-page"] .header .header__color-changer,
-body.roast-page .header__color-changer,
-body.dr-coffee-page .header__color-changer,
-body.cleanner-page .header__color-changer,
-body.roast-page.menu-open .header__color-changer,
-body.dr-coffee-page.menu-open .header__color-changer,
-body.cleanner-page.menu-open .header__color-changer {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-}
 
 /* =========================================
    2. HEADER & FOOTER UNIVERSAL STYLES
@@ -46,39 +27,6 @@ body[class$="-page"] .footer__line hr {
     background-color: #3B3535;
 }
 
-/* Default Header - White (for dark backgrounds) */
-body[class$="-page"] .header__menu .menu-item,
-body[class$="-page"] .header__menu .menu-item span,
-body[class$="-page"] .header__menu .menu-item .element-anim,
-body[class$="-page"] .header__logo svg {
-    color: #ffffff;
-}
-
-body[class$="-page"] .header__menu .menu-item .element-anim svg {
-    fill: currentColor;
-}
-
-/* Бургер белый по умолчанию (для темных фонов) */
-body[class$="-page"] .header__burger img {
-    filter: brightness(0) saturate(100%) invert(100%);
-}
-
-/* Light Header - Black (for light backgrounds) */
-body[class$="-page"] .header.header--light .header__menu .menu-item,
-body[class$="-page"] .header.header--light .header__menu .menu-item span,
-body[class$="-page"] .header.header--light .header__menu .menu-item .element-anim,
-body[class$="-page"] .header.header--light .header__logo svg {
-    color: #000000;
-}
-
-body[class$="-page"] .header.header--light .header__menu .menu-item .element-anim svg {
-    fill: currentColor;
-}
-
-/* Бургер черный для светлого хедера */
-body[class$="-page"] .header.header--light .header__burger img {
-    filter: brightness(0) saturate(100%) invert(0%);
-}
 
 /* =========================================
    3. LAYOUT COMPONENTS

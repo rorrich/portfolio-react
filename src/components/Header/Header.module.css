@@ -15,91 +15,104 @@
   transform: translateY(0);
 }
 
+/* default: обычные страницы, цвет берём из темы приложения */
+.header:not(.casesTransparent):not(.casesFilled) :global(.header__burger img) {
+  filter: brightness(0) saturate(100%) invert(0%);
+}
+
+:global(body[data-theme="dark"]) .header:not(.casesTransparent):not(.casesFilled) :global(.header__burger img) {
+  filter: brightness(0) saturate(100%) invert(92%) sepia(8%) saturate(1017%) hue-rotate(315deg) brightness(95%) contrast(89%);
+}
+
+:global(body[data-theme="blue"]) .header:not(.casesTransparent):not(.casesFilled) :global(.header__burger img) {
+  filter: brightness(0) saturate(100%) invert(20%) sepia(95%) saturate(2000%) hue-rotate(350deg) brightness(90%) contrast(120%);
+}
+
+:global(body[data-theme="green"]) .header:not(.casesTransparent):not(.casesFilled) :global(.header__burger img) {
+  filter: brightness(0) saturate(100%) invert(95%) sepia(8%) saturate(1017%) hue-rotate(315deg) brightness(95%) contrast(89%);
+}
+
+:global(body[data-theme="soft"]) .header:not(.casesTransparent):not(.casesFilled) :global(.header__burger img) {
+  filter: brightness(0) saturate(100%) invert(100%);
+}
+
+/* На case-страницах переключатель темы скрыт во всех состояниях шапки */
+:global(body[class$="-page"]) .header :global(.header__color-changer) {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 /* =========================
    Shared states (mobile too)
    ========================= */
 /* При скролле ниже порога (isScrolled) делаем фон белым */
-.scrolledDesktop {
+.casesFilled {
   background-color: var(--header-scrolled-bg);
   border-bottom: 1px solid var(--header-scrolled-border);
   color: var(--header-scrolled-fg);
 }
 
 /* case-layout.css сбрасывает border у .header на кейсах — возвращаем серую линию в «белой» шапке */
-:global(body[class$="-page"]) :global(.header).scrolledDesktop {
+:global(body[class$="-page"]) :global(.header).casesFilled {
   border-bottom: 1px solid var(--header-scrolled-border) !important;
 }
 
 /* На белом фоне принудительно чёрный текст/иконки поверх кейс-стилей */
-.scrolledDesktop :global(.header__menu .menu-item),
-.scrolledDesktop :global(.header__menu .menu-item span),
-.scrolledDesktop :global(.header__menu .menu-item .element-anim),
-.scrolledDesktop :global(.header__logo svg) {
+.casesFilled :global(.header__menu .menu-item),
+.casesFilled :global(.header__menu .menu-item span),
+.casesFilled :global(.header__menu .menu-item .element-anim),
+.casesFilled :global(.header__logo svg) {
   color: var(--header-scrolled-fg);
 }
 
 /* Бургер-иконки — через фильтр (картинки), чтобы стало чёрным */
-.scrolledDesktop :global(.header__burger img) {
+.casesFilled :global(.header__burger img) {
   filter: brightness(0) saturate(100%) invert(0%);
 }
 
-/* case-layout.css задаёт белый текст в .header__menu на кейсах — при scrolledDesktop шапка
-   всегда «светлая полоса»: чёрный текст, независимо от header--light и секции под шапкой.
-   Важно: .scrolledDesktop на том же элементе, что и .header (не потомок). */
-:global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__menu .menu-item),
-:global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__menu .menu-item span),
-:global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__menu .menu-item .menu-item__number),
-:global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__menu .menu-item .element-anim),
-:global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__logo svg),
-:global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__logo svg use) {
+/* case-layout.css задавал белый текст в .header__menu на кейсах — при cases-filled шапка
+   всегда «светлая полоса»: чёрный текст, независимо от секции под шапкой.
+   Важно: .casesFilled на том же элементе, что и .header (не потомок). */
+:global(body[class$="-page"]) :global(.header).casesFilled :global(.header__menu .menu-item),
+:global(body[class$="-page"]) :global(.header).casesFilled :global(.header__menu .menu-item span),
+:global(body[class$="-page"]) :global(.header).casesFilled :global(.header__menu .menu-item .menu-item__number),
+:global(body[class$="-page"]) :global(.header).casesFilled :global(.header__menu .menu-item .element-anim),
+:global(body[class$="-page"]) :global(.header).casesFilled :global(.header__logo svg),
+:global(body[class$="-page"]) :global(.header).casesFilled :global(.header__logo svg use) {
   color: var(--header-scrolled-fg) !important;
 }
 
-:global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__menu .menu-item .element-anim svg) {
+:global(body[class$="-page"]) :global(.header).casesFilled :global(.header__menu .menu-item .element-anim svg) {
   fill: currentColor !important;
 }
 
-:global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__burger img) {
+:global(body[class$="-page"]) :global(.header).casesFilled :global(.header__burger img) {
   filter: brightness(0) saturate(100%) invert(0%) !important;
 }
 
 /* Для кейсов: в самом начале фон прозрачный */
-.transparentStartDesktop {
+.casesTransparent {
   background-color: transparent;
   border-bottom: none;
   color: inherit;
 }
 
 /* По умолчанию на кейс-страницах (hero тёмный): текст/иконки белые */
-:global(body[class$="-page"]) .transparentStartDesktop :global(.header__menu .menu-item),
-:global(body[class$="-page"]) .transparentStartDesktop :global(.header__menu .menu-item span),
-:global(body[class$="-page"]) .transparentStartDesktop :global(.header__menu .menu-item .element-anim),
-:global(body[class$="-page"]) .transparentStartDesktop :global(.header__logo svg) {
+:global(body[class$="-page"]) .casesTransparent :global(.header__menu .menu-item),
+:global(body[class$="-page"]) .casesTransparent :global(.header__menu .menu-item span),
+:global(body[class$="-page"]) .casesTransparent :global(.header__menu .menu-item .element-anim),
+:global(body[class$="-page"]) .casesTransparent :global(.header__logo svg) {
   color: #ffffff !important;
 }
 
-:global(body[class$="-page"]) .transparentStartDesktop :global(.header__menu .menu-item .element-anim svg) {
+:global(body[class$="-page"]) .casesTransparent :global(.header__menu .menu-item .element-anim svg) {
   fill: currentColor;
 }
 
-:global(body[class$="-page"]) .transparentStartDesktop :global(.header__burger img) {
+:global(body[class$="-page"]) .casesTransparent :global(.header__burger img) {
   filter: brightness(0) saturate(100%) invert(100%) !important;
-}
-
-/* Когда хук навешивает header--light (hero/section светлый): текст/иконки чёрные */
-:global(body[class$="-page"]) .transparentStartDesktop.header--light :global(.header__menu .menu-item),
-:global(body[class$="-page"]) .transparentStartDesktop.header--light :global(.header__menu .menu-item span),
-:global(body[class$="-page"]) .transparentStartDesktop.header--light :global(.header__menu .menu-item .element-anim),
-:global(body[class$="-page"]) .transparentStartDesktop.header--light :global(.header__logo svg) {
-  color: #000000 !important;
-}
-
-:global(body[class$="-page"]) .transparentStartDesktop.header--light :global(.header__menu .menu-item .element-anim svg) {
-  fill: currentColor;
-}
-
-:global(body[class$="-page"]) .transparentStartDesktop.header--light :global(.header__burger img) {
-  filter: brightness(0) saturate(100%) invert(0%) !important;
 }
 
 @media (min-width: 971px) {
@@ -109,44 +122,44 @@
   }
 
   /* При скролле ниже порога (isScrolled) делаем фон белым */
-  .scrolledDesktop {
+  .casesFilled {
     background-color: var(--header-scrolled-bg);
     border-bottom: 1px solid var(--header-scrolled-border);
     color: var(--header-scrolled-fg);
   }
 
   /* На белом фоне принудительно чёрный текст/иконки поверх кейс-стилей */
-  .scrolledDesktop :global(.header__menu .menu-item),
-  .scrolledDesktop :global(.header__menu .menu-item span),
-  .scrolledDesktop :global(.header__menu .menu-item .element-anim),
-  .scrolledDesktop :global(.header__logo svg) {
+  .casesFilled :global(.header__menu .menu-item),
+  .casesFilled :global(.header__menu .menu-item span),
+  .casesFilled :global(.header__menu .menu-item .element-anim),
+  .casesFilled :global(.header__logo svg) {
     color: var(--header-scrolled-fg);
   }
 
   /* Бургер-иконки — через фильтр (картинки), чтобы стало чёрным */
-  .scrolledDesktop :global(.header__burger img) {
+  .casesFilled :global(.header__burger img) {
     filter: brightness(0) saturate(100%) invert(0%);
   }
 
-  :global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__menu .menu-item),
-  :global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__menu .menu-item span),
-  :global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__menu .menu-item .menu-item__number),
-  :global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__menu .menu-item .element-anim),
-  :global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__logo svg),
-  :global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__logo svg use) {
+  :global(body[class$="-page"]) :global(.header).casesFilled :global(.header__menu .menu-item),
+  :global(body[class$="-page"]) :global(.header).casesFilled :global(.header__menu .menu-item span),
+  :global(body[class$="-page"]) :global(.header).casesFilled :global(.header__menu .menu-item .menu-item__number),
+  :global(body[class$="-page"]) :global(.header).casesFilled :global(.header__menu .menu-item .element-anim),
+  :global(body[class$="-page"]) :global(.header).casesFilled :global(.header__logo svg),
+  :global(body[class$="-page"]) :global(.header).casesFilled :global(.header__logo svg use) {
     color: var(--header-scrolled-fg) !important;
   }
 
-  :global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__menu .menu-item .element-anim svg) {
+  :global(body[class$="-page"]) :global(.header).casesFilled :global(.header__menu .menu-item .element-anim svg) {
     fill: currentColor !important;
   }
 
-  :global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__burger img) {
+  :global(body[class$="-page"]) :global(.header).casesFilled :global(.header__burger img) {
     filter: brightness(0) saturate(100%) invert(0%) !important;
   }
 
   /* Для кейсов: в самом начале (scrollY < 50) фон прозрачный */
-  .transparentStartDesktop {
+  .casesTransparent {
     background-color: transparent;
     border-bottom: none;
     color: inherit;
@@ -156,36 +169,21 @@
      Case header colors (transparent state)
      ============================= */
   /* По умолчанию на кейс-страницах (hero тёмный): текст/иконки белые */
-  :global(body[class$="-page"]) .transparentStartDesktop :global(.header__menu .menu-item),
-  :global(body[class$="-page"]) .transparentStartDesktop :global(.header__menu .menu-item span),
-  :global(body[class$="-page"]) .transparentStartDesktop :global(.header__menu .menu-item .element-anim),
-  :global(body[class$="-page"]) .transparentStartDesktop :global(.header__logo svg) {
+  :global(body[class$="-page"]) .casesTransparent :global(.header__menu .menu-item),
+  :global(body[class$="-page"]) .casesTransparent :global(.header__menu .menu-item span),
+  :global(body[class$="-page"]) .casesTransparent :global(.header__menu .menu-item .element-anim),
+  :global(body[class$="-page"]) .casesTransparent :global(.header__logo svg) {
     color: #ffffff !important;
   }
 
-  :global(body[class$="-page"]) .transparentStartDesktop :global(.header__menu .menu-item .element-anim svg) {
+  :global(body[class$="-page"]) .casesTransparent :global(.header__menu .menu-item .element-anim svg) {
     fill: currentColor;
   }
 
-  :global(body[class$="-page"]) .transparentStartDesktop :global(.header__burger img) {
+  :global(body[class$="-page"]) .casesTransparent :global(.header__burger img) {
     filter: brightness(0) saturate(100%) invert(100%) !important;
   }
 
-  /* Когда хук навешивает header--light (hero/section светлый): текст/иконки чёрные */
-  :global(body[class$="-page"]) .transparentStartDesktop.header--light :global(.header__menu .menu-item),
-  :global(body[class$="-page"]) .transparentStartDesktop.header--light :global(.header__menu .menu-item span),
-  :global(body[class$="-page"]) .transparentStartDesktop.header--light :global(.header__menu .menu-item .element-anim),
-  :global(body[class$="-page"]) .transparentStartDesktop.header--light :global(.header__logo svg) {
-    color: #000000 !important;
-  }
-
-  :global(body[class$="-page"]) .transparentStartDesktop.header--light :global(.header__menu .menu-item .element-anim svg) {
-    fill: currentColor;
-  }
-
-  :global(body[class$="-page"]) .transparentStartDesktop.header--light :global(.header__burger img) {
-    filter: brightness(0) saturate(100%) invert(0%) !important;
-  }
 }
 
 .headerContainer {

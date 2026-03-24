@@ -18,13 +18,13 @@ const SCROLL_DOWN_THRESHOLD_PX = 0
 interface HeaderProps {
   isMenuOpen: boolean
   onToggleMenu: () => void
-  isTransparentStart?: boolean
+  isCasePage?: boolean
 }
 
 export default function Header({
   isMenuOpen,
   onToggleMenu,
-  isTransparentStart = false,
+  isCasePage = false,
 }: HeaderProps) {
   const { pathname } = useLocation()
   const { toggleTheme } = useTheme()
@@ -34,7 +34,7 @@ export default function Header({
   const isDesktopRef = useRef(false)
   const scrollRafRef = useRef<number | null>(null)
 
-  const [isScrolled, setIsScrolled] = useState(false)
+  const [caseHeaderMode, setCaseHeaderMode] = useState<'transparent' | 'filled'>('transparent')
   const [isHidden, setIsHidden] = useState(false)
 
   const isAboutActive = pathname.startsWith('/about')
@@ -43,9 +43,9 @@ export default function Header({
   // При входе на case-страницу шапка должна быть видна
   // (в состоянии прозрачности), даже если она была скрыта на предыдущей странице.
   useEffect(() => {
-    if (!isTransparentStart) return
+    if (!isCasePage) return
     setIsHidden(false)
-  }, [isTransparentStart])
+  }, [isCasePage])
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -55,7 +55,7 @@ export default function Header({
     const syncDesktop = () => {
       isDesktopRef.current = mq.matches
       if (!mq.matches) {
-        setIsScrolled(false)
+        setCaseHeaderMode('transparent')
         setIsHidden(false)
         prevScrollYRef.current = window.scrollY
       }
@@ -67,17 +67,18 @@ export default function Header({
 
     const processScroll = () => {
       const y = window.scrollY
-      if (isTransparentStart) {
-        // У верхнего края — стабильный transparent state (общая «мёртвая зона» с useCaseHeaderColor).
+      if (isCasePage) {
+        // cases-transparent: у верхнего края — стабильное прозрачное состояние
+        // (общая «мёртвая зона» для стабильного переключения состояний у верхней границы).
         if (y < CASE_HEADER_TOP_GUARD_PX) {
-          setIsScrolled(false)
+          setCaseHeaderMode('transparent')
           // Не перетираем вычислениями по геометрии — bbox может быть нестабильным на первых px.
         } else {
           const headerEl = headerRef.current
           const caseHeroEl = document.querySelector<HTMLElement>('.case-hero')
           const heroContentEl = document.querySelector<HTMLElement>('.case-hero__content')
 
-          // Прозрачность должна включаться, когда шапка попадает в зону case-hero__content
+            // cases-filled включаем, когда шапка вышла из зоны полного покрытия hero-контентом.
           if (headerEl && (caseHeroEl || heroContentEl)) {
             const headerRect = headerEl.getBoundingClientRect()
 
@@ -85,21 +86,21 @@ export default function Header({
               ? caseHeroEl.getBoundingClientRect()
               : heroContentEl!.getBoundingClientRect()
 
-            // Требование: прозрачность включаем, когда шапка "полностью наехала" на case-hero,
+            // Требование: cases-transparent, когда шапка "полностью наехала" на case-hero,
             // то есть нижняя граница шапки всё ещё находится внутри высоты секции.
             const isHeaderFullyCovered =
               containerRect.top <= headerRect.top && containerRect.bottom >= headerRect.bottom
 
-            setIsScrolled(!isHeaderFullyCovered)
+            setCaseHeaderMode(isHeaderFullyCovered ? 'transparent' : 'filled')
           } else {
             // Fallback, если почему-то не нашли элемент
-            setIsScrolled(y > SCROLLED_Y_PX)
+            setCaseHeaderMode(y > SCROLLED_Y_PX ? 'filled' : 'transparent')
           }
         }
       } else {
-        // На не-case страницах этими классами мы всё равно не пользуемся,
+        // На обычных страницах active состояние — default.
         // но чтобы состояние не влияло — выключаем.
-        setIsScrolled(false)
+        setCaseHeaderMode('transparent')
       }
 
       // Если меню открыто — шапка всегда видима
@@ -116,7 +117,7 @@ export default function Header({
         return
       }
 
-      // На мобилке шапка всегда видима: нам нужен только пересчёт scrolledDesktop для контраста.
+      // На мобилке шапка всегда видима: нам нужен только пересчёт cases-filled для контраста.
       if (!isDesktopRef.current) {
         setIsHidden(false)
         prevScrollYRef.current = y
@@ -158,7 +159,7 @@ export default function Header({
         scrollRafRef.current = null
       }
     }
-  }, [isMenuOpen, isTransparentStart])
+  }, [isMenuOpen, isCasePage])
 
   useEffect(() => {
     const header = headerRef.current
@@ -184,11 +185,12 @@ export default function Header({
   }, [])
 
   // Для страниц кейсов:
-  // - вверху (scrollY < CASE_HEADER_TOP_GUARD_PX) шапка стабильно прозрачная
-  // - ниже — по геометрии hero: белая с чёрным текстом, когда вышли из зоны полного покрытия
-  // Для остальных страниц (home/works/about) шапка всегда с var-цветами и var-бордером.
-  const transparentStart = isTransparentStart && !isScrolled
-  const shouldUseScrolledDesktop = isTransparentStart && isScrolled
+  // states:
+  // - cases-transparent: вверху case-страницы (scrollY < CASE_HEADER_TOP_GUARD_PX)
+  // - cases-filled: ниже, когда вышли из зоны полного покрытия hero
+  // - default: все обычные страницы
+  const isCaseHeaderTransparent = isCasePage && caseHeaderMode === 'transparent'
+  const isCaseHeaderFilled = isCasePage && caseHeaderMode === 'filled'
 
   return (
     <header
@@ -196,8 +198,8 @@ export default function Header({
       className={clsx(
         'header',
         styles.header,
-        transparentStart && styles.transparentStartDesktop,
-          shouldUseScrolledDesktop && styles.scrolledDesktop,
+        isCaseHeaderTransparent && styles.casesTransparent,
+        isCaseHeaderFilled && styles.casesFilled,
         isHidden && styles.hiddenDesktop,
       )}
     >
