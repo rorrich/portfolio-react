@@ -6,8 +6,8 @@ import { CaseSection } from '../../components/CaseComponents/CaseSection'
 import { useCaseHeaderColor } from '../../hooks/useCaseHeaderColor'
 import { usePageReady } from '../../hooks/usePageReady'
 
-import '../../../../portfolio_code/css/case-layout.css'
-import '../../../../portfolio_code/css/_responsive.css'
+import '../../styles/case-pages/case-layout.css'
+import '../../styles/case-pages/_case-responsive.css'
 
 export function CleannerPage() {
   usePageReady()

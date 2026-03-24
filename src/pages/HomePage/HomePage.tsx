@@ -1,6 +1,5 @@
 import { useRef } from 'react'
 import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 
 import { MenuLink } from '../../components/MenuLink/MenuLink'
@@ -11,8 +10,6 @@ import { projects } from '../../data/projects'
 import { usePageReady } from '../../hooks/usePageReady'
 
 import styles from './HomePage.module.css'
-
-gsap.registerPlugin(ScrollTrigger)
 
 export function HomePage() {
   usePageReady()

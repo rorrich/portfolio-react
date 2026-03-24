@@ -7,6 +7,8 @@ import './styles/themes.css'
 import './styles/utilities.css'
 import './index.css'
 
+import './setupGsap'
+
 import App from './App.tsx'
 import { ThemeProvider } from './context/ThemeContext'
 

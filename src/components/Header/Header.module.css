@@ -10,7 +10,8 @@
   width: 100%;
   flex-shrink: 0;
   color: var(--text-color);
-  transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease,
+    color 0.3s ease, border-color 0.4s ease;
   transform: translateY(0);
 }
 
@@ -22,6 +23,11 @@
   background-color: var(--header-scrolled-bg);
   border-bottom: 1px solid var(--header-scrolled-border);
   color: var(--header-scrolled-fg);
+}
+
+/* case-layout.css сбрасывает border у .header на кейсах — возвращаем серую линию в «белой» шапке */
+:global(body[class$="-page"]) :global(.header).scrolledDesktop {
+  border-bottom: 1px solid var(--header-scrolled-border) !important;
 }
 
 /* На белом фоне принудительно чёрный текст/иконки поверх кейс-стилей */
@@ -37,17 +43,23 @@
   filter: brightness(0) saturate(100%) invert(0%);
 }
 
-/* case-layout.css задаёт белый цвет шапке на кейс-страницах (через body[...] .header__menu ...).
-   Эти правила имеют большую специфичность, поэтому здесь даём более сильное перекрытие
-   (с !important), когда scrolledDesktop активирован. */
-:global(body[class$="-page"]) :global(.header) .scrolledDesktop :global(.header__menu .menu-item),
-:global(body[class$="-page"]) :global(.header) .scrolledDesktop :global(.header__menu .menu-item span),
-:global(body[class$="-page"]) :global(.header) .scrolledDesktop :global(.header__menu .menu-item .element-anim),
-:global(body[class$="-page"]) :global(.header) .scrolledDesktop :global(.header__logo svg) {
+/* case-layout.css задаёт белый текст в .header__menu на кейсах — при scrolledDesktop шапка
+   всегда «светлая полоса»: чёрный текст, независимо от header--light и секции под шапкой.
+   Важно: .scrolledDesktop на том же элементе, что и .header (не потомок). */
+:global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__menu .menu-item),
+:global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__menu .menu-item span),
+:global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__menu .menu-item .menu-item__number),
+:global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__menu .menu-item .element-anim),
+:global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__logo svg),
+:global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__logo svg use) {
   color: var(--header-scrolled-fg) !important;
 }
 
-:global(body[class$="-page"]) :global(.header) .scrolledDesktop :global(.header__burger img) {
+:global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__menu .menu-item .element-anim svg) {
+  fill: currentColor !important;
+}
+
+:global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__burger img) {
   filter: brightness(0) saturate(100%) invert(0%) !important;
 }
 
@@ -116,17 +128,20 @@
     filter: brightness(0) saturate(100%) invert(0%);
   }
 
-  /* case-layout.css задаёт белый цвет шапке на кейс-страницах (через body[...] .header__menu ...).
-     Эти правила имеют большую специфичность, поэтому здесь даём более сильное перекрытие
-     (с !important), когда scrolledDesktop активирован. */
-  :global(body[class$="-page"]) :global(.header) .scrolledDesktop :global(.header__menu .menu-item),
-  :global(body[class$="-page"]) :global(.header) .scrolledDesktop :global(.header__menu .menu-item span),
-  :global(body[class$="-page"]) :global(.header) .scrolledDesktop :global(.header__menu .menu-item .element-anim),
-  :global(body[class$="-page"]) :global(.header) .scrolledDesktop :global(.header__logo svg) {
+  :global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__menu .menu-item),
+  :global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__menu .menu-item span),
+  :global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__menu .menu-item .menu-item__number),
+  :global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__menu .menu-item .element-anim),
+  :global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__logo svg),
+  :global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__logo svg use) {
     color: var(--header-scrolled-fg) !important;
   }
 
-  :global(body[class$="-page"]) :global(.header) .scrolledDesktop :global(.header__burger img) {
+  :global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__menu .menu-item .element-anim svg) {
+    fill: currentColor !important;
+  }
+
+  :global(body[class$="-page"]) :global(.header).scrolledDesktop :global(.header__burger img) {
     filter: brightness(0) saturate(100%) invert(0%) !important;
   }
 

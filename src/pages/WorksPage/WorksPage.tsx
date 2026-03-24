@@ -9,8 +9,6 @@ import { usePageReady } from '../../hooks/usePageReady'
 
 import styles from './WorksPage.module.css'
 
-gsap.registerPlugin(useGSAP)
-
 type Filter = 'all' | 'sites' | 'apps'
 
 export function WorksPage() {

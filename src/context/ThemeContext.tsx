@@ -1,4 +1,6 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useLayoutEffect, useMemo, useState } from 'react'
+
+import { isCasePagePath } from '../constants/caseRoutes'
 
 type Theme = 'light' | 'dark' | 'blue' | 'green' | 'soft'
 
@@ -13,12 +15,6 @@ interface ThemeContextValue {
 
 export const ThemeContext = createContext<ThemeContextValue | undefined>(undefined)
 
-function isWorkPagePath(pathname: string): boolean {
-  // Страницы кейсов: тема всегда light
-  const workPaths = ['/works/roast', '/works/dr-coffee', '/works/cleanner']
-  return workPaths.some((base) => pathname.startsWith(base))
-}
-
 function getRouteFromHash(): string {
   // HashRouter: путь лежит в location.hash как "#/roast"
   if (typeof window === 'undefined') return ''
@@ -27,18 +23,20 @@ function getRouteFromHash(): string {
 }
 
 function isWorkPageNow(): boolean {
-  return isWorkPagePath(getRouteFromHash())
+  return isCasePagePath(getRouteFromHash())
 }
 
 function applyTheme(theme: Theme): void {
   if (typeof document === 'undefined') return
 
   const { body } = document
-  if (theme === 'light') {
-    body.removeAttribute('data-theme')
-  } else {
-    body.setAttribute('data-theme', theme)
-  }
+  requestAnimationFrame(() => {
+    if (theme === 'light') {
+      body.removeAttribute('data-theme')
+    } else {
+      body.setAttribute('data-theme', theme)
+    }
+  })
 }
 
 function saveTheme(theme: Theme): void {
@@ -74,14 +72,14 @@ interface ThemeProviderProps {
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const initialIsWorkPage = useMemo(() => {
     const route = getRouteFromHash()
-    return isWorkPagePath(route)
+    return isCasePagePath(route)
   }, [])
 
   const [isWorkPage, setIsWorkPage] = useState<boolean>(initialIsWorkPage)
   const [theme, setTheme] = useState<Theme>(() => loadTheme(initialIsWorkPage))
 
   // Применяем тему к body при монтировании и изменении
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isWorkPage) {
       applyTheme('light')
       return
@@ -122,26 +120,12 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
       return
     }
 
-    if (typeof document === 'undefined') return
-
-    const { body } = document
-    // Отключаем анимации на время смены темы
-    body.classList.add('no-transition')
-
     setTheme((prev) => {
       const currentIndex = THEMES.indexOf(prev)
       const nextIndex = currentIndex >= 0 ? (currentIndex + 1) % THEMES.length : 0
       const nextTheme = THEMES[nextIndex]
 
-      applyTheme(nextTheme)
       saveTheme(nextTheme)
-
-      // Включаем анимации обратно после двух кадров
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          body.classList.remove('no-transition')
-        })
-      })
 
       return nextTheme
     })

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 
+import { isCasePagePath } from '../../constants/caseRoutes'
 import Header from '../Header/Header'
 import { Footer } from '../Footer/Footer'
 import { MobileMenu } from '../MobileMenu/MobileMenu'
@@ -9,10 +10,7 @@ export function Layout() {
   const { pathname } = useLocation()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  const isCasePage =
-    pathname.startsWith('/works/roast') ||
-    pathname.startsWith('/works/dr-coffee') ||
-    pathname.startsWith('/works/cleanner')
+  const isCasePage = isCasePagePath(pathname)
 
   const handleToggleMenu = () => {
     setIsMenuOpen((prev) => !prev)
