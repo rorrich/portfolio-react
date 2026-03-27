@@ -4,6 +4,8 @@
     --text-color: #000000;
     --secondary-text-color: #8F8F8F;
     --outline-color: #CBCBD0;
+    --theme-duration: 0.4s;
+    --theme-ease: ease;
 
     /* Header smart (fixed colors, not theme-dependent) */
     --header-scrolled-bg: #ffffff;
@@ -100,5 +102,13 @@ body[data-theme="blue"] {
     --text-color: #E2281E;
     --secondary-text-color: #C9584D;
     --outline-color: #273A62;
+}
+
+/* Статичная тема для case-страниц (не участвует в цикле переключения) */
+body[data-theme="static"] {
+    --background-color: #FFFFFF;
+    --text-color: #000000;
+    --secondary-text-color: #8F8F8F;
+    --outline-color: #CBCBD0;
 }
 

@@ -43,8 +43,8 @@ body {
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
     transition:
-        background-color 0.4s ease,
-        color 0.4s ease;
+        background-color var(--theme-duration) var(--theme-ease),
+        color var(--theme-duration) var(--theme-ease);
 }
 
 /* Скрываем скроллбар для WebKit браузеров (Chrome, Safari) */
@@ -82,5 +82,5 @@ a {
 }
 
 svg use {
-    transition: fill 0.4s ease;
+    transition: fill var(--theme-duration) var(--theme-ease);
 }

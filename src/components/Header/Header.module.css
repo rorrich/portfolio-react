@@ -10,9 +10,15 @@
   width: 100%;
   flex-shrink: 0;
   color: var(--text-color);
-  transition: background-color 0.4s ease, transform 0.4s ease,
-    color 0.4s ease, border-color 0.4s ease;
+  transition:
+    background-color var(--theme-duration) var(--theme-ease),
+    transform var(--theme-duration) var(--theme-ease),
+    color var(--theme-duration) var(--theme-ease),
+    border-color var(--theme-duration) var(--theme-ease);
   transform: translateY(0);
+  --app-link-color: currentColor;
+  --app-link-icon-color: currentColor;
+  --app-link-counter-color: currentColor;
 }
 
 /* Кейсы: плавная смена transparent ↔ filled (скролл и моб. меню) */
@@ -24,7 +30,7 @@
 /* Бургер (полоски) наследует color с .header / темы — отдельные фильтры для img не нужны */
 
 /* На case-страницах переключатель темы скрыт во всех состояниях шапки */
-:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .header :global(.header__color-changer) {
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .header .colorChanger {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
@@ -34,35 +40,22 @@
 /* =========================
    Shared states (mobile too)
    ========================= */
-/* При скролле ниже порога (isScrolled) делаем фон белым */
+/* При скролле ниже порога (isScrolled) берём цвета из текущей темы */
 .casesFilled {
-  background-color: var(--header-scrolled-bg);
-  border-bottom: 1px solid var(--header-scrolled-border);
-  color: var(--header-scrolled-fg);
+  background-color: var(--background-color);
+  border-bottom: 1px solid var(--outline-color);
+  color: var(--text-color);
+  --app-link-color: var(--text-color);
+  --app-link-icon-color: var(--text-color);
+  --app-link-counter-color: var(--text-color);
 }
 
-/* На белом фоне принудительно чёрный текст/иконки поверх кейс-стилей */
-.casesFilled :global(.header__menu .menu-item),
-.casesFilled :global(.header__menu .menu-item span),
-.casesFilled :global(.header__menu .menu-item .element-anim),
-.casesFilled :global(.header__logo svg) {
-  color: var(--header-scrolled-fg);
-}
-
-/* case-layout.css задавал белый текст в .header__menu на кейсах — при cases-filled шапка
+/* case-layout.css задавал белый текст в меню на кейсах — при cases-filled шапка
    всегда «светлая полоса»: чёрный текст, независимо от секции под шапкой.
    Важно: .casesFilled на том же элементе, что и .header (не потомок). */
-:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__menu .menu-item),
-:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__menu .menu-item span),
-:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__menu .menu-item .menu-item__number),
-:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__menu .menu-item .element-anim),
-:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__logo svg),
-:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__logo svg use) {
-  color: var(--header-scrolled-fg) !important;
-}
-
-:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__menu .menu-item .element-anim svg) {
-  fill: currentColor !important;
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .header.casesFilled .logoSvg,
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .header.casesFilled .logoSvg use {
+  color: var(--text-color) !important;
 }
 
 /* Для кейсов: в самом начале фон прозрачный */
@@ -73,16 +66,15 @@
 }
 
 /* По умолчанию на кейс-страницах (hero тёмный): текст/иконки белые */
-:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent :global(.header__menu .menu-item),
-:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent :global(.header__menu .menu-item span),
-:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent :global(.header__menu .menu-item .element-anim),
-:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent :global(.header__logo svg),
-:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent :global(.header__burger) {
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent,
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent .logoSvg,
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent .burger {
   color: #ffffff !important;
 }
-
-:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent :global(.header__menu .menu-item .element-anim svg) {
-  fill: currentColor;
+:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent {
+  --app-link-color: #ffffff;
+  --app-link-icon-color: #ffffff;
+  --app-link-counter-color: #ffffff;
 }
 
 /* Десктоп от 970px; мобилка max 969px — число в constants/layout.ts (LAYOUT_DESKTOP_MIN_PX) */
@@ -92,32 +84,19 @@
     transform: translateY(-100%);
   }
 
-  /* При скролле ниже порога (isScrolled) делаем фон белым */
+  /* При скролле ниже порога (isScrolled) берём цвета из текущей темы */
   .casesFilled {
-    background-color: var(--header-scrolled-bg);
-    border-bottom: 1px solid var(--header-scrolled-border);
-    color: var(--header-scrolled-fg);
+    background-color: var(--background-color);
+    border-bottom: 1px solid var(--outline-color);
+    color: var(--text-color);
+    --app-link-color: var(--text-color);
+    --app-link-icon-color: var(--text-color);
+    --app-link-counter-color: var(--text-color);
   }
 
-  /* На белом фоне принудительно чёрный текст/иконки поверх кейс-стилей */
-  .casesFilled :global(.header__menu .menu-item),
-  .casesFilled :global(.header__menu .menu-item span),
-  .casesFilled :global(.header__menu .menu-item .element-anim),
-  .casesFilled :global(.header__logo svg) {
-    color: var(--header-scrolled-fg);
-  }
-
-  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__menu .menu-item),
-  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__menu .menu-item span),
-  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__menu .menu-item .menu-item__number),
-  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__menu .menu-item .element-anim),
-  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__logo svg),
-  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__logo svg use) {
-    color: var(--header-scrolled-fg) !important;
-  }
-
-  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) :global(.header).casesFilled :global(.header__menu .menu-item .element-anim svg) {
-    fill: currentColor !important;
+  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .header.casesFilled .logoSvg,
+  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .header.casesFilled .logoSvg use {
+    color: var(--text-color) !important;
   }
 
   /* Для кейсов: прозрачный фон в состоянии .casesTransparent (логика в useHeaderScrollBehavior) */
@@ -131,16 +110,15 @@
      Case header colors (transparent state)
      ============================= */
   /* По умолчанию на кейс-страницах (hero тёмный): текст/иконки белые */
-  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent :global(.header__menu .menu-item),
-  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent :global(.header__menu .menu-item span),
-  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent :global(.header__menu .menu-item .element-anim),
-  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent :global(.header__logo svg),
-  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent :global(.header__burger) {
+  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent,
+  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent .logoSvg,
+  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent .burger {
     color: #ffffff !important;
   }
-
-  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent :global(.header__menu .menu-item .element-anim svg) {
-    fill: currentColor;
+  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent {
+    --app-link-color: #ffffff;
+    --app-link-icon-color: #ffffff;
+    --app-link-counter-color: #ffffff;
   }
 
 }

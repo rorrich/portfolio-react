@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
 
-import { MenuLink } from '../../components/MenuLink/MenuLink'
+import { AppLink } from '../../components/AppLink/AppLink'
 import { usePageReady } from '../../hooks/usePageReady'
 
 import styles from './AboutPage.module.css'
@@ -174,12 +174,12 @@ export function AboutPage() {
                 <p className={styles['about-me__info-text']}>
                   закончила курсы на UX/UI дизайнера от онлайн-школы TeachMeSkills
                 </p>
-                <MenuLink
+                <AppLink
                   href="/documents/certificate.pdf"
                   className={styles['about-me__info-link']}
                 >
                   сертификат
-                </MenuLink>
+                </AppLink>
               </div>
             </div>
 

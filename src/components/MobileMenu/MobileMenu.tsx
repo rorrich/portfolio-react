@@ -2,6 +2,8 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { gsap } from 'gsap'
 
+import { MAIN_APP_NAV_ITEMS, isRouteActiveByMatch } from '../../navigation/mainNav'
+import { ArrowItem } from '../ArrowElement/ArrowItem'
 import { TransitionLink } from '../TransitionLink/TransitionLink'
 import styles from './MobileMenu.module.css'
 
@@ -18,17 +20,14 @@ function normalizePath(to: string) {
   return to.startsWith('/') ? to : `/${to}`
 }
 
-function isWorksRoute(path: string) {
-  return path === '/works' || path.startsWith('/works/')
-}
+const PRIMARY_NAV_COUNT = MAIN_APP_NAV_ITEMS.length
 
 /** Целевая opacity пункта после открытия (GSAP перебивает CSS — задаём здесь). */
 function navLinkOpacity(index: number, path: string): number {
-  if (index >= 3) return 1
-  if (index === 0) return path === '/' ? 0.4 : 1
-  if (index === 1) return path === '/about' ? 0.4 : 1
-  if (index === 2) return isWorksRoute(path) ? 0.4 : 1
-  return 1
+  if (index >= PRIMARY_NAV_COUNT) return 1
+  const item = MAIN_APP_NAV_ITEMS[index]
+  if (!item) return 1
+  return isRouteActiveByMatch(path, item) ? 0.4 : 1
 }
 
 export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
@@ -144,10 +143,6 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
   if (status === 'closed') return null
 
-  const isHomeActive = pathname === '/'
-  const isAboutActive = pathname === '/about'
-  const isWorksActive = isWorksRoute(pathname)
-
   return (
     <div
       ref={overlayRef}
@@ -158,44 +153,26 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
     >
       <div className={styles.wrapper}>
         <nav className={styles.links} aria-label="Навигация">
-          <TransitionLink
-            ref={(el) => {
-              linkRefs.current[0] = el
-            }}
-            to="/"
-            className={styles.link}
-            aria-current={isHomeActive ? 'page' : undefined}
-            onClick={() => closeIfAlreadyOnPage('/')}
-          >
-            главная
-          </TransitionLink>
-          <TransitionLink
-            ref={(el) => {
-              linkRefs.current[1] = el
-            }}
-            to="/about"
-            className={styles.link}
-            aria-current={isAboutActive ? 'page' : undefined}
-            onClick={() => closeIfAlreadyOnPage('/about')}
-          >
-            who я
-          </TransitionLink>
-          <TransitionLink
-            ref={(el) => {
-              linkRefs.current[2] = el
-            }}
-            to="/works"
-            className={styles.link}
-            aria-current={isWorksActive ? 'page' : undefined}
-            onClick={() => closeIfAlreadyOnPage('/works')}
-          >
-            работы<span className={styles.number}>[3]</span>
-          </TransitionLink>
+          {MAIN_APP_NAV_ITEMS.map((item, index) => (
+            <TransitionLink
+              key={item.id}
+              ref={(el) => {
+                linkRefs.current[index] = el
+              }}
+              to={item.to}
+              className={styles.link}
+              aria-current={isRouteActiveByMatch(pathname, item) ? 'page' : undefined}
+              onClick={() => closeIfAlreadyOnPage(item.to)}
+            >
+              {item.label}
+              {item.counter ? <span className={styles.number}>{item.counter}</span> : null}
+            </TransitionLink>
+          ))}
         </nav>
         <div className={styles.contacts}>
           <a
             ref={(el) => {
-              linkRefs.current[3] = el
+              linkRefs.current[PRIMARY_NAV_COUNT] = el
             }}
             href={TELEGRAM_URL}
             target="_blank"
@@ -205,7 +182,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               onClose()
             }}
           >
-            telegram
+            <ArrowItem className={styles.contactItem}>telegram</ArrowItem>
           </a>
         </div>
       </div>

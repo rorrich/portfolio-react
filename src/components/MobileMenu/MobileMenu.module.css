@@ -69,10 +69,11 @@
 }
 
 .contact {
-  font-size: var(--body-s-size);
-  line-height: 22px;
-  font-weight: var(--body-s-font-weight);
   text-decoration: none;
+  color: inherit;
+}
+
+.contactItem {
   color: inherit;
 }
 

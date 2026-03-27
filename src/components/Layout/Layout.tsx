@@ -11,9 +11,10 @@ import { MobileMenu } from '../MobileMenu/MobileMenu'
  *
  * Контракт шапки и мобильного меню:
  * - `isMenuOpen` живёт здесь: один источник правды для Header (бургер) и MobileMenu (оверлей).
- * - Header не управляет маршрутом; активные пункты в шапке читает из `useLocation` сам.
+ * - Активные разделы навигации: конфиг `src/navigation/mainNav.ts` и `useLocation` в хуке/меню.
  * - `isCasePage` вычисляется из pathname и передаётся только в Header — для прозрачной/светлой
  *   логики кейсов и скрытия переключателя темы. MobileMenu о кейсах не знает (стили через body).
+ * - `canChangeTheme` также вычисляется тут: на кейс-страницах переключатель темы отключён.
  * - Закрытие меню при навигации: MobileMenu вызывает `onClose` при смене pathname; `handleCloseMenu`
  *   синхронизирует состояние с шапкой.
  */
@@ -22,6 +23,7 @@ export function Layout() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const isCasePage = isCasePagePath(pathname)
+  const canChangeTheme = !isCasePage
 
   const handleToggleMenu = () => {
     setIsMenuOpen((prev) => !prev)
@@ -37,6 +39,7 @@ export function Layout() {
         isMenuOpen={isMenuOpen}
         onToggleMenu={handleToggleMenu}
         isCasePage={isCasePage}
+        canChangeTheme={canChangeTheme}
       />
       <MobileMenu isOpen={isMenuOpen} onClose={handleCloseMenu} />
       <main id="page-content">

@@ -150,6 +150,10 @@
   gap: var(--space-3xs);
 }
 
+.contactItem {
+  color: inherit;
+}
+
 /* ========== Skills Animation (.skills-animation) ========== */
 .skillsAnimation {
   padding: var(--space-2xl) 0;

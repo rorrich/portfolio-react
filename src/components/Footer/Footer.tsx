@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 
-import { MenuLink } from '../MenuLink/MenuLink'
+import { ArrowItem } from '../ArrowElement/ArrowItem'
+import { AppLink } from '../AppLink/AppLink'
 
 import styles from './Footer.module.css'
 
@@ -67,9 +68,9 @@ export function Footer() {
       <div className={`container ${styles.container}`}>
         <div className={styles.info}>
           <div className={styles.contacts}>
-            <MenuLink href="https://t.me/rorrich" className="menu-item--wide">
-              telegram
-            </MenuLink>
+            <AppLink href="https://t.me/rorrich">
+              <ArrowItem className={styles.contactItem}>telegram</ArrowItem>
+            </AppLink>
           </div>
           <p className={styles.copyright}>
             ©{year}&nbsp;rorrich

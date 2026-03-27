@@ -1,10 +1,11 @@
 import { useEffect, useRef } from 'react'
-import { useLocation } from 'react-router-dom'
 import clsx from 'clsx'
 
 import { useHeaderScrollBehavior } from '../../hooks/useHeaderScrollBehavior'
+import { useMainNavHeaderItems } from '../../hooks/useMainNavHeader'
 import { useTheme } from '../../hooks/useTheme'
-import { MenuLink } from '../MenuLink/MenuLink'
+import { ArrowItem } from '../ArrowElement/ArrowItem'
+import { AppLink } from '../AppLink/AppLink'
 import { TransitionLink } from '../TransitionLink/TransitionLink'
 import { resolveCaseHeaderSurface } from './headerSurface'
 
@@ -14,14 +15,16 @@ interface HeaderProps {
   isMenuOpen: boolean
   onToggleMenu: () => void
   isCasePage?: boolean
+  canChangeTheme?: boolean
 }
 
 export default function Header({
   isMenuOpen,
   onToggleMenu,
   isCasePage = false,
+  canChangeTheme = true,
 }: HeaderProps) {
-  const { pathname } = useLocation()
+  const mainNavItems = useMainNavHeaderItems()
   const { toggleTheme } = useTheme()
 
   const headerRef = useRef<HTMLElement | null>(null)
@@ -31,9 +34,6 @@ export default function Header({
     isMenuOpen,
     headerRef,
   })
-
-  const isAboutActive = pathname.startsWith('/about')
-  const isWorksActive = pathname.startsWith('/works')
 
   const surface = resolveCaseHeaderSurface(isCasePage, caseHeaderMode, isMenuOpen)
 
@@ -64,15 +64,14 @@ export default function Header({
     <header
       ref={headerRef}
       className={clsx(
-        'header',
         styles.header,
         surface === 'caseTransparent' && styles.casesTransparent,
         surface === 'caseFilled' && styles.casesFilled,
         isHidden && styles.hiddenDesktop,
       )}
     >
-      <div className={`header__container ${styles.headerContainer}`}>
-        <div className={`header__logo ${styles.logo}`}>
+      <div className={styles.headerContainer}>
+        <div className={styles.logo}>
           <TransitionLink to="/" className={styles.logoLink} aria-label="На главную">
             <svg
               className={styles.logoSvg}
@@ -86,10 +85,10 @@ export default function Header({
           </TransitionLink>
         </div>
 
-        {!isCasePage ? (
+        {canChangeTheme ? (
           <button
             type="button"
-            className={`header__color-changer ${styles.colorChanger}`}
+            className={styles.colorChanger}
             aria-label="Сменить цветовую тему"
             onClick={toggleTheme}
           >
@@ -99,7 +98,7 @@ export default function Header({
 
         <button
           type="button"
-          className={`header__burger ${styles.burger} ${isMenuOpen ? styles.burgerActive : ''}`}
+          className={clsx(styles.burger, isMenuOpen && styles.burgerActive)}
           aria-expanded={isMenuOpen}
           aria-label={isMenuOpen ? 'Закрыть меню' : 'Открыть меню'}
           onClick={onToggleMenu}
@@ -110,20 +109,18 @@ export default function Header({
           </span>
         </button>
 
-        <nav className={`header__menu ${styles.nav}`} aria-label="Главная навигация">
-          <MenuLink
-            to="/about"
-            className={isAboutActive ? 'menu-item--active' : undefined}
-          >
-            who я
-          </MenuLink>
-          <MenuLink
-            to="/works"
-            className={isWorksActive ? 'menu-item--active' : undefined}
-            counter="[3]"
-          >
-            работы
-          </MenuLink>
+        <nav className={styles.nav} aria-label="Главная навигация">
+          {mainNavItems.map((item) => (
+            <AppLink
+              key={item.id}
+              to={item.to}
+              aria-current={item.isCurrent ? 'page' : undefined}
+            >
+              <ArrowItem counter={item.counter} variant={item.isCurrent ? 'current' : 'default'}>
+                {item.label}
+              </ArrowItem>
+            </AppLink>
+          ))}
         </nav>
       </div>
     </header>

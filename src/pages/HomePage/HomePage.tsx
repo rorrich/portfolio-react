@@ -2,12 +2,14 @@ import { useRef } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
 
-import { MenuLink } from '../../components/MenuLink/MenuLink'
+import { AppLink } from '../../components/AppLink/AppLink'
 import { SkillsMarquee } from '../../components/SkillsMarquee/SkillsMarquee'
 import { Typewriter } from '../../components/Typewriter/Typewriter'
 import { CaseCard } from '../../components/CaseCard/CaseCard'
 import { projects } from '../../data/projects'
 import { usePageReady } from '../../hooks/usePageReady'
+import { ArrowIcon } from '../../components/ArrowElement/ArrowIcon'
+import { ArrowItem } from '../../components/ArrowElement/ArrowItem'
 
 import styles from './HomePage.module.css'
 
@@ -113,17 +115,7 @@ export function HomePage() {
               <div className={styles.heroTypingWrapper}>
                 <div className={styles.heroArrowWrapper}>
                   <div className={styles.heroArrow}>
-                    <svg
-                      width="57"
-                      height="42"
-                      viewBox="0 0 13 10"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      aria-hidden="true"
-                      focusable="false"
-                    >
-                      <use href="/images/sprite.svg#icon-arrow-right" />
-                    </svg>
+                    <ArrowIcon type="right" />
                   </div>
                 </div>
                 <Typewriter
@@ -147,7 +139,9 @@ export function HomePage() {
 
           <div className={styles.heroBottom}>
             <div className={styles.contacts}>
-              <MenuLink href="https://t.me/rorrich">telegram</MenuLink>
+              <AppLink href="https://t.me/rorrich">
+                <ArrowItem className={styles.contactItem}>telegram</ArrowItem>
+              </AppLink>
             </div>
             <div className={styles.heroDescription}>
               <p className={styles.aboutText}>

@@ -2,9 +2,10 @@ import { createContext, useCallback, useContext, useEffect, useLayoutEffect, use
 
 import { isCasePagePath } from '../constants/caseRoutes'
 
-type Theme = 'light' | 'dark' | 'blue' | 'green' | 'soft'
+type UserTheme = 'light' | 'dark' | 'blue' | 'green' | 'soft'
+type Theme = UserTheme | 'static'
 
-const THEMES: Theme[] = ['light', 'dark', 'blue', 'green', 'soft']
+const USER_THEMES: UserTheme[] = ['light', 'dark', 'blue', 'green', 'soft']
 const THEME_STORAGE_KEY = 'portfolio-theme'
 
 interface ThemeContextValue {
@@ -39,7 +40,7 @@ function applyTheme(theme: Theme): void {
   })
 }
 
-function saveTheme(theme: Theme): void {
+function saveTheme(theme: UserTheme): void {
   if (typeof window === 'undefined') return
 
   try {
@@ -49,14 +50,14 @@ function saveTheme(theme: Theme): void {
   }
 }
 
-function loadTheme(isWorkPage: boolean): Theme {
+function loadTheme(isWorkPage: boolean): UserTheme {
   if (isWorkPage || typeof window === 'undefined') {
     return 'light'
   }
 
   try {
-    const saved = window.sessionStorage.getItem(THEME_STORAGE_KEY) as Theme | null
-    if (saved && THEMES.includes(saved)) {
+    const saved = window.sessionStorage.getItem(THEME_STORAGE_KEY) as UserTheme | null
+    if (saved && USER_THEMES.includes(saved)) {
       return saved
     }
   } catch {
@@ -76,18 +77,18 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   }, [])
 
   const [isWorkPage, setIsWorkPage] = useState<boolean>(initialIsWorkPage)
-  const [theme, setTheme] = useState<Theme>(() => loadTheme(initialIsWorkPage))
+  const [theme, setTheme] = useState<UserTheme>(() => loadTheme(initialIsWorkPage))
 
   // Применяем тему к body при монтировании и изменении
   useLayoutEffect(() => {
     if (isWorkPage) {
-      applyTheme('light')
+      applyTheme('static')
       return
     }
     applyTheme(theme)
   }, [theme, isWorkPage])
 
-  // Обновляем isWorkPage при смене hash-роута, чтобы кейсы всегда получали light-тему,
+  // Обновляем isWorkPage при смене hash-роута, чтобы кейсы всегда получали static-тему,
   // независимо от того, какая тема была выбрана на главной/работах ранее.
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -121,9 +122,9 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     }
 
     setTheme((prev) => {
-      const currentIndex = THEMES.indexOf(prev)
-      const nextIndex = currentIndex >= 0 ? (currentIndex + 1) % THEMES.length : 0
-      const nextTheme = THEMES[nextIndex]
+      const currentIndex = USER_THEMES.indexOf(prev)
+      const nextIndex = currentIndex >= 0 ? (currentIndex + 1) % USER_THEMES.length : 0
+      const nextTheme = USER_THEMES[nextIndex]
 
       saveTheme(nextTheme)
 

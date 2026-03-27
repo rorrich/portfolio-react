@@ -39,8 +39,8 @@ body.menu-open {
 
 /* Временное отключение transition для синхронизации состояния */
 /* Повышаем специфичность для переопределения transition */
-.menu-item .element-anim.no-transition-temp,
-.footer__contacts .menu-item .element-anim.no-transition-temp {
+[data-app-link] [data-app-link-icon].no-transition-temp,
+.footer__contacts [data-app-link] [data-app-link-icon].no-transition-temp {
     transition: none;
 }
 
