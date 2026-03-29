@@ -293,6 +293,7 @@ a.case-meta__value span {
 
 /* =========================================
    8. CASE OVERVIEW (Intro Section) -> Now just .case-section
+   (адаптив hero: мета скрыта на мобилке — см. @media ниже)
    ========================================= */
 
 .case-meta-item {

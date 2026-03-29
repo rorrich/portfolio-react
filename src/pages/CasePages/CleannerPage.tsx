@@ -5,8 +5,7 @@ import { CaseHero } from '../../components/CaseComponents/CaseHero'
 import { CaseSection } from '../../components/CaseComponents/CaseSection'
 import { usePageReady } from '../../hooks/usePageReady'
 
-import '../../styles/case-pages/case-layout.css'
-import '../../styles/case-pages/_case-responsive.css'
+import './case-layout.css'
 
 export function CleannerPage() {
   usePageReady()

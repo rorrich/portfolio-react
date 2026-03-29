@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client'
 
 import './styles/variables.css'
 import './styles/base.css'
-import './styles/themes.css'
 import './styles/utilities.css'
 import './index.css'
 

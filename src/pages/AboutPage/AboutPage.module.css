@@ -87,6 +87,7 @@
   flex-direction: column;
   gap: var(--space-l);
   max-width: none;
+  align-self: end;
 }
 
 .about-me__info-block {

@@ -13,6 +13,9 @@
   flex-direction: column;
   will-change: transform;
   backface-visibility: hidden;
+  transition:
+    background-color var(--theme-duration) var(--theme-ease),
+    color var(--theme-duration) var(--theme-ease);
 }
 
 .overlay::before {
@@ -25,6 +28,7 @@
   background-color: var(--background-color);
   z-index: 999;
   transform-origin: bottom;
+  transition: background-color var(--theme-duration) var(--theme-ease);
 }
 
 .wrapper {
@@ -51,6 +55,7 @@
   font-weight: var(--heading-h2-font-weight);
   text-decoration: none;
   color: var(--text-color);
+  transition: color var(--theme-duration) var(--theme-ease);
 }
 
 .number {
@@ -66,11 +71,15 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-3xs);
+  transition:
+    background-color var(--theme-duration) var(--theme-ease),
+    color var(--theme-duration) var(--theme-ease);
 }
 
 .contact {
   text-decoration: none;
   color: inherit;
+  transition: color var(--theme-duration) var(--theme-ease);
 }
 
 .contactItem {
@@ -79,21 +88,21 @@
 
 /* Кейсы: мобильное меню как «светлая» шапка (белый фон, чёрный текст) */
 :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .overlay {
-  background-color: var(--header-scrolled-bg);
-  color: var(--header-scrolled-fg);
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .overlay::before {
-  background-color: var(--header-scrolled-bg);
+  background-color: var(--background-color);
 }
 
 :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .link {
-  color: var(--header-scrolled-fg);
+  color: var(--text-color);
 }
 
 :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .contacts {
-  background-color: var(--header-scrolled-fg);
-  color: var(--header-scrolled-bg);
+  background-color: var(--text-color);
+  color: var(--background-color);
 }
 
 @media (min-width: 970px) {

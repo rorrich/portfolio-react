@@ -1,17 +1,17 @@
 /* Design tokens and theme variables */
 :root {
+    /* Обычная тема */
     --background-color: #F5F1F0;
     --text-color: #000000;
     --secondary-text-color: #8F8F8F;
     --outline-color: #CBCBD0;
+
+    /* animation duration */
+    --theme-duration-fast: 0.2s;
     --theme-duration: 0.4s;
+    --theme-duration-slow: 0.6s;
     --theme-ease: ease;
 
-    /* Header smart (fixed colors, not theme-dependent) */
-    --header-scrolled-bg: #ffffff;
-    --header-scrolled-fg: #000000;
-    --header-scrolled-border: #CBCBD0;
-    
     /* Typography Tokens in REM for 4K scaling support */
     /* H1: 60px -> 320px */
     --heading-h1-size: clamp(3.75rem, 16.6vw, 20rem);

@@ -174,7 +174,10 @@
   height: 72px;
   opacity: 0;
   transform: translateX(-72px);
-  transition: all 0.4s cubic-bezier(0.2, 0, 0.37, 1);
+  transition:
+    opacity var(--theme-duration) cubic-bezier(0.2, 0, 0.37, 1),
+    transform var(--theme-duration) cubic-bezier(0.2, 0, 0.37, 1),
+    color var(--theme-duration) var(--theme-ease);
   color: var(--text-color);
 }
 

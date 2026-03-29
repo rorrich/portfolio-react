@@ -24,9 +24,9 @@ export function ArrowItem({
   return (
     <span
       className={clsx(
-        styles.item,
-        variant === 'current' && styles.itemCurrent,
-        variant === 'emphasized' && styles.itemEmphasized,
+        styles.arrowItem,
+        variant === 'current' && styles.arrowItemCurrent,
+        variant === 'emphasized' && styles.arrowItemEmphasized,
         className,
       )}
       data-app-link="true"
