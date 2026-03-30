@@ -12,19 +12,19 @@
   flex-shrink: 0;
   transform: translateY(0);
   transition:
-    background-color var(--theme-duration) var(--theme-ease),
-    transform var(--theme-duration) var(--theme-ease),
-    color var(--theme-duration) var(--theme-ease),
-    border-color var(--theme-duration) var(--theme-ease);
+    background-color var(--animation-duration) var(--animation-ease),
+    transform var(--animation-duration) var(--animation-ease),
+    color var(--animation-duration) var(--animation-ease),
+    border-color var(--animation-duration) var(--animation-ease);
 }
 
 /* Кейсы: плавная смена transparent ↔ filled (скролл и моб. меню) */
 :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .header {
   transition:
-    background-color var(--theme-duration-fast) var(--theme-ease),
-    transform var(--theme-duration-fast) var(--theme-ease),
-    color var(--theme-duration-fast) var(--theme-ease),
-    border-color var(--theme-duration-fast) var(--theme-ease);
+    background-color var(--animation-duration-fast) var(--animation-ease),
+    transform var(--animation-duration-fast) var(--animation-ease),
+    color var(--animation-duration-fast) var(--animation-ease),
+    border-color var(--animation-duration-fast) var(--animation-ease);
 }
 
 /* Бургер (полоски) наследует color с .header / темы — отдельные фильтры для img не нужны */
@@ -46,10 +46,10 @@
   border-bottom: 1px solid var(--outline-color);
   color: var(--text-color);
   transition:
-  background-color var(--theme-duration) var(--theme-ease),
-  transform var(--theme-duration) var(--theme-ease),
-  color var(--theme-duration) var(--theme-ease),
-  border-color var(--theme-duration) var(--theme-ease);
+  background-color var(--animation-duration) var(--animation-ease),
+  transform var(--animation-duration) var(--animation-ease),
+  color var(--animation-duration) var(--animation-ease),
+  border-color var(--animation-duration) var(--animation-ease);
 }
 
 /* pages/CasePages/case-layout.css: белый текст в меню на кейсах — при cases-filled шапка
@@ -66,10 +66,10 @@
   border-bottom: none;
   color: inherit;
   transition:
-  background-color var(--theme-duration) var(--theme-ease),
-  transform var(--theme-duration) var(--theme-ease),
-  color var(--theme-duration) var(--theme-ease),
-  border-color var(--theme-duration) var(--theme-ease);
+  background-color var(--animation-duration) var(--animation-ease),
+  transform var(--animation-duration) var(--animation-ease),
+  color var(--animation-duration) var(--animation-ease),
+  border-color var(--animation-duration) var(--animation-ease);
 }
 
 /* По умолчанию на кейс-страницах (hero тёмный): текст/иконки белые */
@@ -163,13 +163,12 @@
   height: 1.875em;
   font-size: var(--body-s-size);
   font-family: inherit;
-  letter-spacing: 0.02em;
   cursor: pointer;
   transition:
-    background-color var(--theme-duration) var(--theme-ease),
-    color var(--theme-duration) var(--theme-ease),
-    border-color var(--theme-duration) var(--theme-ease),
-    font-size var(--theme-duration) var(--theme-ease);
+    background-color var(--animation-duration) var(--animation-ease),
+    color var(--animation-duration) var(--animation-ease),
+    border-color var(--animation-duration) var(--animation-ease),
+    font-size var(--animation-duration) var(--animation-ease);
   text-align: center;
   font-weight: var(--body-s-font-weight);
   display: flex;

@@ -3,6 +3,7 @@ import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
 
 import { AppLink } from '../../components/AppLink/AppLink'
+import { ArrowItem } from '../../components/ArrowElement/ArrowItem'
 import { usePageReady } from '../../hooks/usePageReady'
 
 import styles from './AboutPage.module.css'
@@ -150,22 +151,12 @@ export function AboutPage() {
           <div className={styles.aboutMeInfoGrid}>
             <div ref={infoBlocksRef} className={styles['about-me__info-blocks']}>
               <div className={styles['about-me__info-block']}>
-                <div className={styles['about-me__info-label']}>
-                  <div className={styles['decor-element']}>
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 12 12"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      aria-hidden="true"
-                      focusable="false"
-                    >
-                      <use href="/images/sprite.svg#icon-arrow-up" />
-                    </svg>
-                  </div>
-                  <span>настоящее время</span>
-                </div>
+                <ArrowItem
+                  variant="static"
+                  className={styles['about-me__info-heading']}
+                >
+                  настоящее время
+                </ArrowItem>
                 <p className={styles['about-me__info-text']}>работаю над коммерческими проектами</p>
               </div>
 
@@ -178,28 +169,15 @@ export function AboutPage() {
                   href="/documents/certificate.pdf"
                   className={styles['about-me__info-link']}
                 >
-                  сертификат
+                  <ArrowItem>сертификат</ArrowItem>
                 </AppLink>
               </div>
             </div>
 
             <div ref={imageWrapRef} className={styles['about-me__image-block']}>
-              <div className={styles['about-me__image-label']}>
-                <div className={styles['decor-element']}>
-                  <svg
-                    width="12"
-                    height="12"
-                    viewBox="0 0 12 12"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                    focusable="false"
-                  >
-                    <use href="/images/sprite.svg#icon-arrow-up" />
-                  </svg>
-                </div>
-                <span>а это я</span>
-              </div>
+              <ArrowItem variant="static" className={styles['about-me__image-label']}>
+                а это я
+              </ArrowItem>
 
               <div className={styles['about-me__image']}>
                 <img src="/images/photo_about.avif" alt="Алина" />

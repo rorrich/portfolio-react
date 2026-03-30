@@ -12,24 +12,7 @@ body:is(.roast-page, .dr-coffee-page, .cleanner-page) {
 
 
 /* =========================================
-   2. HEADER & FOOTER UNIVERSAL STYLES
-   ========================================= */
-
-/* White text for footer on project pages */
-body:is(.roast-page, .dr-coffee-page, .cleanner-page) .footer,
-body:is(.roast-page, .dr-coffee-page, .cleanner-page) .footer__description,
-body:is(.roast-page, .dr-coffee-page, .cleanner-page) .footer__contacts [data-app-link],
-body:is(.roast-page, .dr-coffee-page, .cleanner-page) .footer__contacts [data-app-link] span {
-    color: #ffffff;
-}
-
-body:is(.roast-page, .dr-coffee-page, .cleanner-page) .footer__line hr {
-    background-color: #3B3535;
-}
-
-
-/* =========================================
-   3. LAYOUT COMPONENTS
+   2. LAYOUT COMPONENTS
    ========================================= */
 
 
@@ -75,31 +58,6 @@ body:is(.roast-page, .dr-coffee-page, .cleanner-page) .footer__line hr {
 .case-meta__value {
     font-size: var(--body-m-size);
     font-weight: var(--body-m-font-weight);
-}
-
-/* Ссылка «сайт»: стрелка при наведении */
-a.case-meta__value {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    color: #F5491F;
-}
-
-a.case-meta__value [data-app-link-icon] {
-    position: absolute;
-    left: -1em;
-    opacity: 0;
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    transform: translateX(-8px);
-}
-
-a.case-meta__value:hover [data-app-link-icon] {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-a.case-meta__value span {
-    border-bottom: 1px solid;
 }
 
 .work-section-title,
@@ -375,15 +333,6 @@ a.case-meta__value span {
 
 .dc-list li {
     margin-bottom: var(--space-xs);
-}
-
-/* Project-specific footer overrides */
-.dr-coffee-page .footer {
-    background-color: #141313;
-}
-
-.roast-page .footer {
-    background-color: #282828;
 }
 
 /* For future projects, add project-specific styles here:

@@ -2,6 +2,7 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useRef,
   type ReactNode,
@@ -27,6 +28,12 @@ export function PageTransitionProvider({ children }: PageTransitionProviderProps
   const overlayRef = useRef<HTMLDivElement | null>(null)
   const dimmerRef = useRef<HTMLDivElement | null>(null)
 
+  useEffect(() => {
+    return () => {
+      document.body.classList.remove('page-transitioning')
+    }
+  }, [])
+
   const pageReady = useCallback(() => {
     const overlay = overlayRef.current
     const dimmer = dimmerRef.current
@@ -47,6 +54,7 @@ export function PageTransitionProvider({ children }: PageTransitionProviderProps
       onComplete: () => {
         gsap.set(overlay, { display: 'none', yPercent: -100 })
         isTransitioningRef.current = false
+        document.body.classList.remove('page-transitioning')
       },
     })
   }, [])
@@ -70,6 +78,7 @@ export function PageTransitionProvider({ children }: PageTransitionProviderProps
       }
 
       isTransitioningRef.current = true
+      document.body.classList.add('page-transitioning')
       gsap.killTweensOf(overlay)
       if (dimmer) {
         gsap.killTweensOf(dimmer)

@@ -14,8 +14,8 @@
   will-change: transform;
   backface-visibility: hidden;
   transition:
-    background-color var(--theme-duration) var(--theme-ease),
-    color var(--theme-duration) var(--theme-ease);
+    background-color var(--animation-duration) var(--animation-ease),
+    color var(--animation-duration) var(--animation-ease);
 }
 
 .overlay::before {
@@ -28,7 +28,7 @@
   background-color: var(--background-color);
   z-index: 999;
   transform-origin: bottom;
-  transition: background-color var(--theme-duration) var(--theme-ease);
+  transition: background-color var(--animation-duration) var(--animation-ease);
 }
 
 .wrapper {
@@ -55,7 +55,7 @@
   font-weight: var(--heading-h2-font-weight);
   text-decoration: none;
   color: var(--text-color);
-  transition: color var(--theme-duration) var(--theme-ease);
+  transition: color var(--animation-duration) var(--animation-ease);
 }
 
 .number {
@@ -72,14 +72,14 @@
   flex-direction: column;
   gap: var(--space-3xs);
   transition:
-    background-color var(--theme-duration) var(--theme-ease),
-    color var(--theme-duration) var(--theme-ease);
+    background-color var(--animation-duration) var(--animation-ease),
+    color var(--animation-duration) var(--animation-ease);
 }
 
 .contact {
   text-decoration: none;
   color: inherit;
-  transition: color var(--theme-duration) var(--theme-ease);
+  transition: color var(--animation-duration) var(--animation-ease);
 }
 
 .contactItem {

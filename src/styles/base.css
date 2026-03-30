@@ -43,11 +43,11 @@ body {
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
     transition:
-        background-color var(--theme-duration) var(--theme-ease),
-        border-color var(--theme-duration) var(--theme-ease),
-        fill var(--theme-duration) var(--theme-ease),
-        color var(--theme-duration) var(--theme-ease),
-        stroke var(--theme-duration) var(--theme-ease);
+        background-color var(--animation-duration) var(--animation-ease),
+        border-color var(--animation-duration) var(--animation-ease),
+        fill var(--animation-duration) var(--animation-ease),
+        color var(--animation-duration) var(--animation-ease),
+        stroke var(--animation-duration) var(--animation-ease);
 }
 
 /* Скрываем скроллбар для WebKit браузеров (Chrome, Safari) */
@@ -84,10 +84,15 @@ a {
     color: inherit;
 }
 
+/* Текущая страница в навигации: не показываем «руку», перехода с той же страницы нет */
+a[aria-current="page"] {
+    cursor: default;
+}
+
 @media (prefers-reduced-motion: reduce) {
     :root {
-        --theme-duration-fast: 0s;
-        --theme-duration: 0s;
-        --theme-duration-slow: 0s;
+        --animation-duration-fast: 0s;
+        --animation-duration: 0s;
+        --animation-duration-slow: 0s;
     }
 }

@@ -9,7 +9,7 @@ export type ArrowItemProps = {
   counter?: string
   className?: string
   /** Только визуальный режим, не связан с роутером напрямую */
-  variant?: 'default' | 'current' | 'emphasized'
+  variant?: 'default' | 'current' | 'static'
 }
 
 /**
@@ -26,20 +26,17 @@ export function ArrowItem({
       className={clsx(
         styles.arrowItem,
         variant === 'current' && styles.arrowItemCurrent,
-        variant === 'emphasized' && styles.arrowItemEmphasized,
+        variant === 'static' && styles.arrowItemStatic,
         className,
       )}
-      data-app-link="true"
     >
-      <span className={styles.iconWrapper} data-app-link-icon aria-hidden="true">
+      <span className={styles.iconWrapper} aria-hidden="true">
         <ArrowIcon type="right" className={styles.icon} />
       </span>
-      <span>{children}</span>
-      {counter && (
-        <span className={styles.counter} data-app-link-counter>
-          {counter}
-        </span>
-      )}
+      <span className={styles.label}>
+        <span className={styles.labelBody}>{children}</span>
+        {counter ? <span className={styles.counter}>{counter}</span> : null}
+      </span>
     </span>
   )
 }

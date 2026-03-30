@@ -9,6 +9,7 @@
   padding-left: 0;
   padding-right: 0;
   border-bottom: 1px solid var(--outline-color);
+  transition: border-color var(--animation-duration) var(--animation-ease);
 }
 
 .heroContainer {

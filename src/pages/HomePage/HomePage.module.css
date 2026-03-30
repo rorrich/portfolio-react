@@ -214,7 +214,6 @@
   white-space: nowrap;
   font-size: var(--body-m-size);
   line-height: var(--body-m-line-height);
-  letter-spacing: 0;
   text-transform: lowercase;
   background: transparent;
   background-color: transparent;
@@ -238,7 +237,7 @@
 
 /* ========== Works Section (.works) ========== */
 .worksSection {
-  padding: var(--space-m) 0;
+  padding: var(--space-2xl) 0;
 }
 
 .worksContainer {
@@ -271,7 +270,6 @@
 
 .worksTitleShortDesc {
   font-size: var(--body-s-size);
-  letter-spacing: 0.32px;
   line-height: var(--body-s-line-height);
   display: flex;
   flex-direction: column;
@@ -317,7 +315,7 @@
 
 .worksGridSlotCleanner {
   grid-row: 3;
-  grid-column: span 4;
+  grid-column: span 5;
   align-self: flex-start;
   width: 100%;
 }

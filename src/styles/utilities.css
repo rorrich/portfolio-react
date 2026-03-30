@@ -37,13 +37,6 @@ body.menu-open {
     transform: translateY(0);
 }
 
-/* Временное отключение transition для синхронизации состояния */
-/* Повышаем специфичность для переопределения transition */
-[data-app-link] [data-app-link-icon].no-transition-temp,
-.footer__contacts [data-app-link] [data-app-link-icon].no-transition-temp {
-    transition: none;
-}
-
 /* Works List (New Layout) */
 .works-list {
     padding: var(--space-l) 0;

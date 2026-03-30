@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import clsx from 'clsx'
+import { useLocation } from 'react-router-dom'
 
 import { useHeaderScrollBehavior } from '../../hooks/useHeaderScrollBehavior'
 import { useMainNavHeaderItems } from '../../hooks/useMainNavHeader'
@@ -24,6 +25,9 @@ export default function Header({
   isCasePage = false,
   canChangeTheme = true,
 }: HeaderProps) {
+  const { pathname } = useLocation()
+  const isHomeActive = pathname === '/'
+
   const mainNavItems = useMainNavHeaderItems()
   const { toggleTheme } = useTheme()
 
@@ -72,7 +76,12 @@ export default function Header({
     >
       <div className={styles.headerContainer}>
         <div className={styles.logo}>
-          <TransitionLink to="/" className={styles.logoLink} aria-label="На главную">
+          <TransitionLink
+            to="/"
+            className={styles.logoLink}
+            aria-label="На главную"
+            aria-current={isHomeActive ? 'page' : undefined}
+          >
             <svg
               className={styles.logoSvg}
               width="56"

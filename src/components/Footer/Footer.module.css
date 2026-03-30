@@ -1,87 +1,133 @@
 .footer {
-  padding: var(--space-m) 0;
-  height: auto;
-}
-
-/* На кейс-страницах (body: *-page) текст в футере всегда белый */
-:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .footer {
-  color: #ffffff;
-}
-
-.container {
-  height: auto;
-}
-
-.line {
-  position: relative;
-  width: 100%;
-  margin-bottom: 0;
-  margin-top: calc(clamp(4.125rem, 3.44vw, 20rem) * -1);
-  min-height: calc(clamp(12.5rem, 16vw, 19.1875rem) * 0.807 - clamp(4.125rem, 3.44vw, 20rem));
-}
-
-/* Кот выравниваем как контент страницы; линия hr на всю ширину экрана */
-.lineInner {
-  position: relative;
-  z-index: 1;
+  padding: var(--space-2xl) 0 var(--space-m) 0;
   display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+  flex-direction: column;
+  gap: var(--space-l);
+  background-color: var(--text-color);
+  color: var(--background-color);
+  box-sizing: border-box;
+  transition:
+    background-color var(--animation-duration) var(--animation-ease),
+    color var(--animation-duration) var(--animation-ease);
+}
+
+.footerTop {
+  width: 100%;
   padding: 0 var(--grid-margin);
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), 1fr);
+  column-gap: var(--grid-gutter);
+  width: 100%;
+  align-items: start;
   box-sizing: border-box;
 }
 
-.line hr {
-  border: none;
-  height: 1px;
-  background-color: var(--outline-color);
+.footerContext {
+  grid-row: 1;
+  grid-column: 1 / span 4;
+}
+
+.footerHeading {
   margin: 0;
-  /* `100vw` на мобилках часто даёт лишние пиксели и появляется горизонтальный скролл */
-  width: 100%;
-  position: absolute;
-  left: 0;
-  transform: none;
-  bottom: 0;
-  z-index: 0;
+  font-size: var(--heading-h4-size);
+  font-weight: var(--heading-h4-font-weight);
+  line-height: var(--heading-h4-line-height);
+  color: inherit;
 }
 
-.cat {
-  width: clamp(12.5rem, 16vw, 19.1875rem);
-  height: auto;
-  aspect-ratio: 307 / 248;
-  flex-shrink: 0;
-  background: transparent;
-  padding: 0;
-  margin: 0;
-  position: relative;
-  z-index: 1;
-  transform: translateY(clamp(4.125rem, 3.44vw, 20rem));
-  pointer-events: none;
+.footerNavigation {
+  grid-row: 1;
+  grid-column: 8 / span 5;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: var(--grid-gutter);
+  align-items: start;
 }
 
-.cat img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.info {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: var(--space-s);
-  padding-top: var(--space-l);
-  width: 100%;
-}
-
-.contacts {
-  flex: 1;
-  text-align: left;
+.footerContent {
+  grid-column: 1 / span 2;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  gap: var(--space-m);
+}
+
+.footerNav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+/* Один источник цвета при смене темы (как в шапке) */
+.footerNav a {
+  transition: none;
+}
+
+.footerScroll {
+  grid-column: 5 / span 1;
+  justify-self: end;
+  align-self: start;
+}
+
+.scrollTop {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  padding: 0;
+  margin: 0;
+  border: 1px solid color-mix(in srgb, var(--background-color) 40%, transparent);
+  border-radius: 100%;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  box-sizing: border-box;
+  transition:
+    border-color var(--animation-duration) var(--animation-ease),
+    color var(--animation-duration) var(--animation-ease);
+}
+
+.scrollTop:hover {
+  border: 1px solid var(--background-color);
+}
+
+.scrollTopIcon {
+  width: 20px;
+  height: 20px;
+  display: block;
+  color: inherit;
+  fill: currentColor;
+  transition: transform var(--animation-duration) var(--animation-ease);
+}
+
+.scrollTop:hover .scrollTopIcon {
+  transform: translateY(calc(-1 * var(--space-3xs)));
+}
+
+
+.footerBrand {
+  width: 100%;
+  padding: 0 var(--grid-margin);
+  box-sizing: border-box;
+  opacity: 0.06;
+  pointer-events: none;
+  user-select: none;
+}
+
+.footerBrandMark {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1836 / 419;
+  background-color: var(--background-color);
+  -webkit-mask: url('/BrandName.svg') center / contain no-repeat;
+  mask: url('/BrandName.svg') center / contain no-repeat;
+}
+
+.footerBottom {
+  width: 100%;
+  padding: 0 var(--grid-margin);
+  box-sizing: border-box;
 }
 
 .contactItem {
@@ -89,28 +135,42 @@
 }
 
 .copyright {
-  flex: 1;
+  margin: 0;
+  text-align: right;
   font-size: var(--body-s-size);
-  letter-spacing: 0.32px;
   line-height: var(--body-s-line-height);
   font-weight: var(--body-s-font-weight);
-  text-align: right;
-  align-self: flex-end;
+  opacity: 0.6;
+  color: inherit;
 }
 
 @media (max-width: 969px) {
-  .cat {
-    display: none;
+  .footerTop {
+    grid-template-columns: 1fr;
+    row-gap: var(--space-l);
   }
 
-  .line {
-    margin-top: 0;
-    min-height: 0;
+
+  .footerContext,
+  .footerNavigation {
+    grid-column: 1 / -1;
+    grid-row: auto;
   }
 
-  .lineInner {
-    justify-content: flex-start;
-    padding: 0 var(--grid-margin);
+  .footerNavigation {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-l);
+  }
+
+  .footerContent,
+  .footerScroll {
+    grid-column: auto;
+  }
+
+  .footerScroll {
+    justify-self: auto;
+    flex-shrink: 0;
   }
 }
-

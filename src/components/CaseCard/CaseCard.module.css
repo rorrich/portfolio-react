@@ -45,23 +45,75 @@
   margin-left: 2px;
 }
 
+/* Вторичный текст: явный --secondary-text-color — свой transition (у body только --text-color) */
+.compactType,
+.largeSubtitle,
+.largeMetaLabel {
+  transition: color var(--animation-duration) var(--animation-ease);
+}
+
 .compactType {
   color: var(--secondary-text-color);
   font-size: var(--body-s-size);
-  letter-spacing: 0.32px;
   font-weight: var(--body-s-font-weight);
 }
 
 .compactYear {
   font-size: var(--body-s-size);
-  letter-spacing: 0.32px;
   font-weight: var(--body-s-font-weight);
+}
+
+/* Заголовок + стрелка: слот стрелки 0 в ширину в покое; hover раскрывает; gap между слотом и текстом всегда */
+.compactTitleRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  margin-left: 2px;
+  min-width: 0;
+}
+
+.compactTitleArrow {
+  flex-shrink: 0;
+  width: 0;
+  min-width: 0;
+  height: 20px;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transition:
+    width var(--animation-duration) var(--animation-ease),
+    opacity var(--animation-duration) var(--animation-ease);
+}
+
+.compactTitleArrowIcon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  display: block;
+  color: inherit;
+  fill: currentColor;
+  transform: translateX(-8px);
+  transition: transform var(--animation-duration) var(--animation-ease);
+}
+
+.compactRoot:hover .compactTitleArrow {
+  width: 20px;
+  opacity: 1;
+}
+
+.compactRoot:hover .compactTitleArrowIcon {
+  transform: translateX(0);
 }
 
 .compactTitle {
   font-size: var(--heading-h4-size);
   font-weight: var(--heading-h4-font-weight);
   line-height: var(--heading-h4-line-height);
+  margin: 0;
+  min-width: 0;
+  flex: 1;
 }
 
 /* ========== large (страница работ) ========== */
@@ -76,6 +128,7 @@
   cursor: pointer;
   width: 100%;
   box-sizing: border-box;
+  transition: border-color var(--animation-duration) var(--animation-ease);
 }
 
 .largeImageWrap {
@@ -165,7 +218,6 @@
 
 .largeMetaValue {
   font-size: var(--body-s-size);
-  color: var(--text-color);
   font-weight: var(--body-s-font-weight);
 }
 
@@ -175,10 +227,9 @@
   opacity: 0;
   transform: translateX(-72px);
   transition:
-    opacity var(--theme-duration) cubic-bezier(0.2, 0, 0.37, 1),
-    transform var(--theme-duration) cubic-bezier(0.2, 0, 0.37, 1),
-    color var(--theme-duration) var(--theme-ease);
-  color: var(--text-color);
+    opacity var(--animation-duration) cubic-bezier(0.2, 0, 0.37, 1),
+    transform var(--animation-duration) cubic-bezier(0.2, 0, 0.37, 1);
+  color: inherit;
 }
 
 .largeRoot:hover .largeLinkIcon svg {
@@ -270,7 +321,6 @@
     line-height: var(--body-s-line-height);
     font-weight: var(--body-s-font-weight);
     color: var(--secondary-text-color);
-    letter-spacing: 0.32px;
     padding-left: 0;
     margin-bottom: 2px;
   }

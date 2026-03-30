@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 
+import { ArrowIcon } from '../ArrowElement/ArrowIcon'
 import { TransitionLink } from '../TransitionLink/TransitionLink'
 
 import type { ProjectData } from '../../types/project'
@@ -44,7 +45,12 @@ export function CaseCard({ variant, project, className }: CaseCardProps) {
               <span className={styles.compactType}>{descriptionShort}</span>
               <span className={styles.compactYear}>{dateShort}</span>
             </div>
-            <h3 className={styles.compactTitle}>{title}</h3>
+            <div className={styles.compactTitleRow}>
+              <span className={styles.compactTitleArrow} aria-hidden="true">
+                <ArrowIcon type="right" className={styles.compactTitleArrowIcon} />
+              </span>
+              <h3 className={styles.compactTitle}>{title}</h3>
+            </div>
           </div>
         </div>
       </TransitionLink>
