@@ -5,11 +5,15 @@ import { gsap } from 'gsap'
 import { MAIN_APP_NAV_ITEMS, isRouteActiveByMatch } from '../../navigation/mainNav'
 import { ArrowItem } from '../ArrowElement/ArrowItem'
 import { TransitionLink } from '../TransitionLink/TransitionLink'
+import clsx from 'clsx'
+
 import styles from './MobileMenu.module.css'
 
 interface MobileMenuProps {
   isOpen: boolean
   onClose: () => void
+  /** Страница кейса — палитра оверлея как у casesFilled (из роутера, без классов на body) */
+  isCasePage?: boolean
 }
 
 const TELEGRAM_URL = 'https://t.me/rorrich'
@@ -30,7 +34,7 @@ function navLinkOpacity(index: number, path: string): number {
   return isRouteActiveByMatch(path, item) ? 0.4 : 1
 }
 
-export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
+export function MobileMenu({ isOpen, onClose, isCasePage = false }: MobileMenuProps) {
   const { pathname } = useLocation()
   const overlayRef = useRef<HTMLDivElement>(null)
   const linkRefs = useRef<(HTMLAnchorElement | null)[]>([])
@@ -146,7 +150,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   return (
     <div
       ref={overlayRef}
-      className={styles.overlay}
+      className={clsx(styles.overlay, isCasePage && styles.overlayCase)}
       role="dialog"
       aria-label="Меню"
       aria-modal="true"

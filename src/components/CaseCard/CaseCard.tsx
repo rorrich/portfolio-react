@@ -46,10 +46,10 @@ export function CaseCard({ variant, project, className }: CaseCardProps) {
               <span className={styles.compactYear}>{dateShort}</span>
             </div>
             <div className={styles.compactTitleRow}>
+              <h3 className={styles.compactTitle}>{title}</h3>
               <span className={styles.compactTitleArrow} aria-hidden="true">
                 <ArrowIcon type="right" className={styles.compactTitleArrowIcon} />
               </span>
-              <h3 className={styles.compactTitle}>{title}</h3>
             </div>
           </div>
         </div>

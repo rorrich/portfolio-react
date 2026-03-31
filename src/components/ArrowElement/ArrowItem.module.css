@@ -6,31 +6,31 @@
   gap: var(--space-2xs);
   position: relative;
   transition: font-variation-settings var(--animation-duration) var(--animation-ease);
-  height: 1.375rem; /* 22px */
   font-weight: var(--body-s-font-weight);
   font-size: var(--body-s-size);
+  letter-spacing: var(--body-s-letter-spacing);
   color: inherit;
 }
+
+/*
+  Классы вариантов. Даже если .default пока пустой, мы используем его
+  как маркер для отслеживания hover-эффектов ниже.
+*/
+.default {
+  /* Класс-маркер для логики наведения */
+}
+.static {  /* Класс-маркер для статики */}
 
 .label {
   display: inline-flex;
   align-items: center;
   gap: var(--space-3xs);
   min-width: 0;
+  transition: transform var(--animation-duration) var(--animation-ease);
 }
 
 .labelBody {
   min-width: 0;
-}
-
-/* сдвиг блока подписи + счётчика */
-.arrowItem .label {
-  transition: transform var(--animation-duration) var(--animation-ease);
-}
-
-.arrowItem:not(.arrowItemStatic):not(.arrowItemCurrent):hover .label,
-.arrowItemCurrent .label {
-  transform: translateX(var(--space-2xs));
 }
 
 .iconWrapper {
@@ -53,28 +53,46 @@
   width: 100%;
   height: 100%;
   color: inherit;
-  fill: currentColor;
+  fill: currentcolor;
 }
 
-/* current / static — стрелка всегда видна */
-.arrowItemCurrent .iconWrapper,
-.arrowItemStatic .iconWrapper {
+.counter {
+  font-size: var(--body-s-size);
+  font-weight: var(--body-s-font-weight);
+  letter-spacing: var(--body-s-letter-spacing);
+  color: inherit;
+}
+
+/* ========================================================
+   ЛОГИКА СОСТОЯНИЙ (Связка классов и data-атрибутов)
+   ======================================================== */
+
+/* 1. Если пункт текущий (current) ИЛИ визуально статичный (static) — стрелка видна */
+.arrowItem[data-current='true'] .iconWrapper,
+.static .iconWrapper {
   opacity: 1;
 }
 
-/* hover: стрелка вправо (не для static и current) */
-.arrowItem:not(.arrowItemStatic):not(.arrowItemCurrent):hover .iconWrapper {
+/* 2. Анимация текста при наведении ТОЛЬКО для дефолтного варианта, который НЕ current.
+      Плюс текст всегда сдвинут, если пункт текущий */
+.default[data-current='false']:hover .label,
+.arrowItem[data-current='true'] .label {
+  transform: translateX(var(--space-2xs));
+}
+
+/* 3. Анимация стрелки при наведении (тоже только для дефолта, который не current) */
+.default[data-current='false']:hover .iconWrapper {
   opacity: 1;
   transform: translateX(var(--space-3xs));
 }
 
-/* current — визуально как hover: та же позиция стрелки */
-.arrowItemCurrent .iconWrapper {
+/* 4. Позиция стрелки для current состояния (сдвиг как при ховере) */
+.arrowItem[data-current='true'] .iconWrapper {
   transform: translateX(var(--space-3xs));
 }
 
-/* static: стрелка в потоке flex, не уходит за левый край контейнера */
-.arrowItemStatic .iconWrapper {
+/* 5. Специфичные визуальные стили для статичного варианта */
+.static .iconWrapper {
   position: static;
   left: auto;
   margin-top: 0;
@@ -82,14 +100,8 @@
   transform: none;
 }
 
-/* Во время шторки фиксируем состояние без доанимации в шапке */
+/* Во время шторки фиксируем состояние без доанимации в шапке (оставляем как было) */
 :global(body.page-transitioning) .arrowItem .label,
 :global(body.page-transitioning) .arrowItem .iconWrapper {
   transition: none !important;
-}
-
-.counter {
-  font-size: var(--body-s-size);
-  font-weight: var(--body-s-font-weight);
-  color: inherit;
 }

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
 
@@ -13,48 +13,64 @@ type Filter = 'all' | 'sites' | 'apps'
 export function WorksPage() {
   usePageReady()
   const [activeFilter, setActiveFilter] = useState<Filter>('all')
+  const heroRef = useRef<HTMLElement | null>(null)
 
   const filteredProjects = useMemo(
     () => projects.filter((p) => activeFilter === 'all' || p.category === activeFilter),
     [activeFilter],
   )
 
-  useGSAP(() => {
-    const tl = gsap.timeline()
+  useGSAP(
+    () => {
+      if (!heroRef.current) return
 
-    tl.from(`.${styles.heroTitleGroup} h1`, {
-      opacity: 0,
-      y: 24,
-      duration: 0.6,
-      ease: 'power2.out',
-    })
-      .from(
-        `.${styles.heroImage}`,
-        {
+      const tl = gsap.timeline()
+
+      const titleEl = heroRef.current.querySelector(`.${styles.heroTitleGroup} h1`)
+      const imageEl = heroRef.current.querySelector(`.${styles.heroImage}`)
+      const tabsEl = heroRef.current.querySelector(`.${styles.tabs}`)
+
+      if (titleEl) {
+        tl.from(titleEl, {
           opacity: 0,
-          x: 24,
-          duration: 0.5,
+          y: 24,
+          duration: 0.6,
           ease: 'power2.out',
-        },
-        '-=0.3',
-      )
-      .from(
-        `.${styles.tabs}`,
-        {
-          opacity: 0,
-          y: 16,
-          duration: 0.4,
-          ease: 'power2.out',
-        },
-        '-=0.2',
-      )
-  }, [])
+        })
+      }
+      if (imageEl) {
+        tl.from(
+          imageEl,
+          {
+            opacity: 0,
+            x: 24,
+            duration: 0.5,
+            ease: 'power2.out',
+          },
+          '-=0.3',
+        )
+      }
+      if (tabsEl) {
+        tl.from(
+          tabsEl,
+          {
+            opacity: 0,
+            y: 16,
+            duration: 0.4,
+            ease: 'power2.out',
+          },
+          '-=0.2',
+        )
+      }
+    },
+    { scope: heroRef },
+  )
 
   const countLabel = `[${projects.length}]`
 
   return (
     <div className={styles.worksPage}>
-      <section className={styles.hero}>
+      <section ref={heroRef} className={styles.hero}>
         <div className="container">
           <div className={styles.heroContainer}>
             <div className={styles.heroTop}>

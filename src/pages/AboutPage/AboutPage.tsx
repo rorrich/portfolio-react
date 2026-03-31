@@ -117,10 +117,10 @@ export function AboutPage() {
             </h1>
             <div ref={heroCatRef} className={styles['about-me__cat']}>
               <img
-                src="/images/cat_huh.svg"
+                src="/images/cat_03.svg"
                 alt="Кот"
-                width={215}
-                height={280}
+                width={399}
+                height={322}
                 loading="eager"
                 fetchPriority="high"
               />

@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
 
@@ -6,7 +6,7 @@ import { AppLink } from '../../components/AppLink/AppLink'
 import { SkillsMarquee } from '../../components/SkillsMarquee/SkillsMarquee'
 import { Typewriter } from '../../components/Typewriter/Typewriter'
 import { CaseCard } from '../../components/CaseCard/CaseCard'
-import { projects } from '../../data/projects'
+import { getHomePreviewProjects, projects } from '../../data/projects'
 import { usePageReady } from '../../hooks/usePageReady'
 import { ArrowIcon } from '../../components/ArrowElement/ArrowIcon'
 import { ArrowItem } from '../../components/ArrowElement/ArrowItem'
@@ -99,11 +99,9 @@ export function HomePage() {
     { scope: worksRef },
   )
 
-  const roast = projects.find((p) => p.id === 'roast')
-  const drCoffee = projects.find((p) => p.id === 'dr_coffee')
-  const cleanner = projects.find((p) => p.id === 'cleanner')
+  const homePreviewProjects = useMemo(() => getHomePreviewProjects(projects), [projects])
 
-  if (!roast || !drCoffee || !cleanner) return null
+  const homeGridSlots = [styles.worksGridSlot1, styles.worksGridSlot2, styles.worksGridSlot3]
 
   return (
     <>
@@ -145,12 +143,11 @@ export function HomePage() {
             </div>
             <div className={styles.heroDescription}>
               <p className={styles.aboutText}>
-                Привет! Меня зовут Алина, я UI/UX-дизайнер.
+                Привет! Меня зовут Алина, я UX/UI-дизайнер.
               </p>
               <p className={styles.aboutText}>
-                Я проектирую сайты и приложения, ценю продуманные интерфейсы и внимание к деталям.
-                Этот сайт собрала с помощью нейросетей — мой небольшой эксперимент. Параллельно
-                изучаю айдентику, иллюстрацию и верстку.
+                Проектирую сайты и приложения, ценю продуманные интерфейсы и внимание к{'\u00A0'}деталям.
+                А ещё практикую вайб-кодинг и{'\u00A0'}изучаю фронтенд.
               </p>
             </div>
           </div>
@@ -174,15 +171,11 @@ export function HomePage() {
           </div>
 
           <div className={styles.worksGrid}>
-            <div className={styles.worksGridSlotRoast}>
-              <CaseCard variant="compact" project={roast} />
-            </div>
-            <div className={styles.worksGridSlotDrCoffee}>
-              <CaseCard variant="compact" project={drCoffee} />
-            </div>
-            <div className={styles.worksGridSlotCleanner}>
-              <CaseCard variant="compact" project={cleanner} />
-            </div>
+            {homePreviewProjects.map((project, index) => (
+              <div key={project.id} className={homeGridSlots[index]}>
+                <CaseCard variant="compact" project={project} />
+              </div>
+            ))}
           </div>
         </div>
       </section>

@@ -69,7 +69,7 @@
 .heroArrow svg,
 .heroArrow use {
   transition: fill 0.4s ease, color 0.4s ease;
-  fill: currentColor;
+  fill: currentcolor;
 }
 
 .heroTyping {
@@ -85,7 +85,7 @@
   display: inline-block;
   animation: blink 1s infinite;
   width: clamp(2px, 0.5px + 0.38vw, 8px);
-  background-color: currentColor;
+  background-color: currentcolor;
   margin-left: 2px;
   height: 0.8em;
   vertical-align: middle;
@@ -141,6 +141,7 @@
   font-size: var(--body-m-size);
   line-height: var(--body-m-line-height);
   font-weight: var(--body-m-font-weight);
+  letter-spacing: var(--body-m-letter-spacing);
 }
 
 .contacts {
@@ -214,11 +215,10 @@
   white-space: nowrap;
   font-size: var(--body-m-size);
   line-height: var(--body-m-line-height);
+  letter-spacing: var(--body-m-letter-spacing);
   text-transform: lowercase;
   background: transparent;
-  background-color: transparent;
   color: var(--background-color);
-  font-family: 'Manrope', sans-serif;
   font-weight: var(--body-m-font-weight);
 }
 
@@ -271,6 +271,7 @@
 .worksTitleShortDesc {
   font-size: var(--body-s-size);
   line-height: var(--body-s-line-height);
+  letter-spacing: var(--body-s-letter-spacing);
   display: flex;
   flex-direction: column;
   font-weight: var(--body-s-font-weight);
@@ -299,21 +300,21 @@
   column-gap: var(--grid-gutter);
 }
 
-.worksGridSlotRoast {
+.worksGridSlot1 {
   grid-row: 1;
   grid-column: span 6;
   align-self: flex-start;
   width: 100%;
 }
 
-.worksGridSlotDrCoffee {
+.worksGridSlot2 {
   grid-row: 2;
   grid-column: 8 / span 5;
   align-self: flex-end;
   width: 100%;
 }
 
-.worksGridSlotCleanner {
+.worksGridSlot3 {
   grid-row: 3;
   grid-column: span 5;
   align-self: flex-start;
@@ -321,7 +322,7 @@
 }
 
 /* ========== Responsive (from _responsive.css for these sections) ========== */
-@media (max-width: 969px) {
+@media (width <= 970px) {
   .mainHero {
     padding-top: calc(var(--space-l) + var(--header-height, 100px));
     padding-bottom: var(--space-m);
@@ -342,6 +343,7 @@
     flex-direction: column;
     grid-template-columns: none;
     column-gap: 0;
+    
     /* На всю ширину экрана, с теми же боковыми отступами что у сетки */
     width: 100vw;
     max-width: 100vw;
@@ -351,7 +353,6 @@
     padding-right: var(--grid-margin);
     box-sizing: border-box;
     align-items: stretch;
-    gap: var(--space-s);
     margin-top: var(--space-l);
   }
 
@@ -402,9 +403,9 @@
     display: none;
   }
 
-  .worksGridSlotRoast,
-  .worksGridSlotDrCoffee,
-  .worksGridSlotCleanner {
+  .worksGridSlot1,
+  .worksGridSlot2,
+  .worksGridSlot3 {
     width: 100%;
     margin: 0;
   }

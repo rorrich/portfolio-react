@@ -125,7 +125,7 @@ export default function Header({
               to={item.to}
               aria-current={item.isCurrent ? 'page' : undefined}
             >
-              <ArrowItem counter={item.counter} variant={item.isCurrent ? 'current' : 'default'}>
+              <ArrowItem counter={item.counter} isCurrent={item.isCurrent}>
                 {item.label}
               </ArrowItem>
             </AppLink>

@@ -18,46 +18,25 @@
     border-color var(--animation-duration) var(--animation-ease);
 }
 
-/* Кейсы: плавная смена transparent ↔ filled (скролл и моб. меню) */
-:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .header {
-  transition:
-    background-color var(--animation-duration-fast) var(--animation-ease),
-    transform var(--animation-duration-fast) var(--animation-ease),
-    color var(--animation-duration-fast) var(--animation-ease),
-    border-color var(--animation-duration-fast) var(--animation-ease);
-}
+/* Кейсы: casesTransparent / casesFilled на <header> (resolveCaseHeaderSurface) */
 
-/* Бургер (полоски) наследует color с .header / темы — отдельные фильтры для img не нужны */
-
-/* На case-страницах переключатель темы скрыт во всех состояниях шапки */
-:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .header .colorChanger {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
+/* Бургер наследует color с .header */
 
 /* =========================
    Shared states (mobile too)
    ========================= */
+   
 /* При скролле ниже порога (isScrolled) берём цвета из текущей темы */
 .casesFilled {
   background-color: var(--background-color);
   border-bottom: 1px solid var(--outline-color);
   color: var(--text-color);
-  transition:
-  background-color var(--animation-duration) var(--animation-ease),
-  transform var(--animation-duration) var(--animation-ease),
-  color var(--animation-duration) var(--animation-ease),
-  border-color var(--animation-duration) var(--animation-ease);
 }
 
-/* pages/CasePages/case-layout.css: белый текст в меню на кейсах — при cases-filled шапка
-   всегда «светлая полоса»: чёрный текст, независимо от секции под шапкой.
-   Важно: .casesFilled на том же элементе, что и .header (не потомок). */
-:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .header.casesFilled .logoSvg,
-:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .header.casesFilled .logoSvg use {
-  color: var(--text-color) !important;
+/* При cases-filled — полоса как обычная шапка: текст/лого из темы */
+.header.casesFilled .logoSvg,
+.header.casesFilled .logoSvg use {
+  color: var(--text-color);
 }
 
 /* Для кейсов: в самом начале фон прозрачный */
@@ -65,56 +44,21 @@
   background-color: transparent;
   border-bottom: none;
   color: inherit;
-  transition:
-  background-color var(--animation-duration) var(--animation-ease),
-  transform var(--animation-duration) var(--animation-ease),
-  color var(--animation-duration) var(--animation-ease),
-  border-color var(--animation-duration) var(--animation-ease);
 }
 
-/* По умолчанию на кейс-страницах (hero тёмный): текст/иконки белые */
-:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent,
-:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent .logoSvg,
-:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent .burger {
-  color: #ffffff !important;
+/* Hero тёмный: лого и бургер — «бумага» из темы (светлый контраст к фону кейса) */
+.header.casesTransparent,
+.header.casesTransparent .logoSvg,
+.header.casesTransparent .burger {
+  color: var(--background-color);
 }
 
 /* Десктоп от 970px; мобилка max 969px — число в constants/layout.ts (LAYOUT_DESKTOP_MIN_PX) */
-@media (min-width: 970px) {
+@media (width >= 970px) {
   /* Скрываем шапку при скролле вниз */
   .hiddenDesktop {
     transform: translateY(-100%);
   }
-
-  /* При скролле ниже порога (isScrolled) берём цвета из текущей темы */
-  .casesFilled {
-    background-color: var(--background-color);
-    border-bottom: 1px solid var(--outline-color);
-    color: var(--text-color);
-  }
-
-  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .header.casesFilled .logoSvg,
-  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .header.casesFilled .logoSvg use {
-    color: var(--text-color) !important;
-  }
-
-  /* Для кейсов: прозрачный фон в состоянии .casesTransparent (логика в useHeaderScrollBehavior) */
-  .casesTransparent {
-    background-color: transparent;
-    border-bottom: none;
-    color: inherit;
-  }
-
-  /* =============================
-     Case header colors (transparent state)
-     ============================= */
-  /* По умолчанию на кейс-страницах (hero тёмный): текст/иконки белые */
-  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent,
-  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent .logoSvg,
-  :global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .casesTransparent .burger {
-    color: #ffffff !important;
-  }
-
 }
 
 .headerContainer {
@@ -145,14 +89,7 @@
 .logoSvg {
   width: 100%;
   height: 100%;
-  fill: currentColor;
-}
-
-@media (min-width: 1920px) {
-  .logoLink {
-    width: 2.8rem;
-    height: 2.35rem;
-  }
+  fill: currentcolor;
 }
 
 .colorChanger {
@@ -162,6 +99,7 @@
   width: 10.625em;
   height: 1.875em;
   font-size: var(--body-s-size);
+  letter-spacing: var(--body-s-letter-spacing);
   font-family: inherit;
   cursor: pointer;
   transition:
@@ -223,7 +161,7 @@
   height: 1px;
   width: 100%;
   border-radius: 0.5px;
-  background-color: currentColor;
+  background-color: currentcolor;
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   transform-origin: center;
   position: absolute;
@@ -250,7 +188,7 @@
 }
 
 /* max-width 969: пара к min-width 970 выше */
-@media (max-width: 969px) {
+@media (width <= 970px) {
   .headerContainer {
     padding: 0 var(--grid-margin);
     width: 100%;

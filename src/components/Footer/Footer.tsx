@@ -3,6 +3,7 @@ import { AppLink } from '../AppLink/AppLink'
 import { ArrowIcon } from '../ArrowElement/ArrowIcon'
 import { ArrowItem } from '../ArrowElement/ArrowItem'
 
+import { FooterBrandMark } from './FooterBrandMark'
 import styles from './Footer.module.css'
 
 export function Footer() {
@@ -18,9 +19,9 @@ export function Footer() {
       <div className={styles.footerTop}>
         <div className={styles.footerContext}>
           <p className={styles.footerHeading}>
-            возьмите меня уже
+            make it exist first,
             <br />
-            на работу, спасибо
+            make it good later
           </p>
         </div>
 
@@ -33,7 +34,7 @@ export function Footer() {
                   to={item.to}
                   aria-current={item.isCurrent ? 'page' : undefined}
                 >
-                  <ArrowItem counter={item.counter} variant={item.isCurrent ? 'current' : 'default'}>
+                  <ArrowItem counter={item.counter} isCurrent={item.isCurrent}>
                     {item.label}
                   </ArrowItem>
                 </AppLink>
@@ -58,7 +59,7 @@ export function Footer() {
       </div>
 
       <div className={styles.footerBrand} aria-hidden="true">
-        <span className={styles.footerBrandMark} />
+        <FooterBrandMark className={styles.footerBrandSvg} />
       </div>
 
       <div className={styles.footerBottom}>

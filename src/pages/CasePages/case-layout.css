@@ -52,12 +52,14 @@ body:is(.roast-page, .dr-coffee-page, .cleanner-page) {
 .case-meta__label {
     font-size: var(--body-s-size);
     font-weight: var(--body-s-font-weight);
+    letter-spacing: var(--body-s-letter-spacing);
     opacity: 0.6;
 }
 
 .case-meta__value {
     font-size: var(--body-m-size);
     font-weight: var(--body-m-font-weight);
+    letter-spacing: var(--body-m-letter-spacing);
 }
 
 .work-section-title,
@@ -82,6 +84,7 @@ body:is(.roast-page, .dr-coffee-page, .cleanner-page) {
 .text-split__body li {
     font-size: var(--body-m-size);
     line-height: var(--body-m-line-height);
+    letter-spacing: var(--body-m-letter-spacing);
     margin-bottom: var(--space-m);
     font-weight: var(--body-m-font-weight);
 }
@@ -97,6 +100,7 @@ body:is(.roast-page, .dr-coffee-page, .cleanner-page) {
 
 .text-split__head {
     font-size: var(--body-s-size);
+    letter-spacing: var(--body-s-letter-spacing);
     display: block;
     margin: 0;
     text-transform: lowercase;
@@ -121,7 +125,7 @@ body:is(.roast-page, .dr-coffee-page, .cleanner-page) {
     flex: 1;
 }
 
-    @media (max-width: 969px) {
+    @media (width <= 970px) {
     .text-split {
         flex-direction: column;
         gap: 16px;
@@ -140,7 +144,7 @@ body:is(.roast-page, .dr-coffee-page, .cleanner-page) {
     box-sizing: border-box;
 }
 
-@media (max-width: 969px) {
+@media (width <= 970px) {
     .text-stack {
         width: 100%;
     }
@@ -165,7 +169,7 @@ body:is(.roast-page, .dr-coffee-page, .cleanner-page) {
     width: 100%;
 }
 
-@media (max-width: 969px) {
+@media (width <= 970px) {
     .image-grid {
         grid-template-columns: 1fr;
     }
@@ -247,6 +251,7 @@ body:is(.roast-page, .dr-coffee-page, .cleanner-page) {
     font-size: var(--body-m-size);
     line-height: var(--body-m-line-height);
     font-weight: var(--body-m-font-weight);
+    letter-spacing: var(--body-m-letter-spacing);
 }
 
 /* =========================================
@@ -260,7 +265,7 @@ body:is(.roast-page, .dr-coffee-page, .cleanner-page) {
     gap: 0;
 }
 
-@media (max-width: 969px) {
+@media (width <= 970px) {
     .case-hero {
         height: auto;
         min-height: 400px;
@@ -278,6 +283,7 @@ body:is(.roast-page, .dr-coffee-page, .cleanner-page) {
         font-size: var(--body-s-size);
         line-height: var(--body-s-line-height);
         font-weight: var(--body-s-font-weight);
+        letter-spacing: var(--body-s-letter-spacing);
     }
 }
 
@@ -307,6 +313,7 @@ body:is(.roast-page, .dr-coffee-page, .cleanner-page) {
     top: var(--space-s);
     left: var(--space-s);
     font-size: var(--body-s-size);
+    letter-spacing: var(--body-s-letter-spacing);
     color: #ffffff;
     text-transform: lowercase;
     z-index: 1;
@@ -321,6 +328,7 @@ body:is(.roast-page, .dr-coffee-page, .cleanner-page) {
 
 .dc-before-after__label {
     font-size: var(--body-s-size);
+    letter-spacing: var(--body-s-letter-spacing);
     color: #ffffff;
     text-transform: lowercase;
     font-weight: var(--body-s-font-weight);

@@ -17,7 +17,6 @@
   display: grid;
   grid-template-columns: repeat(var(--grid-columns), 1fr);
   column-gap: var(--grid-gutter);
-  width: 100%;
   align-items: start;
   box-sizing: border-box;
 }
@@ -64,8 +63,7 @@
 
 .footerScroll {
   grid-column: 5 / span 1;
-  justify-self: end;
-  align-self: start;
+  place-self: start end;
 }
 
 .scrollTop {
@@ -97,7 +95,7 @@
   height: 20px;
   display: block;
   color: inherit;
-  fill: currentColor;
+  fill: currentcolor;
   transition: transform var(--animation-duration) var(--animation-ease);
 }
 
@@ -113,15 +111,14 @@
   opacity: 0.06;
   pointer-events: none;
   user-select: none;
+  color: var(--background-color);
 }
 
-.footerBrandMark {
+.footerBrandSvg {
   display: block;
   width: 100%;
-  aspect-ratio: 1836 / 419;
-  background-color: var(--background-color);
-  -webkit-mask: url('/BrandName.svg') center / contain no-repeat;
-  mask: url('/BrandName.svg') center / contain no-repeat;
+  height: auto;
+  aspect-ratio: 1803 / 419;
 }
 
 .footerBottom {
@@ -140,11 +137,12 @@
   font-size: var(--body-s-size);
   line-height: var(--body-s-line-height);
   font-weight: var(--body-s-font-weight);
+  letter-spacing: var(--body-s-letter-spacing);
   opacity: 0.6;
   color: inherit;
 }
 
-@media (max-width: 969px) {
+@media (width <= 970px) {
   .footerTop {
     grid-template-columns: 1fr;
     row-gap: var(--space-l);

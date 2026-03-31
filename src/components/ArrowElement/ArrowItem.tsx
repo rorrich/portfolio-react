@@ -8,27 +8,30 @@ export type ArrowItemProps = {
   children: ReactNode
   counter?: string
   className?: string
-  /** Только визуальный режим, не связан с роутером напрямую */
-  variant?: 'default' | 'current' | 'static'
+  /** Визуальный стиль: интерактивный с ховером ('default') или декоративный без анимации ('static') */
+  variant?: 'default' | 'static'
+  /** Интерактивное состояние: является ли этот пункт меню текущей страницей */
+  isCurrent?: boolean
 }
 
 /**
- * Пункт навигации "текст + стрелка" с hover/active состояниями.
+ * Пункт навигации "стрелка+текст" с hover/active состояниями.
  */
 export function ArrowItem({
   children,
   counter,
   className,
   variant = 'default',
+  isCurrent = false,
 }: ArrowItemProps) {
   return (
     <span
       className={clsx(
         styles.arrowItem,
-        variant === 'current' && styles.arrowItemCurrent,
-        variant === 'static' && styles.arrowItemStatic,
+        styles[variant], // Подставит styles.default или styles.static
         className,
       )}
+      data-current={isCurrent} // Это добавит в HTML data-current="true" или "false"
     >
       <span className={styles.iconWrapper} aria-hidden="true">
         <ArrowIcon type="right" className={styles.icon} />

@@ -7,8 +7,7 @@
   height: 100dvh;
   background-color: var(--background-color);
   z-index: 1000;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden auto;
   display: flex;
   flex-direction: column;
   will-change: transform;
@@ -49,7 +48,6 @@
 }
 
 .link {
-  font-family: 'Manrope', sans-serif;
   font-size: var(--heading-h2-size);
   line-height: var(--heading-h2-line-height);
   font-weight: var(--heading-h2-font-weight);
@@ -86,26 +84,26 @@
   color: inherit;
 }
 
-/* Кейсы: мобильное меню как «светлая» шапка (белый фон, чёрный текст) */
-:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .overlay {
+/* Кейсы: те же токены, что у «светлой» шапки — контекст с Layout через isCasePage */
+.overlayCase {
   background-color: var(--background-color);
   color: var(--text-color);
 }
 
-:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .overlay::before {
+.overlayCase::before {
   background-color: var(--background-color);
 }
 
-:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .link {
+.overlayCase .link {
   color: var(--text-color);
 }
 
-:global(body:is(.roast-page, .dr-coffee-page, .cleanner-page)) .contacts {
+.overlayCase .contacts {
   background-color: var(--text-color);
   color: var(--background-color);
 }
 
-@media (min-width: 970px) {
+@media (width >= 970px) {
   .overlay {
     display: none;
   }

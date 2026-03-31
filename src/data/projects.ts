@@ -1,5 +1,13 @@
 import type { ProjectData } from '../types/project'
 
+/**
+ * Порядок записей в `projects`: от новых к старым (как на /works).
+ * Превью на главной — первые три элемента.
+ */
+export function getHomePreviewProjects(list: readonly ProjectData[]): ProjectData[] {
+  return list.slice(0, 3)
+}
+
 export const projects: ProjectData[] = [
   {
     id: 'roast',
