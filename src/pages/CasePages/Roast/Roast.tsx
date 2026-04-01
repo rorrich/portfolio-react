@@ -4,13 +4,13 @@ import { CaseBlock } from '../../../components/CaseComponents/CaseBlock/CaseBloc
 import { ImageGroup } from '../../../components/CaseComponents/CaseBlock/ImageGroup'
 import { TextGroup } from '../../../components/CaseComponents/CaseBlock/TextGroup'
 import { CaseHero } from '../../../components/CaseComponents/CaseHero/CaseHero'
-import { projects } from '../../../data/projects'
+import { cases } from '../../../data/cases'
 import { usePageReady } from '../../../hooks/usePageReady'
 
 export function RoastPage() {
   usePageReady()
 
-  const roast = useMemo(() => projects.find((p) => p.id === 'roast'), [])
+  const roast = useMemo(() => cases.find((p) => p.id === 'roast'), [])
   if (!roast) return null
 
   return (

@@ -1,14 +1,14 @@
-import type { ProjectData } from '../types/project'
+import type { CaseData } from '../types/case'
 
 /**
- * Порядок записей в `projects`: от новых к старым (как на /works).
+ * Порядок записей в `cases`: от новых к старым (как на /works).
  * Превью на главной — первые три элемента.
  */
-export function getHomePreviewProjects(list: readonly ProjectData[]): ProjectData[] {
+export function getHomePreviewCases(list: readonly CaseData[]): CaseData[] {
   return list.slice(0, 3)
 }
 
-export const projects: ProjectData[] = [
+export const cases: CaseData[] = [
   {
     id: 'roast',
     title: 'Roast',
@@ -56,4 +56,3 @@ export const projects: ProjectData[] = [
     pageUrl: '/works/cleanner',
   },
 ]
-

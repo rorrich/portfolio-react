@@ -1,13 +1,13 @@
-export type ProjectCategory = 'sites' | 'apps'
+export type CaseCategory = 'sites' | 'apps'
 
-export interface ProjectData {
-  /** Короткий идентификатор проекта: 'roast', 'dr_coffee', 'cleanner' */
+export interface CaseData {
+  /** Короткий идентификатор кейса: 'roast', 'dr_coffee', 'cleanner' */
   id: string
 
-  /** Название проекта */
+  /** Название кейса */
   title: string
 
-  /** Полное описание, как в кейсовых страницах */
+  /** Полное описание, как на кейс-страницах */
   descriptionFull: string
 
   /** Короткое описание для карточек */
@@ -22,22 +22,21 @@ export interface ProjectData {
   /** Короткий год (например, '2025') */
   dateShort: string
 
-  /** URL продакшн‑сайта, если есть */
+  /** URL продакшн-сайта, если есть */
   websiteUrl: string | null
 
   /** Текстовая подпись для ссылки на сайт */
   websiteLabel: string
 
-  /** Категория проекта для фильтров работ */
-  category: ProjectCategory
+  /** Категория кейса для фильтров работ */
+  category: CaseCategory
 
   /** Коммерческий проект или нет */
   isPaid: boolean
 
-  /** Путь к превью‑картинке (из /public/images) */
+  /** Путь к превью-картинке (из /public/images) */
   imageSrc: string
 
-  /** Путь к странице проекта в SPA (React‑роут) */
+  /** Путь к странице кейса в SPA (React-router) */
   pageUrl: string
 }
-

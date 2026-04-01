@@ -3,7 +3,7 @@ import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
 
 import { CaseCard } from '../../components/CaseCard/CaseCard'
-import { projects } from '../../data/projects'
+import { cases } from '../../data/cases'
 import { usePageReady } from '../../hooks/usePageReady'
 
 import styles from './WorksPage.module.css'
@@ -16,7 +16,7 @@ export function WorksPage() {
   const heroRef = useRef<HTMLElement | null>(null)
 
   const filteredProjects = useMemo(
-    () => projects.filter((p) => activeFilter === 'all' || p.category === activeFilter),
+    () => cases.filter((p) => activeFilter === 'all' || p.category === activeFilter),
     [activeFilter],
   )
 
@@ -66,7 +66,7 @@ export function WorksPage() {
     { scope: heroRef },
   )
 
-  const countLabel = `[${projects.length}]`
+  const countLabel = `[${cases.length}]`
 
   return (
     <div className={styles.worksPage}>

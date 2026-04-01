@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import { ArrowIcon } from '../ArrowElement/ArrowIcon'
 import { TransitionLink } from '../TransitionLink/TransitionLink'
 
-import type { ProjectData } from '../../types/project'
+import type { CaseData } from '../../types/case'
 
 import styles from './CaseCard.module.css'
 
@@ -11,7 +11,7 @@ export type CaseCardVariant = 'compact' | 'large'
 
 export interface CaseCardProps {
   variant: CaseCardVariant
-  project: ProjectData
+  project: CaseData
   /** Доп. класс на корневой ссылке (например для анимаций на странице) */
   className?: string
 }

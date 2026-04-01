@@ -6,7 +6,7 @@ import { AppLink } from '../../components/AppLink/AppLink'
 import { SkillsMarquee } from '../../components/SkillsMarquee/SkillsMarquee'
 import { Typewriter } from '../../components/Typewriter/Typewriter'
 import { CaseCard } from '../../components/CaseCard/CaseCard'
-import { getHomePreviewProjects, projects } from '../../data/projects'
+import { cases, getHomePreviewCases } from '../../data/cases'
 import { usePageReady } from '../../hooks/usePageReady'
 import { ArrowIcon } from '../../components/ArrowElement/ArrowIcon'
 import { ArrowItem } from '../../components/ArrowElement/ArrowItem'
@@ -99,7 +99,7 @@ export function HomePage() {
     { scope: worksRef },
   )
 
-  const homePreviewProjects = useMemo(() => getHomePreviewProjects(projects), [projects])
+  const homePreviewCases = useMemo(() => getHomePreviewCases(cases), [cases])
 
   const homeGridSlots = [styles.worksGridSlot1, styles.worksGridSlot2, styles.worksGridSlot3]
 
@@ -171,9 +171,9 @@ export function HomePage() {
           </div>
 
           <div className={styles.worksGrid}>
-            {homePreviewProjects.map((project, index) => (
-              <div key={project.id} className={homeGridSlots[index]}>
-                <CaseCard variant="compact" project={project} />
+            {homePreviewCases.map((item, index) => (
+              <div key={item.id} className={homeGridSlots[index]}>
+                <CaseCard variant="compact" project={item} />
               </div>
             ))}
           </div>

@@ -4,7 +4,7 @@ import { CaseBlock } from '../../../components/CaseComponents/CaseBlock/CaseBloc
 import { ImageGroup } from '../../../components/CaseComponents/CaseBlock/ImageGroup'
 import { TextGroup } from '../../../components/CaseComponents/CaseBlock/TextGroup'
 import { CaseHero } from '../../../components/CaseComponents/CaseHero/CaseHero'
-import { projects } from '../../../data/projects'
+import { cases } from '../../../data/cases'
 import { usePageReady } from '../../../hooks/usePageReady'
 
 import styles from './DrCoffee.module.css'
@@ -12,7 +12,7 @@ import styles from './DrCoffee.module.css'
 export function DrCoffeePage() {
   usePageReady()
 
-  const drCoffee = useMemo(() => projects.find((p) => p.id === 'dr_coffee'), [])
+  const drCoffee = useMemo(() => cases.find((p) => p.id === 'dr_coffee'), [])
   if (!drCoffee) return null
 
   return (

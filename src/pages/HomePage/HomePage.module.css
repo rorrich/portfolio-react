@@ -157,7 +157,7 @@
 
 /* ========== Works Section (.works) ========== */
 .worksSection {
-  padding: var(--space-2xl) 0;
+  padding: var(--space-m) 0 var(--space-2xl) 0;
 }
 
 .worksContainer {
