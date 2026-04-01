@@ -4,10 +4,7 @@
 }
 
 .hero {
-  padding-top: calc(var(--space-l) + var(--header-height, 100px));
-  padding-bottom: var(--space-l);
-  padding-left: 0;
-  padding-right: 0;
+  padding: calc(var(--space-l) + var(--header-height, 100px)) 0 var(--space-l);
   border-bottom: 1px solid var(--outline-color);
   transition: border-color var(--animation-duration) var(--animation-ease);
 }

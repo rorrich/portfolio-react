@@ -1,0 +1,71 @@
+.drCardGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-s);
+  padding: 0 var(--grid-margin);
+}
+
+.drCard {
+  position: relative;
+  overflow: hidden;
+}
+
+.drCardDark {
+  background-color: #141313;
+}
+
+.drCardOrange {
+  background-color: #f5491f;
+}
+
+.drCardLabel {
+  position: absolute;
+  top: var(--space-s);
+  left: var(--space-s);
+  font-size: var(--body-s-size);
+  letter-spacing: var(--body-s-letter-spacing);
+  color: #fff;
+  text-transform: lowercase;
+  font-weight: var(--body-s-font-weight);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.coverImage {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.imageStackLarge {
+  gap: var(--space-2xl);
+}
+
+.beforeAfterGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-s);
+  padding: 0 var(--grid-margin);
+}
+
+.beforeAfterItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.beforeAfterLabel {
+  font-size: var(--body-s-size);
+  letter-spacing: var(--body-s-letter-spacing);
+  color: #fff;
+  text-transform: lowercase;
+  font-weight: var(--body-s-font-weight);
+}
+
+@media (width <= 970px) {
+  .drCardGrid,
+  .beforeAfterGrid {
+    grid-template-columns: 1fr;
+  }
+}

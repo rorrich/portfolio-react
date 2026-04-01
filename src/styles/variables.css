@@ -1,7 +1,5 @@
 /* Design tokens and theme variables */
 :root {
- 
-
     /* Spacing System */
     --space-3xs: var(--size-4);
     --space-2xs: var(--size-8);
@@ -69,7 +67,7 @@
 
     /* Обычная тема */
     --background-color: #F5F1F0;
-    --text-color: #000000;
+    --text-color: #000;
     --secondary-text-color: #8F8F8F;
     --outline-color: #CBCBD0;
  
@@ -93,7 +91,7 @@
      /* Мягкая тема */
      body[data-theme="soft"] {
      --background-color: #9BB6D2;
-     --text-color: #FFFFFF;
+     --text-color: #FFF;
      --secondary-text-color: #EAF0F6;
      --outline-color: #C0D6E3;
      }
@@ -108,8 +106,8 @@
  
     /* Статичная тема для case-страниц */
      body[data-theme="static"] {
-     --background-color: #FFFFFF;
-     --text-color: #000000;
+     --background-color: #FFF;
+     --text-color: #000;
      --secondary-text-color: #8F8F8F;
      --outline-color: #CBCBD0;
      }

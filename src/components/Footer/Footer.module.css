@@ -53,7 +53,7 @@
 .footerNav {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2xs);
+  gap: var(--space-3xs);
 }
 
 /* Один источник цвета при смене темы (как в шапке) */

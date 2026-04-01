@@ -16,10 +16,10 @@ const RoastPage = lazy(() =>
   import('./pages/CasePages/Roast/Roast').then((m) => ({ default: m.RoastPage })),
 )
 const DrCoffeePage = lazy(() =>
-  import('./pages/CasePages/DrCoffeePage').then((m) => ({ default: m.DrCoffeePage })),
+  import('./pages/CasePages/DrCoffee/DrCoffee').then((m) => ({ default: m.DrCoffeePage })),
 )
 const CleannerPage = lazy(() =>
-  import('./pages/CasePages/CleannerPage').then((m) => ({ default: m.CleannerPage })),
+  import('./pages/CasePages/Cleanner/Cleanner').then((m) => ({ default: m.CleannerPage })),
 )
 
 function App() {
