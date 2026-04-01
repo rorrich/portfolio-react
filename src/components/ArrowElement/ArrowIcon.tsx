@@ -1,42 +1,35 @@
+import type { SVGAttributes } from 'react'
+
 export type ArrowIconType = 'right' | 'up'
 
-export interface ArrowIconProps {
+export interface ArrowIconProps extends SVGAttributes<SVGSVGElement> {
   type: ArrowIconType
   className?: string
 }
 
-const configByType: Record<
-  ArrowIconType,
-  { width: number; height: number; viewBox: string; spriteHref: string }
-> = {
+const configByType: Record<ArrowIconType, { viewBox: string; spriteHref: string }> = {
   right: {
-    width: 12,
-    height: 9,
     viewBox: '0 0 13 10',
     spriteHref: '/images/sprite.svg#icon-arrow-right',
   },
   up: {
-    width: 12,
-    height: 12,
     viewBox: '0 0 12 12',
     spriteHref: '/images/sprite.svg#icon-arrow-up',
   },
 }
 
-export function ArrowIcon({ type, className }: ArrowIconProps) {
+export function ArrowIcon({ type, className = '', ...props }: ArrowIconProps) {
   const cfg = configByType[type]
 
   return (
     <svg
       className={className}
-      width={cfg.width}
-      height={cfg.height}
       viewBox={cfg.viewBox}
-      fill="none"
+      fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
       aria-hidden="true"
       focusable="false"
+      {...props}
     >
       <use href={cfg.spriteHref} />
     </svg>

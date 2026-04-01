@@ -155,86 +155,6 @@
   color: inherit;
 }
 
-/* ========== Skills Animation (.skills-animation) ========== */
-.skillsAnimation {
-  padding: var(--space-2xl) 0;
-  overflow: hidden;
-}
-
-.skillsContainer {
-  margin: 0 auto;
-  padding: 0;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-.skillsTrack {
-  display: flex;
-  width: 110vw;
-  left: -5vw;
-  position: relative;
-  overflow: hidden;
-  background-color: var(--text-color);
-  margin-bottom: var(--space-s);
-  user-select: none;
-  padding: var(--space-xs) var(--space-s);
-}
-
-.skillsTrackLeft {
-  transform: rotate(2deg);
-  margin-bottom: var(--space-xl);
-  outline: 1px solid transparent;
-}
-
-.skillsTrackRight {
-  /* reverse animation via .marqueeGroup */
-}
-
-.marqueeGroup {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  min-width: 100%;
-  animation: scroll 20s linear infinite;
-}
-
-@keyframes scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-100%); }
-}
-
-.skillsTrackRight .marqueeGroup {
-  animation-direction: reverse;
-}
-
-.skillTag {
-  border-radius: 100px;
-  padding: var(--space-2xs) var(--space-m);
-  white-space: nowrap;
-  font-size: var(--body-m-size);
-  line-height: var(--body-m-line-height);
-  letter-spacing: var(--body-m-letter-spacing);
-  text-transform: lowercase;
-  background: transparent;
-  color: var(--background-color);
-  font-weight: var(--body-m-font-weight);
-}
-
-.skillArrow {
-  margin: 0 var(--space-2xs);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.skillArrow svg {
-  width: clamp(0.75rem, 10.15px + 0.51vw, 1.25rem);
-  height: clamp(0.75rem, 10.15px + 0.51vw, 1.25rem);
-  color: var(--background-color);
-}
-
 /* ========== Works Section (.works) ========== */
 .worksSection {
   padding: var(--space-2xl) 0;
@@ -373,10 +293,6 @@
     grid-column: unset;
     width: 100%;
     max-width: 100%;
-  }
-
-  .skillsTrackLeft {
-    margin-bottom: var(--space-l);
   }
 
   .worksGrid {

@@ -154,7 +154,7 @@ export function HomePage() {
         </div>
       </section>
 
-      <SkillsMarquee styles={styles} />
+      <SkillsMarquee />
 
       <section ref={worksRef} className={styles.worksSection}>
         <div className={styles.worksContainer}>

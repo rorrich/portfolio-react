@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react'
 import { projects } from '../../data/projects'
 
-import { CaseHero } from '../../components/CaseComponents/CaseHero'
+import { CaseHero } from '../../components/CaseComponents/CaseHero/CaseHero'
 import { CaseSection } from '../../components/CaseComponents/CaseSection'
 import { usePageReady } from '../../hooks/usePageReady'
 

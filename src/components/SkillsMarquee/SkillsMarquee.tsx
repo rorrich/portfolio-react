@@ -1,4 +1,6 @@
 import type { FC } from 'react'
+import { ArrowIcon } from '../ArrowElement/ArrowIcon'
+import styles from './SkillsMarquee.module.css'
 
 const skills = [
   'UX/UI',
@@ -17,36 +19,11 @@ const skills = [
   'Stable Diffusion',
 ]
 
-export interface HomePageStyles {
-  skillsAnimation: string
-  skillsContainer: string
-  skillsTrack: string
-  skillsTrackLeft: string
-  skillsTrackRight: string
-  marqueeGroup: string
-  skillTag: string
-  skillArrow: string
-}
-
-interface SkillsMarqueeProps {
-  styles: Record<string, string>
-}
-
-export const SkillsMarquee: FC<SkillsMarqueeProps> = ({ styles }) => {
+export const SkillsMarquee: FC = () => {
   const renderRow = (keyPrefix: string) =>
     skills.flatMap((skill, index) => [
       <div key={`${keyPrefix}-arrow-${index}`} className={styles.skillArrow}>
-        <svg
-          width="12"
-          height="12"
-          viewBox="0 0 12 12"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-          focusable="false"
-        >
-          <use href="/images/sprite.svg#icon-arrow-up" />
-        </svg>
+        <ArrowIcon type="up" className={styles.skillArrowIcon} />
       </div>,
       <div key={`${keyPrefix}-tag-${index}`} className={styles.skillTag}>
         {skill}

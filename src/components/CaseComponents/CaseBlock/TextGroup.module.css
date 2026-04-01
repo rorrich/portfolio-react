@@ -1,0 +1,68 @@
+.textGroup {
+  padding: 0 var(--grid-margin);
+  display: flex;
+  gap: var(--space-s);
+}
+
+.row {
+  flex-direction: row;
+}
+
+.row .label,
+.row .description {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.row .label {
+  opacity: 0.6;
+  text-transform: lowercase;
+  font-size: var(--body-s-size);
+  line-height: var(--body-s-line-height);
+  letter-spacing: var(--body-s-letter-spacing);
+  font-weight: var(--body-s-font-weight);
+}
+
+.column {
+  flex-direction: column;
+  gap: var(--space-m);
+  width: 50%;
+}
+
+.column .label {
+  font-size: var(--heading-h4-size);
+  line-height: var(--heading-h4-line-height);
+  font-weight: var(--heading-h4-font-weight);
+}
+
+.description {
+  font-size: var(--body-m-size);
+  line-height: var(--body-m-line-height);
+  letter-spacing: var(--body-m-letter-spacing);
+  font-weight: var(--body-m-font-weight);
+}
+
+.description > p {
+  margin: 0 0 var(--space-m);
+}
+
+.description > p:last-child {
+  margin-bottom: 0;
+}
+
+@media (width <= 970px) {
+  .column {
+    width: 100%;
+  }
+
+  .row {
+    flex-direction: column;
+    gap: var(--space-m);
+  }
+
+  .row .label,
+  .row .description {
+    flex: unset;
+    width: 100%;
+  }
+}

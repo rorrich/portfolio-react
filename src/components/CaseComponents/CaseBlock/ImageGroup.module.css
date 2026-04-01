@@ -1,0 +1,35 @@
+.imageGroup {
+  padding: 0 var(--grid-margin);
+  gap: var(--space-s);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.bleed {
+  padding: 0;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.fitCover .image {
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (width <= 970px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+}

@@ -13,7 +13,7 @@ const AboutPage = lazy(() =>
   import('./pages/AboutPage/AboutPage').then((m) => ({ default: m.AboutPage })),
 )
 const RoastPage = lazy(() =>
-  import('./pages/CasePages/RoastPage').then((m) => ({ default: m.RoastPage })),
+  import('./pages/CasePages/Roast/Roast').then((m) => ({ default: m.RoastPage })),
 )
 const DrCoffeePage = lazy(() =>
   import('./pages/CasePages/DrCoffeePage').then((m) => ({ default: m.DrCoffeePage })),

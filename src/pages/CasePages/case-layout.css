@@ -49,19 +49,6 @@ body:is(.roast-page, .dr-coffee-page, .cleanner-page) {
    5. TYPOGRAPHY MAPPINGS
    ========================================= */
 
-.case-meta__label {
-    font-size: var(--body-s-size);
-    font-weight: var(--body-s-font-weight);
-    letter-spacing: var(--body-s-letter-spacing);
-    opacity: 0.6;
-}
-
-.case-meta__value {
-    font-size: var(--body-m-size);
-    font-weight: var(--body-m-font-weight);
-    letter-spacing: var(--body-m-letter-spacing);
-}
-
 .work-section-title,
 .text-stack__head {
     font-size: var(--heading-h4-size);
@@ -203,89 +190,6 @@ body:is(.roast-page, .dr-coffee-page, .cleanner-page) {
 /* .work-fullscreen removed as we use case-section with padding 0 */
 
 /* Deleted: .work-image-wrapper, .work-grid-2 */
-
-/* =========================================
-   7. CASE HERO STRUCTURE (ex-Promo)
-   ========================================= */
-
-.case-hero {
-    width: 100%;
-    min-height: 400px;
-    aspect-ratio: 3 / 1;
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    /* margin-top: -96px; Removed for overlay header */
-    padding-top: 96px;
-    padding-bottom: var(--space-m);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    color: #ffffff;
-}
-
-.case-hero__content {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: var(--space-l);
-    width: 100%;
-    padding: 0 var(--grid-margin);
-    box-sizing: border-box;
-}
-
-.case-hero__meta {
-    display: flex;
-    gap: var(--space-xl);
-}
-
-/* Typography for Hero */
-.case-hero__title {
-    font-size: var(--heading-h3-size);
-    font-weight: var(--heading-h3-font-weight);
-    line-height: var(--heading-h3-line-height);
-    margin-bottom: var(--space-3xs);
-}
-
-.case-hero__subtitle {
-    font-size: var(--body-m-size);
-    line-height: var(--body-m-line-height);
-    font-weight: var(--body-m-font-weight);
-    letter-spacing: var(--body-m-letter-spacing);
-}
-
-/* =========================================
-   8. CASE OVERVIEW (Intro Section) -> Now just .case-section
-   (адаптив hero: мета скрыта на мобилке — см. @media ниже)
-   ========================================= */
-
-.case-meta-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-}
-
-@media (width <= 970px) {
-    .case-hero {
-        height: auto;
-        min-height: 400px;
-    }
-    .case-hero__content {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: var(--space-xl);
-    }
-    .case-hero__meta {
-        display: none !important; /* Скрываем мету на мобилке */
-    }
-
-    .case-hero__subtitle {
-        font-size: var(--body-s-size);
-        line-height: var(--body-s-line-height);
-        font-weight: var(--body-s-font-weight);
-        letter-spacing: var(--body-s-letter-spacing);
-    }
-}
 
 /* =========================================
    9. PROJECT-SPECIFIC STYLES

@@ -59,8 +59,8 @@ export function useHeaderScrollBehavior({
           setCaseHeaderMode('transparent')
         } else {
           const headerEl = headerRef.current
-          const caseHeroEl = document.querySelector<HTMLElement>('.case-hero')
-          const heroContentEl = document.querySelector<HTMLElement>('.case-hero__content')
+          const caseHeroEl = document.querySelector<HTMLElement>('[data-case-hero]')
+          const heroContentEl = document.querySelector<HTMLElement>('[data-case-hero-content]')
 
           if (headerEl && (caseHeroEl || heroContentEl)) {
             const headerRect = headerEl.getBoundingClientRect()
