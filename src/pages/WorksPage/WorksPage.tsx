@@ -5,6 +5,7 @@ import { useGSAP } from '@gsap/react'
 import { CaseCard } from '../../components/CaseCard/CaseCard'
 import { cases } from '../../data/cases'
 import { usePageReady } from '../../hooks/usePageReady'
+import { useEnterAfterTransition } from '../../hooks/useEnterAfterTransition'
 
 import styles from './WorksPage.module.css'
 
@@ -14,6 +15,7 @@ export function WorksPage() {
   usePageReady()
   const [activeFilter, setActiveFilter] = useState<Filter>('all')
   const heroRef = useRef<HTMLElement | null>(null)
+  const heroTlRef = useRef<gsap.core.Timeline | null>(null)
 
   const filteredProjects = useMemo(
     () => cases.filter((p) => activeFilter === 'all' || p.category === activeFilter),
@@ -24,7 +26,8 @@ export function WorksPage() {
     () => {
       if (!heroRef.current) return
 
-      const tl = gsap.timeline()
+      const tl = gsap.timeline({ paused: true })
+      heroTlRef.current = tl
 
       const titleEl = heroRef.current.querySelector(`.${styles.heroTitleGroup} h1`)
       const imageEl = heroRef.current.querySelector(`.${styles.heroImage}`)
@@ -65,6 +68,8 @@ export function WorksPage() {
     },
     { scope: heroRef },
   )
+
+  useEnterAfterTransition(heroTlRef)
 
   const countLabel = `[${cases.length}]`
 

@@ -5,6 +5,7 @@ import {
   useEffect,
   useMemo,
   useRef,
+  useState,
   type ReactNode,
 } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -13,6 +14,7 @@ import { gsap } from 'gsap'
 export type PageTransitionContextValue = {
   takeSnapshotAndNavigate: (href: string) => void
   pageReady: () => void
+  isTransitioning: boolean
 }
 
 const PageTransitionContext = createContext<PageTransitionContextValue | null>(null)
@@ -25,6 +27,7 @@ export function PageTransitionProvider({ children }: PageTransitionProviderProps
   const navigate = useNavigate()
   const location = useLocation()
   const isTransitioningRef = useRef(false)
+  const [isTransitioning, setIsTransitioning] = useState(false)
   const overlayRef = useRef<HTMLDivElement | null>(null)
   const dimmerRef = useRef<HTMLDivElement | null>(null)
 
@@ -54,6 +57,7 @@ export function PageTransitionProvider({ children }: PageTransitionProviderProps
       onComplete: () => {
         gsap.set(overlay, { display: 'none', yPercent: -100 })
         isTransitioningRef.current = false
+        setIsTransitioning(false)
         document.body.classList.remove('page-transitioning')
       },
     })
@@ -78,6 +82,7 @@ export function PageTransitionProvider({ children }: PageTransitionProviderProps
       }
 
       isTransitioningRef.current = true
+      setIsTransitioning(true)
       document.body.classList.add('page-transitioning')
       gsap.killTweensOf(overlay)
       if (dimmer) {
@@ -110,8 +115,9 @@ export function PageTransitionProvider({ children }: PageTransitionProviderProps
     () => ({
       takeSnapshotAndNavigate,
       pageReady,
+      isTransitioning,
     }),
-    [takeSnapshotAndNavigate, pageReady],
+    [takeSnapshotAndNavigate, pageReady, isTransitioning],
   )
 
   return (

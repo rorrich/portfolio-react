@@ -31,7 +31,12 @@ body {
         stroke var(--animation-duration) var(--animation-ease);
 }
 
+html {
+    scrollbar-width: none;
+}
+
 /* Скрываем скроллбар для WebKit браузеров (Chrome, Safari) */
+html::-webkit-scrollbar,
 body::-webkit-scrollbar {
     display: none;
     width: 0;

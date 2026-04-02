@@ -8,6 +8,7 @@ import { Typewriter } from '../../components/Typewriter/Typewriter'
 import { CaseCard } from '../../components/CaseCard/CaseCard'
 import { cases, getHomePreviewCases } from '../../data/cases'
 import { usePageReady } from '../../hooks/usePageReady'
+import { useEnterAfterTransition } from '../../hooks/useEnterAfterTransition'
 import { ArrowIcon } from '../../components/ArrowElement/ArrowIcon'
 import { ArrowItem } from '../../components/ArrowElement/ArrowItem'
 
@@ -17,12 +18,14 @@ export function HomePage() {
   usePageReady()
   const heroRef = useRef<HTMLElement | null>(null)
   const worksRef = useRef<HTMLElement | null>(null)
+  const heroTlRef = useRef<gsap.core.Timeline | null>(null)
 
   useGSAP(
     () => {
       if (!heroRef.current) return
 
-      const tl = gsap.timeline()
+      const tl = gsap.timeline({ paused: true })
+      heroTlRef.current = tl
 
       const titleEl = heroRef.current.querySelector(`.${styles.titleGroup} h1`)
       const typingEl = heroRef.current.querySelector(`.${styles.heroTypingWrapper}`)
@@ -77,6 +80,8 @@ export function HomePage() {
     },
     { scope: heroRef },
   )
+
+  useEnterAfterTransition(heroTlRef)
 
   useGSAP(
     () => {

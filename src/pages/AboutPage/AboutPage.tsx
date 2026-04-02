@@ -5,12 +5,14 @@ import { useGSAP } from '@gsap/react'
 import { AppLink } from '../../components/AppLink/AppLink'
 import { ArrowItem } from '../../components/ArrowElement/ArrowItem'
 import { usePageReady } from '../../hooks/usePageReady'
+import { useEnterAfterTransition } from '../../hooks/useEnterAfterTransition'
 
 import styles from './AboutPage.module.css'
 
 export function AboutPage() {
   usePageReady()
   const rootRef = useRef<HTMLDivElement | null>(null)
+  const heroTlRef = useRef<gsap.core.Timeline | null>(null)
 
   const heroTitleRef = useRef<HTMLHeadingElement | null>(null)
   const heroCatRef = useRef<HTMLDivElement | null>(null)
@@ -21,7 +23,8 @@ export function AboutPage() {
 
   useGSAP(
     () => {
-      const tl = gsap.timeline()
+      const tl = gsap.timeline({ paused: true })
+      heroTlRef.current = tl
 
       if (heroTitleRef.current) {
         tl.from(heroTitleRef.current, {
@@ -106,6 +109,8 @@ export function AboutPage() {
     },
     { scope: rootRef },
   )
+
+  useEnterAfterTransition(heroTlRef)
 
   return (
     <div ref={rootRef} className={styles['about-me']}>
