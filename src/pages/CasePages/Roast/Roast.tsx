@@ -1,11 +1,15 @@
 import { useMemo } from 'react'
 
+import { AppLink } from '../../../components/AppLink/AppLink'
+import { ArrowItem } from '../../../components/ArrowElement/ArrowItem'
 import { CaseBlock } from '../../../components/CaseComponents/CaseBlock/CaseBlock'
 import { ImageGroup } from '../../../components/CaseComponents/CaseBlock/ImageGroup'
 import { TextGroup } from '../../../components/CaseComponents/CaseBlock/TextGroup'
 import { CaseHero } from '../../../components/CaseComponents/CaseHero/CaseHero'
 import { cases } from '../../../data/cases'
 import { usePageReady } from '../../../hooks/usePageReady'
+
+import styles from './Roast.module.css'
 
 export function RoastPage() {
   usePageReady()
@@ -22,7 +26,19 @@ export function RoastPage() {
         meta={[
           { label: 'индустрия', value: roast.industry },
           { label: 'дата', value: roast.dateFull },
-          { label: 'сайт', value: roast.websiteLabel },
+          {
+            label: 'сайт',
+            value:
+              roast.websiteUrl != null ? (
+                <AppLink href={roast.websiteUrl} className={styles.caseSiteLink}>
+                  <ArrowItem labelSize="m" className={styles.caseSiteArrowItem}>
+                    {roast.websiteLabel}
+                  </ArrowItem>
+                </AppLink>
+              ) : (
+                roast.websiteLabel
+              ),
+          },
         ]}
       />
 

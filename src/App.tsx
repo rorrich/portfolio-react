@@ -1,10 +1,12 @@
 import { lazy, Suspense } from 'react'
-import { HashRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
+import { ThemeProvider } from './context/ThemeContext'
 import { PageTransitionProvider } from './context/PageTransitionContext'
 import { Layout } from './components/Layout/Layout'
 import { ScrollToTop } from './components/ScrollToTop'
 import { HomePage } from './pages/HomePage/HomePage'
+import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage'
 
 const WorksPage = lazy(() =>
   import('./pages/WorksPage/WorksPage').then((m) => ({ default: m.WorksPage })),
@@ -24,23 +26,26 @@ const CleannerPage = lazy(() =>
 
 function App() {
   return (
-    <HashRouter>
-      <PageTransitionProvider>
-        <ScrollToTop />
-        <Suspense fallback={null}>
-          <Routes>
-            <Route element={<Layout />}>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/works" element={<WorksPage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/works/roast" element={<RoastPage />} />
-              <Route path="/works/dr-coffee" element={<DrCoffeePage />} />
-              <Route path="/works/cleanner" element={<CleannerPage />} />
-            </Route>
-          </Routes>
-        </Suspense>
-      </PageTransitionProvider>
-    </HashRouter>
+    <BrowserRouter>
+      <ThemeProvider>
+        <PageTransitionProvider>
+          <ScrollToTop />
+          <Suspense fallback={null}>
+            <Routes>
+              <Route element={<Layout />}>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/works" element={<WorksPage />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/works/roast" element={<RoastPage />} />
+                <Route path="/works/dr-coffee" element={<DrCoffeePage />} />
+                <Route path="/works/cleanner" element={<CleannerPage />} />
+                <Route path="*" element={<NotFoundPage />} />
+              </Route>
+            </Routes>
+          </Suspense>
+        </PageTransitionProvider>
+      </ThemeProvider>
+    </BrowserRouter>
   )
 }
 

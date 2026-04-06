@@ -1,3 +1,14 @@
+/* Ссылка на продакшн в hero — как telegram + ArrowItem на главной */
+.caseSiteLink {
+  color: inherit;
+  text-decoration: none;
+  display: inline-flex;
+}
+
+.caseSiteArrowItem {
+  color: inherit;
+}
+
 .drCardGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -10,13 +21,6 @@
   overflow: hidden;
 }
 
-.drCardDark {
-  background-color: #141313;
-}
-
-.drCardOrange {
-  background-color: #f5491f;
-}
 
 .drCardLabel {
   position: absolute;

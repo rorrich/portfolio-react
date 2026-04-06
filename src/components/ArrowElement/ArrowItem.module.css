@@ -6,10 +6,21 @@
   gap: var(--space-2xs);
   position: relative;
   transition: font-variation-settings var(--animation-duration) var(--animation-ease);
+  color: inherit;
+}
+
+.labelSizeS {
   font-weight: var(--body-s-font-weight);
   font-size: var(--body-s-size);
   letter-spacing: var(--body-s-letter-spacing);
-  color: inherit;
+  line-height: var(--body-s-line-height);
+}
+
+.labelSizeM {
+  font-weight: var(--body-m-font-weight);
+  font-size: var(--body-m-size);
+  letter-spacing: var(--body-m-letter-spacing);
+  line-height: var(--body-m-line-height);
 }
 
 /*
@@ -57,9 +68,9 @@
 }
 
 .counter {
-  font-size: var(--body-s-size);
-  font-weight: var(--body-s-font-weight);
-  letter-spacing: var(--body-s-letter-spacing);
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
   color: inherit;
 }
 

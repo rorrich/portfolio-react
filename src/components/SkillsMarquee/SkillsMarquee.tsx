@@ -34,15 +34,19 @@ export const SkillsMarquee: FC = () => {
     <section className={styles.skillsAnimation}>
       <div className={styles.skillsContainer}>
         <div className={`${styles.skillsTrack} ${styles.skillsTrackLeft}`}>
-          <div className={styles.marqueeGroup}>{renderRow('left-1')}</div>
-          <div className={styles.marqueeGroup} aria-hidden="true">
-            {renderRow('left-2')}
+          <div className={styles.marqueeInner}>
+            <div className={styles.marqueeGroup}>{renderRow('left-1')}</div>
+            <div className={styles.marqueeGroup} aria-hidden="true">
+              {renderRow('left-2')}
+            </div>
           </div>
         </div>
         <div className={`${styles.skillsTrack} ${styles.skillsTrackRight}`}>
-          <div className={styles.marqueeGroup}>{renderRow('right-1')}</div>
-          <div className={styles.marqueeGroup} aria-hidden="true">
-            {renderRow('right-2')}
+          <div className={styles.marqueeInner}>
+            <div className={styles.marqueeGroup}>{renderRow('right-1')}</div>
+            <div className={styles.marqueeGroup} aria-hidden="true">
+              {renderRow('right-2')}
+            </div>
           </div>
         </div>
       </div>

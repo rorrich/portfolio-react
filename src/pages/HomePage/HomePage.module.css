@@ -38,69 +38,6 @@
   width: fit-content;
 }
 
-.heroTypingWrapper {
-  display: flex;
-  align-items: center;
-  gap: 0.125em;
-  min-height: calc(var(--heading-h2-size) * var(--heading-h2-line-height));
-}
-
-.heroArrowWrapper {
-  /* wrapper for arrow alignment */
-}
-
-.heroArrow {
-  width: 0.375em;
-  height: 0.375em;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: inherit;
-  margin-top: var(--space-s);
-}
-
-.heroArrow svg {
-  width: 100%;
-  height: 100%;
-  color: var(--text-color);
-}
-
-.heroArrow svg,
-.heroArrow use {
-  transition: fill 0.4s ease, color 0.4s ease;
-  fill: currentcolor;
-}
-
-.heroTyping {
-  font-size: var(--heading-h2-size);
-  font-weight: var(--heading-h2-font-weight);
-  line-height: var(--heading-h2-line-height);
-  display: flex;
-  align-items: center;
-  min-height: calc(var(--heading-h2-size) * var(--heading-h2-line-height));
-}
-
-.cursor {
-  display: inline-block;
-  animation: blink 1s infinite;
-  width: clamp(2px, 0.5px + 0.38vw, 8px);
-  background-color: currentcolor;
-  margin-left: 2px;
-  height: 0.8em;
-  vertical-align: middle;
-}
-
-.cursor.noBlink {
-  animation: none;
-  opacity: 1;
-}
-
-@keyframes blink {
-  0%, 80% { opacity: 1; }
-  40%, 60% { opacity: 0; }
-}
-
 .heroCat {
   width: 23.7vw;
   max-width: 2.85em;
@@ -217,7 +154,7 @@
 .worksGrid {
   display: grid;
   grid-template-columns: repeat(var(--grid-columns), 1fr);
-  column-gap: var(--grid-gutter);
+  gap: var(--space-m) var(--grid-gutter);
 }
 
 .worksGridSlot1 {
@@ -239,6 +176,16 @@
   grid-column: span 5;
   align-self: flex-start;
   width: 100%;
+}
+
+/* Маска для анимации подъёма карточки (как SplitTextReveal: overflow + transform у внутреннего блока) */
+.worksGridSlotMask {
+  overflow: hidden;
+  width: 100%;
+}
+
+.worksGridCardInner {
+  will-change: transform;
 }
 
 /* ========== Responsive (from _responsive.css for these sections) ========== */

@@ -1,0 +1,38 @@
+.taglineRoot {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+.line {
+  overflow: hidden;
+  display: block;
+}
+
+.lineRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25em;
+  align-items: center;
+  will-change: transform;
+}
+
+.wordMask {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: top;
+  line-height: inherit;
+  max-width: 100%;
+}
+
+.wordInner {
+  display: inline-block;
+  line-height: inherit;
+  will-change: transform;
+  transform: translate3d(0, 100%, 0);
+}

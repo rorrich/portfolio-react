@@ -1,135 +1,43 @@
 import { useMemo, useRef } from 'react'
-import { gsap } from 'gsap'
-import { useGSAP } from '@gsap/react'
 
 import { AppLink } from '../../components/AppLink/AppLink'
 import { SkillsMarquee } from '../../components/SkillsMarquee/SkillsMarquee'
-import { Typewriter } from '../../components/Typewriter/Typewriter'
 import { CaseCard } from '../../components/CaseCard/CaseCard'
+import { HomeHeroHeadline } from '../../components/HomeHeroHeadline/HomeHeroHeadline'
 import { cases, getHomePreviewCases } from '../../data/cases'
+import { useCardImageParallaxReveal } from '../../hooks/useCardImageParallaxReveal'
+import { useFadeInReveal } from '../../hooks/useFadeInReveal'
 import { usePageReady } from '../../hooks/usePageReady'
-import { useEnterAfterTransition } from '../../hooks/useEnterAfterTransition'
-import { ArrowIcon } from '../../components/ArrowElement/ArrowIcon'
+import { useWorkCardsReveal } from '../../hooks/useWorkCardsReveal'
 import { ArrowItem } from '../../components/ArrowElement/ArrowItem'
 
 import styles from './HomePage.module.css'
 
 export function HomePage() {
   usePageReady()
-  const heroRef = useRef<HTMLElement | null>(null)
-  const worksRef = useRef<HTMLElement | null>(null)
-  const heroTlRef = useRef<gsap.core.Timeline | null>(null)
+  const homeWorksGridRevealRef = useRef<HTMLDivElement | null>(null)
+  const heroCatRevealRef = useRef<HTMLDivElement | null>(null)
+  const heroBottomRevealRef = useRef<HTMLDivElement | null>(null)
 
-  useGSAP(
-    () => {
-      if (!heroRef.current) return
-
-      const tl = gsap.timeline({ paused: true })
-      heroTlRef.current = tl
-
-      const titleEl = heroRef.current.querySelector(`.${styles.titleGroup} h1`)
-      const typingEl = heroRef.current.querySelector(`.${styles.heroTypingWrapper}`)
-      const arrowEl = heroRef.current.querySelector(`.${styles.heroArrow}`)
-      const catEl = heroRef.current.querySelector(`.${styles.heroCat}`)
-      const descEl = heroRef.current.querySelector(`.${styles.heroDescription}`)
-
-      if (titleEl) {
-        tl.from(titleEl, {
-          opacity: 0,
-          y: 24,
-          duration: 0.6,
-          ease: 'power2.out',
-        })
-      }
-      if (typingEl && arrowEl) {
-        tl.from(
-          [typingEl, arrowEl],
-          {
-            opacity: 0,
-            y: 8,
-            duration: 0.4,
-            ease: 'power2.out',
-          },
-          '-=0.3',
-        )
-      }
-      if (catEl) {
-        tl.from(
-          catEl,
-          {
-            opacity: 0,
-            x: 32,
-            duration: 0.5,
-            ease: 'power2.out',
-          },
-          '-=0.2',
-        )
-      }
-      if (descEl) {
-        tl.from(
-          descEl,
-          {
-            opacity: 0,
-            y: 16,
-            duration: 0.5,
-            ease: 'power2.out',
-          },
-          '-=0.2',
-        )
-      }
-    },
-    { scope: heroRef },
-  )
-
-  useEnterAfterTransition(heroTlRef)
-
-  useGSAP(
-    () => {
-      if (!worksRef.current) return
-
-      const cards = worksRef.current.querySelectorAll('[data-home-work-card]')
-
-      gsap.from(cards, {
-        opacity: 0,
-        y: 24,
-        duration: 0.6,
-        ease: 'power2.out',
-        stagger: 0.15,
-        scrollTrigger: {
-          trigger: worksRef.current,
-          start: 'top 80%',
-        },
-      })
-    },
-    { scope: worksRef },
-  )
+  useFadeInReveal(heroCatRevealRef, 0.35, { axis: 'x', offset: 40, duration: 0.7 })
+  useFadeInReveal(heroBottomRevealRef, 0.35)
+  useWorkCardsReveal(homeWorksGridRevealRef)
 
   const homePreviewCases = useMemo(() => getHomePreviewCases(cases), [cases])
+
+  useCardImageParallaxReveal(homeWorksGridRevealRef, [homePreviewCases])
 
   const homeGridSlots = [styles.worksGridSlot1, styles.worksGridSlot2, styles.worksGridSlot3]
 
   return (
     <>
-      <section ref={heroRef} className={styles.mainHero}>
+      <section className={styles.mainHero}>
         <div className={styles.heroContainer}>
           <div className={styles.heroContent}>
             <div className={styles.titleGroup}>
-              <h1>просто делаю</h1>
-              <div className={styles.heroTypingWrapper}>
-                <div className={styles.heroArrowWrapper}>
-                  <div className={styles.heroArrow}>
-                    <ArrowIcon type="right" />
-                  </div>
-                </div>
-                <Typewriter
-                  words={['сайты', 'мобилки']}
-                  wrapperClassName={styles.heroTyping}
-                  cursorClassName={styles.cursor}
-                  cursorNoBlinkClassName={styles.noBlink}
-                />
-              </div>
+              <HomeHeroHeadline />
             </div>
-            <div className={styles.heroCat}>
+            <div ref={heroCatRevealRef} className={styles.heroCat}>
               <img
                 src="/images/cat_02.svg"
                 alt="Кот с удочкой"
@@ -140,7 +48,7 @@ export function HomePage() {
             </div>
           </div>
 
-          <div className={styles.heroBottom}>
+          <div ref={heroBottomRevealRef} className={styles.heroBottom}>
             <div className={styles.contacts}>
               <AppLink href="https://t.me/rorrich">
                 <ArrowItem className={styles.contactItem}>telegram</ArrowItem>
@@ -161,7 +69,7 @@ export function HomePage() {
 
       <SkillsMarquee />
 
-      <section ref={worksRef} className={styles.worksSection}>
+      <section className={styles.worksSection}>
         <div className={styles.worksContainer}>
           <div className={styles.worksTitle}>
             <div className={`${styles.worksTitleShortDesc} ${styles.worksTitleShortDescLeft}`}>
@@ -175,10 +83,19 @@ export function HomePage() {
             </div>
           </div>
 
-          <div className={styles.worksGrid}>
+          <div ref={homeWorksGridRevealRef} className={styles.worksGrid}>
             {homePreviewCases.map((item, index) => (
-              <div key={item.id} className={homeGridSlots[index]}>
-                <CaseCard variant="compact" project={item} />
+              <div
+                key={item.id}
+                className={`${homeGridSlots[index]} ${styles.worksGridSlotMask}`}
+                data-home-work-card-slot=""
+              >
+                <div
+                  className={styles.worksGridCardInner}
+                  data-work-card-reveal-inner=""
+                >
+                  <CaseCard variant="compact" project={item} />
+                </div>
               </div>
             ))}
           </div>

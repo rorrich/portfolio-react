@@ -4,70 +4,30 @@ import { useGSAP } from '@gsap/react'
 
 import { AppLink } from '../../components/AppLink/AppLink'
 import { ArrowItem } from '../../components/ArrowElement/ArrowItem'
+import { SplitTextReveal } from '../../components/SplitTextReveal/SplitTextReveal'
+import { useCardImageParallaxReveal } from '../../hooks/useCardImageParallaxReveal'
+import { useFadeInReveal } from '../../hooks/useFadeInReveal'
 import { usePageReady } from '../../hooks/usePageReady'
-import { useEnterAfterTransition } from '../../hooks/useEnterAfterTransition'
+import { useWorkCardsReveal } from '../../hooks/useWorkCardsReveal'
 
 import styles from './AboutPage.module.css'
 
 export function AboutPage() {
   usePageReady()
   const rootRef = useRef<HTMLDivElement | null>(null)
-  const heroTlRef = useRef<gsap.core.Timeline | null>(null)
 
-  const heroTitleRef = useRef<HTMLHeadingElement | null>(null)
-  const heroCatRef = useRef<HTMLDivElement | null>(null)
+  const heroCatRevealRef = useRef<HTMLDivElement | null>(null)
+  const aboutMeTextGridRevealRef = useRef<HTMLDivElement | null>(null)
 
-  const aboutTextRef = useRef<HTMLDivElement | null>(null)
   const infoBlocksRef = useRef<HTMLDivElement | null>(null)
-  const imageWrapRef = useRef<HTMLDivElement | null>(null)
+  const aboutPhotoRevealRef = useRef<HTMLDivElement | null>(null)
+
+  useFadeInReveal(heroCatRevealRef, 0.35, { axis: 'x', offset: 40, duration: 0.7 })
+  useFadeInReveal(aboutMeTextGridRevealRef, 0.45)
+  useWorkCardsReveal(aboutPhotoRevealRef)
 
   useGSAP(
     () => {
-      const tl = gsap.timeline({ paused: true })
-      heroTlRef.current = tl
-
-      if (heroTitleRef.current) {
-        tl.from(heroTitleRef.current, {
-          opacity: 0,
-          y: 20,
-          duration: 0.6,
-          ease: 'power2.out',
-        })
-      }
-
-      if (heroCatRef.current) {
-        tl.from(
-          heroCatRef.current,
-          {
-            opacity: 0,
-            x: 24,
-            duration: 0.5,
-            ease: 'power2.out',
-          },
-          '-=0.25',
-        )
-      }
-
-      if (aboutTextRef.current) {
-        const paragraphs = aboutTextRef.current.querySelectorAll('p')
-
-        gsap.fromTo(
-          paragraphs,
-          { opacity: 0, y: 20 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            ease: 'power2.out',
-            stagger: 0.12,
-            scrollTrigger: {
-              trigger: aboutTextRef.current,
-              start: 'top 80%',
-            },
-          },
-        )
-      }
-
       if (infoBlocksRef.current) {
         const blocks = Array.from(infoBlocksRef.current.children).filter(
           (el) => el instanceof HTMLElement,
@@ -89,38 +49,25 @@ export function AboutPage() {
           },
         )
       }
-
-      if (imageWrapRef.current) {
-        gsap.fromTo(
-          imageWrapRef.current,
-          { opacity: 0, scale: 0.95 },
-          {
-            opacity: 1,
-            scale: 1,
-            duration: 0.6,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: imageWrapRef.current,
-              start: 'top 80%',
-            },
-          },
-        )
-      }
     },
     { scope: rootRef },
   )
 
-  useEnterAfterTransition(heroTlRef)
+  useCardImageParallaxReveal(aboutPhotoRevealRef)
 
   return (
     <div ref={rootRef} className={styles['about-me']}>
       <section className={styles.hero}>
         <div className="container">
           <div className={styles.hero__content}>
-            <h1 ref={heroTitleRef} className={styles.hero__title}>
-              who я
-            </h1>
-            <div ref={heroCatRef} className={styles['about-me__cat']}>
+            <SplitTextReveal
+              text="who я"
+              as="h1"
+              className={styles.hero__title}
+              stagger={0.084}
+              duration={0.78}
+            />
+            <div ref={heroCatRevealRef} className={styles['about-me__cat']}>
               <img
                 src="/images/cat_03.svg"
                 alt="Кот"
@@ -136,8 +83,8 @@ export function AboutPage() {
 
       <section className={styles['about-me__text']}>
         <div className="container">
-          <div className={styles.aboutMeTextGrid}>
-            <div ref={aboutTextRef} className={styles['about-me__text-content']}>
+          <div ref={aboutMeTextGridRevealRef} className={styles.aboutMeTextGrid}>
+            <div className={styles['about-me__text-content']}>
               <p>
                 Занимаюсь UI/UX-дизайном с 2024 года. Проектирую сайты и приложения, совмещая
                 эстетику с логикой. Кроме интерфейсов, рисую векторные иллюстрации и углубляюсь
@@ -179,13 +126,33 @@ export function AboutPage() {
               </div>
             </div>
 
-            <div ref={imageWrapRef} className={styles['about-me__image-block']}>
-              <ArrowItem variant="static" className={styles['about-me__image-label']}>
-                а это я
-              </ArrowItem>
+            <div
+              ref={aboutPhotoRevealRef}
+              className={styles['about-me__image-block']}
+            >
+              <div
+                className={styles.aboutMePhotoSlotMask}
+                data-home-work-card-slot=""
+              >
+                <div
+                  className={styles.aboutMePhotoCardInner}
+                  data-work-card-reveal-inner=""
+                >
+                  <ArrowItem variant="static" className={styles['about-me__image-label']}>
+                    а это я
+                  </ArrowItem>
 
-              <div className={styles['about-me__image']}>
-                <img src="/images/photo_about.avif" alt="Алина" />
+                  <div className={styles['about-me__image']}>
+                    <div className={styles.aboutMePhotoParallaxWrap}>
+                      <img
+                        className={styles.aboutMePhotoParallaxImg}
+                        src="/images/photo_about.avif"
+                        alt="Алина"
+                        data-home-card-parallax-img=""
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

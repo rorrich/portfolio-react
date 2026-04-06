@@ -8,6 +8,8 @@ export type ArrowItemProps = {
   children: ReactNode
   counter?: string
   className?: string
+  /** Размер подписи: body S / body M из дизайн-токенов */
+  labelSize?: 's' | 'm'
   /** Визуальный стиль: интерактивный с ховером ('default') или декоративный без анимации ('static') */
   variant?: 'default' | 'static'
   /** Интерактивное состояние: является ли этот пункт меню текущей страницей */
@@ -21,6 +23,7 @@ export function ArrowItem({
   children,
   counter,
   className,
+  labelSize = 's',
   variant = 'default',
   isCurrent = false,
 }: ArrowItemProps) {
@@ -28,6 +31,7 @@ export function ArrowItem({
     <span
       className={clsx(
         styles.arrowItem,
+        labelSize === 'm' ? styles.labelSizeM : styles.labelSizeS,
         styles[variant], // Подставит styles.default или styles.static
         className,
       )}

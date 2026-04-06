@@ -12,7 +12,6 @@
 }
 
 .skillsTrack {
-  display: flex;
   width: 110vw;
   left: -5vw;
   position: relative;
@@ -30,7 +29,15 @@
 }
 
 .skillsTrackRight {
-  /* reverse animation via .marqueeGroup */
+  /* reverse — .marqueeInner */
+}
+
+/* Две копии контента подряд; ширина = ровно контент, без пустого хвоста */
+.marqueeInner {
+  display: flex;
+  flex-flow: row nowrap;
+  width: max-content;
+  animation: marquee-scroll 20s linear infinite;
 }
 
 .marqueeGroup {
@@ -38,21 +45,19 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  min-width: 100%;
-  animation: scroll 20s linear infinite;
 }
 
-@keyframes scroll {
+@keyframes marquee-scroll {
   from {
     transform: translateX(0);
   }
 
   to {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }
 
-.skillsTrackRight .marqueeGroup {
+.skillsTrackRight .marqueeInner {
   animation-direction: reverse;
 }
 

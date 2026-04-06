@@ -19,6 +19,12 @@ export type PageTransitionContextValue = {
 
 const PageTransitionContext = createContext<PageTransitionContextValue | null>(null)
 
+/** Съём оверлея (сек) — без изменений; раньше конца см. OVERLAY_EXIT_RELEASE_PROGRESS */
+const OVERLAY_EXIT_DURATION = 0.65
+
+/** Когда отпускать isTransitioning: 0.8 ≈ на 20% раньше полного конца анимации */
+const OVERLAY_EXIT_RELEASE_PROGRESS = 0.8
+
 interface PageTransitionProviderProps {
   children: ReactNode
 }
@@ -50,14 +56,26 @@ export function PageTransitionProvider({ children }: PageTransitionProviderProps
       gsap.set(dimmer, { display: 'none', opacity: 0 })
     }
 
+    let releasedTransitioning = false
+    const releaseTransitioning = () => {
+      if (releasedTransitioning) return
+      releasedTransitioning = true
+      isTransitioningRef.current = false
+      setIsTransitioning(false)
+    }
+
     gsap.to(overlay, {
       yPercent: 100,
-      duration: 0.6,
-      ease: 'expo.inOut',
+      duration: OVERLAY_EXIT_DURATION,
+      ease: 'power3.inOut',
+      onUpdate() {
+        if (this.progress() >= OVERLAY_EXIT_RELEASE_PROGRESS) {
+          releaseTransitioning()
+        }
+      },
       onComplete: () => {
         gsap.set(overlay, { display: 'none', yPercent: -100 })
-        isTransitioningRef.current = false
-        setIsTransitioning(false)
+        releaseTransitioning()
         document.body.classList.remove('page-transitioning')
       },
     })
@@ -94,15 +112,15 @@ export function PageTransitionProvider({ children }: PageTransitionProviderProps
         gsap.set(dimmer, { display: 'block', opacity: 0 })
         gsap.to(dimmer, {
           opacity: 0.6,
-          duration: 0.55,
-          ease: 'expo.inOut',
+          duration: 0.59,
+          ease: 'power3.inOut',
         })
       }
 
       gsap.to(overlay, {
         yPercent: 0,
-        duration: 0.77,
-        ease: 'expo.inOut',
+        duration: 0.83,
+        ease: 'power3.inOut',
         onComplete: () => {
           navigate(path)
         },

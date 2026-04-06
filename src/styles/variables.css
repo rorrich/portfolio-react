@@ -35,7 +35,7 @@
     --heading-h1-font-weight: 400;
     
     /* H2: минимум +20% (3.6rem) -> 160px */
-    --heading-h2-size: clamp(3.6rem, 0.969rem + 9.03vw, 10rem);
+    --heading-h2-size: clamp(3.6rem, 0.969rem + 9.03vw, 16rem);
     --heading-h2-line-height: 1.2;
     --heading-h2-font-weight: 500;
     

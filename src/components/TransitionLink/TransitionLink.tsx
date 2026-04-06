@@ -20,7 +20,7 @@ export const TransitionLink = forwardRef<HTMLAnchorElement, TransitionLinkProps>
   ) {
     const { takeSnapshotAndNavigate } = usePageTransition()
     const path = to.startsWith('/') ? to : `/${to}`
-    const href = `#${path}`
+    const href = path
 
     const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
       if (e.metaKey || e.ctrlKey) {

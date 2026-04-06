@@ -1,4 +1,5 @@
-import { createContext, useCallback, useContext, useEffect, useLayoutEffect, useMemo, useState } from 'react'
+import { createContext, useCallback, useContext, useLayoutEffect, useMemo, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 
 import { isCasePagePath } from '../constants/caseRoutes'
 
@@ -15,17 +16,6 @@ interface ThemeContextValue {
 }
 
 export const ThemeContext = createContext<ThemeContextValue | undefined>(undefined)
-
-function getRouteFromHash(): string {
-  // HashRouter: путь лежит в location.hash как "#/roast"
-  if (typeof window === 'undefined') return ''
-  const raw = window.location.hash ?? ''
-  return raw.replace(/^#/, '')
-}
-
-function isWorkPageNow(): boolean {
-  return isCasePagePath(getRouteFromHash())
-}
 
 function applyTheme(theme: Theme): void {
   if (typeof document === 'undefined') return
@@ -71,13 +61,10 @@ interface ThemeProviderProps {
 }
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
-  const initialIsWorkPage = useMemo(() => {
-    const route = getRouteFromHash()
-    return isCasePagePath(route)
-  }, [])
+  const { pathname } = useLocation()
+  const isWorkPage = isCasePagePath(pathname)
 
-  const [isWorkPage, setIsWorkPage] = useState<boolean>(initialIsWorkPage)
-  const [theme, setTheme] = useState<UserTheme>(() => loadTheme(initialIsWorkPage))
+  const [theme, setTheme] = useState<UserTheme>(() => loadTheme(isCasePagePath(pathname)))
 
   // Применяем тему к body при монтировании и изменении
   useLayoutEffect(() => {
@@ -88,36 +75,8 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     applyTheme(theme)
   }, [theme, isWorkPage])
 
-  // Обновляем isWorkPage при смене hash-роута, чтобы кейсы всегда получали static-тему,
-  // независимо от того, какая тема была выбрана на главной/работах ранее.
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    const update = () => setIsWorkPage(isWorkPageNow())
-
-    update()
-
-    let lastHash = window.location.hash
-    const intervalId = window.setInterval(() => {
-      if (window.location.hash !== lastHash) {
-        lastHash = window.location.hash
-        update()
-      }
-    }, 250)
-
-    window.addEventListener('hashchange', update)
-    window.addEventListener('popstate', update)
-
-    return () => {
-      window.clearInterval(intervalId)
-      window.removeEventListener('hashchange', update)
-      window.removeEventListener('popstate', update)
-    }
-  }, [])
-
   const toggleTheme = useCallback(() => {
-    // Используем текущее значение маршрута на момент клика,
-    // чтобы не зависеть от возможной несинхронизации isWorkPage.
-    if (isWorkPageNow()) {
+    if (isCasePagePath(pathname)) {
       return
     }
 
@@ -130,7 +89,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
       return nextTheme
     })
-  }, [isWorkPage])
+  }, [pathname])
 
   const value = useMemo<ThemeContextValue>(
     () => ({

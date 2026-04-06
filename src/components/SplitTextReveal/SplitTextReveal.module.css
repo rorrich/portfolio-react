@@ -1,0 +1,25 @@
+/* Неподвижное «окно» одной строки: обрезает всё за пределами. Высота = одна строка (lh). */
+.lineWrap {
+  overflow: hidden;
+  display: inline-block;
+  max-width: 100%;
+  vertical-align: top;
+  line-height: inherit;
+  height: 1lh;
+}
+
+/* Внутри маски: заезжает снизу вверх (GSAP yPercent 100 → 0). */
+.lineInner {
+  display: inline-block;
+  line-height: inherit;
+  will-change: transform;
+}
+
+.word {
+  display: inline-block;
+  margin-right: 0.25em;
+}
+
+.word:last-child {
+  margin-right: 0;
+}

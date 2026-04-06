@@ -1,5 +1,7 @@
 import { useMemo } from 'react'
 
+import { AppLink } from '../../../components/AppLink/AppLink'
+import { ArrowItem } from '../../../components/ArrowElement/ArrowItem'
 import { CaseBlock } from '../../../components/CaseComponents/CaseBlock/CaseBlock'
 import { ImageGroup } from '../../../components/CaseComponents/CaseBlock/ImageGroup'
 import { TextGroup } from '../../../components/CaseComponents/CaseBlock/TextGroup'
@@ -24,7 +26,19 @@ export function DrCoffeePage() {
         meta={[
           { label: 'индустрия', value: drCoffee.industry },
           { label: 'дата', value: drCoffee.dateFull },
-          { label: 'сайт', value: drCoffee.websiteLabel },
+          {
+            label: 'сайт',
+            value:
+              drCoffee.websiteUrl != null ? (
+                <AppLink href={drCoffee.websiteUrl} className={styles.caseSiteLink}>
+                  <ArrowItem labelSize="m" className={styles.caseSiteArrowItem}>
+                    {drCoffee.websiteLabel}
+                  </ArrowItem>
+                </AppLink>
+              ) : (
+                drCoffee.websiteLabel
+              ),
+          },
         ]}
       />
 

@@ -3,6 +3,7 @@ import { AppLink } from '../AppLink/AppLink'
 import { ArrowIcon } from '../ArrowElement/ArrowIcon'
 import { ArrowItem } from '../ArrowElement/ArrowItem'
 
+import { FooterPhraseCycle } from './FooterPhraseCycle'
 import { FooterBrandMark } from './FooterBrandMark'
 import styles from './Footer.module.css'
 
@@ -18,11 +19,7 @@ export function Footer() {
     <footer className={styles.footer}>
       <div className={styles.footerTop}>
         <div className={styles.footerContext}>
-          <p className={styles.footerHeading}>
-            make it exist first,
-            <br />
-            make it good later
-          </p>
+          <FooterPhraseCycle className={styles.footerHeading} />
         </div>
 
         <div className={styles.footerNavigation}>

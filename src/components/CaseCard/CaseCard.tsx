@@ -38,7 +38,16 @@ export function CaseCard({ variant, project, className }: CaseCardProps) {
       >
         <div className={styles.compactInner}>
           <div className={styles.compactPicture}>
-            <img src={imageSrc} alt={title} loading="lazy" decoding="async" />
+            <div className={styles.compactPictureParallaxWrap}>
+              <img
+                className={styles.compactPictureParallaxImg}
+                src={imageSrc}
+                alt={title}
+                loading="lazy"
+                decoding="async"
+                data-home-card-parallax-img=""
+              />
+            </div>
           </div>
           <div className={styles.compactDescription}>
             <div className={styles.compactDetails}>
