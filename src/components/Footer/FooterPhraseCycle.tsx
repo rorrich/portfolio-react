@@ -10,7 +10,6 @@ import styles from './FooterPhraseCycle.module.css'
 const PHRASES = [
   'Make it exist first,\nmake it good later',
   'Design with empathy,\nbuild with logic',
-  'Fail early, fail often,\nin order to succeed sooner',
   'Complex logic,\nsimple interfaces',
   'Возьмите меня\nна работу уже (」°ロ°)」',
 ] as const satisfies readonly string[]

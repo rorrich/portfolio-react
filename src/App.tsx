@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route } from 'react-router-dom'
 
 import { ThemeProvider } from './context/ThemeContext'
 import { PageTransitionProvider } from './context/PageTransitionContext'
@@ -26,7 +26,7 @@ const CleannerPage = lazy(() =>
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <ThemeProvider>
         <PageTransitionProvider>
           <ScrollToTop />
@@ -45,7 +45,7 @@ function App() {
           </Suspense>
         </PageTransitionProvider>
       </ThemeProvider>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 
