@@ -5,10 +5,12 @@ import { ImageGroup } from '../../../components/CaseComponents/CaseBlock/ImageGr
 import { TextGroup } from '../../../components/CaseComponents/CaseBlock/TextGroup'
 import { CaseHero } from '../../../components/CaseComponents/CaseHero/CaseHero'
 import { cases } from '../../../data/cases'
+import { useDocumentTitle } from '../../../hooks/useDocumentTitle'
 import { usePageReady } from '../../../hooks/usePageReady'
 
 export function CleannerPage() {
   usePageReady()
+  useDocumentTitle('Cleanner — мобильное приложение для робота пылесоса')
 
   const cleanner = useMemo(() => cases.find((p) => p.id === 'cleanner'), [])
   if (!cleanner) return null

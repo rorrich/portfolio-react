@@ -7,6 +7,7 @@ import { HomeHeroHeadline } from '../../components/HomeHeroHeadline/HomeHeroHead
 import { cases, getHomePreviewCases } from '../../data/cases'
 import { useCardImageParallaxReveal } from '../../hooks/useCardImageParallaxReveal'
 import { useFadeInReveal } from '../../hooks/useFadeInReveal'
+import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 import { usePageReady } from '../../hooks/usePageReady'
 import { useWorkCardsReveal } from '../../hooks/useWorkCardsReveal'
 import { ArrowItem } from '../../components/ArrowElement/ArrowItem'
@@ -15,6 +16,7 @@ import styles from './HomePage.module.css'
 
 export function HomePage() {
   usePageReady()
+  useDocumentTitle('Портфолио')
   const homeWorksGridRevealRef = useRef<HTMLDivElement | null>(null)
   const heroCatRevealRef = useRef<HTMLDivElement | null>(null)
   const heroBottomRevealRef = useRef<HTMLDivElement | null>(null)

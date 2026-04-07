@@ -7,12 +7,14 @@ import { ImageGroup } from '../../../components/CaseComponents/CaseBlock/ImageGr
 import { TextGroup } from '../../../components/CaseComponents/CaseBlock/TextGroup'
 import { CaseHero } from '../../../components/CaseComponents/CaseHero/CaseHero'
 import { cases } from '../../../data/cases'
+import { useDocumentTitle } from '../../../hooks/useDocumentTitle'
 import { usePageReady } from '../../../hooks/usePageReady'
 
 import styles from './DrCoffee.module.css'
 
 export function DrCoffeePage() {
   usePageReady()
+  useDocumentTitle('Doctor Coffee — сайт по ремонту кофемашин')
 
   const drCoffee = useMemo(() => cases.find((p) => p.id === 'dr_coffee'), [])
   if (!drCoffee) return null
@@ -61,11 +63,23 @@ export function DrCoffeePage() {
         images={
           <div className={styles.drCardGrid}>
             <div className={`${styles.drCard} ${styles.drCardDark}`}>
-              <img src="/images/dr_coffee/dr_coffee_research.webp" alt="Процесс исследований" className={styles.coverImage} />
+              <img
+                src="/images/dr_coffee/dr_coffee_research.webp"
+                alt="Процесс исследований"
+                className={styles.coverImage}
+                loading="lazy"
+                decoding="async"
+              />
               <span className={styles.drCardLabel}>процесс</span>
             </div>
             <div className={`${styles.drCard} ${styles.drCardOrange}`}>
-              <img src="/images/dr_coffee/dr_coffee_structure.webp" alt="Структура сайта" className={styles.coverImage} />
+              <img
+                src="/images/dr_coffee/dr_coffee_structure.webp"
+                alt="Структура сайта"
+                className={styles.coverImage}
+                loading="lazy"
+                decoding="async"
+              />
               <span className={styles.drCardLabel}>структура</span>
             </div>
           </div>
@@ -161,11 +175,23 @@ export function DrCoffeePage() {
           <div className={styles.beforeAfterGrid}>
             <div className={styles.beforeAfterItem}>
               <span className={styles.beforeAfterLabel}>было</span>
-              <img src="/images/dr_coffee/dr_coffee_repairlist_old.webp" alt="Было" className={styles.coverImage} />
+              <img
+                src="/images/dr_coffee/dr_coffee_repairlist_old.webp"
+                alt="Было"
+                className={styles.coverImage}
+                loading="lazy"
+                decoding="async"
+              />
             </div>
             <div className={styles.beforeAfterItem}>
               <span className={styles.beforeAfterLabel}>стало</span>
-              <img src="/images/dr_coffee/dr_coffee_repairlist_new.webp" alt="Стало" className={styles.coverImage} />
+              <img
+                src="/images/dr_coffee/dr_coffee_repairlist_new.webp"
+                alt="Стало"
+                className={styles.coverImage}
+                loading="lazy"
+                decoding="async"
+              />
             </div>
           </div>
         }

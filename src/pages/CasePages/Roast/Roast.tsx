@@ -7,12 +7,14 @@ import { ImageGroup } from '../../../components/CaseComponents/CaseBlock/ImageGr
 import { TextGroup } from '../../../components/CaseComponents/CaseBlock/TextGroup'
 import { CaseHero } from '../../../components/CaseComponents/CaseHero/CaseHero'
 import { cases } from '../../../data/cases'
+import { useDocumentTitle } from '../../../hooks/useDocumentTitle'
 import { usePageReady } from '../../../hooks/usePageReady'
 
 import styles from './Roast.module.css'
 
 export function RoastPage() {
   usePageReady()
+  useDocumentTitle('Roast — оптовый сайт по продаже кофе, чая и кофейных аксессуаров')
 
   const roast = useMemo(() => cases.find((p) => p.id === 'roast'), [])
   if (!roast) return null

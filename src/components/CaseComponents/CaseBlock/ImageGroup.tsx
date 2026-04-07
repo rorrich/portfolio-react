@@ -33,7 +33,14 @@ export const ImageGroup = ({
     )}
   >
     {images.map((img, i) => (
-      <img key={i} src={img.src} alt={img.alt} className={clsx(styles.image, imageClassName)} />
+      <img
+        key={i}
+        src={img.src}
+        alt={img.alt}
+        className={clsx(styles.image, imageClassName)}
+        loading="lazy"
+        decoding="async"
+      />
     ))}
   </div>
 )

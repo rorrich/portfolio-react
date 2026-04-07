@@ -4,6 +4,7 @@ import { CaseCard } from '../../components/CaseCard/CaseCard'
 import { SplitTextReveal } from '../../components/SplitTextReveal/SplitTextReveal'
 import { cases } from '../../data/cases'
 import { useFadeInReveal } from '../../hooks/useFadeInReveal'
+import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 import { usePageReady } from '../../hooks/usePageReady'
 import { useWorkCardsReveal } from '../../hooks/useWorkCardsReveal'
 
@@ -13,6 +14,7 @@ type Filter = 'all' | 'sites' | 'apps'
 
 export function WorksPage() {
   usePageReady()
+  useDocumentTitle('Проекты')
   const [activeFilter, setActiveFilter] = useState<Filter>('all')
   const heroImageRevealRef = useRef<HTMLDivElement | null>(null)
   const heroCountRevealRef = useRef<HTMLDivElement | null>(null)

@@ -1,11 +1,13 @@
 import { AppLink } from '../../components/AppLink/AppLink'
 import { ArrowItem } from '../../components/ArrowElement/ArrowItem'
+import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 import { usePageReady } from '../../hooks/usePageReady'
 
 import styles from './NotFoundPage.module.css'
 
 export function NotFoundPage() {
   usePageReady()
+  useDocumentTitle('Страница не найдена')
 
   return (
     <div className={styles.page}>

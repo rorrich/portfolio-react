@@ -7,6 +7,7 @@ import { ArrowItem } from '../../components/ArrowElement/ArrowItem'
 import { SplitTextReveal } from '../../components/SplitTextReveal/SplitTextReveal'
 import { useCardImageParallaxReveal } from '../../hooks/useCardImageParallaxReveal'
 import { useFadeInReveal } from '../../hooks/useFadeInReveal'
+import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 import { usePageReady } from '../../hooks/usePageReady'
 import { useWorkCardsReveal } from '../../hooks/useWorkCardsReveal'
 
@@ -14,6 +15,7 @@ import styles from './AboutPage.module.css'
 
 export function AboutPage() {
   usePageReady()
+  useDocumentTitle('Обо мне')
   const rootRef = useRef<HTMLDivElement | null>(null)
 
   const heroCatRevealRef = useRef<HTMLDivElement | null>(null)
