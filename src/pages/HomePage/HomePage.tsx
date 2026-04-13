@@ -16,7 +16,7 @@ import styles from './HomePage.module.css'
 
 export function HomePage() {
   usePageReady()
-  useDocumentTitle('Портфолио')
+  useDocumentTitle('UX/UI Дизайнер | Алина Намавирс')
   const homeWorksGridRevealRef = useRef<HTMLDivElement | null>(null)
   const heroCatRevealRef = useRef<HTMLDivElement | null>(null)
   const heroBottomRevealRef = useRef<HTMLDivElement | null>(null)
